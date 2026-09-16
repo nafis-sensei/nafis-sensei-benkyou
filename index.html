@@ -51,7 +51,7 @@
      gradient body di atas; ini murni lapisan hiasan di atasnya,
      pointer-events:none supaya tidak mengganggu tombol di bawahnya.
      ============================================================ */
-  #seasonLayer { position: fixed; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
+  #seasonLayer { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
   .season-particle { position: absolute; top: -40px; will-change: transform, opacity; user-select: none; }
   @keyframes seasonFall {
     0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
@@ -89,7 +89,8 @@
   .brand { display: flex; flex-direction: column; gap: 2px; width: 100%; text-align: center; background: var(--panel); padding: 14px; border-radius: 16px; border: 1px solid var(--line); backdrop-filter: blur(10px); }
   .brand h1 { font-family: "Noto Sans JP", sans-serif; font-weight: 900; font-size: 20px; margin: 0; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); color: var(--cyan); }
   .brand span { color: var(--sub); font-size: 11.5px; letter-spacing: 0.3px; }
-  .brand .stats { font-size: 10.5px; color: var(--mint); margin-top: 2px; }
+  .brand .stats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+  .brand .stats .stat-chip { font-size: 10px; font-weight: 700; color: var(--mint); background: rgba(0,230,192,.1); border: 1px solid rgba(0,230,192,.25); border-radius: 20px; padding: 3px 9px; white-space: nowrap; }
   
   .whoami { font-size: 12px; color: var(--sub); background: var(--panel2); border: 1px solid var(--line); padding: 8px 12px; border-radius: 12px; display: none; width: 100%; text-align: center; margin-bottom: 12px; backdrop-filter: blur(10px); }
   .whoami b { color: var(--cyan); }
@@ -98,7 +99,12 @@
   .tab-btn { flex: 1; padding: 10px 4px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--sub); font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; text-align: center; }
   .tab-btn.active { background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 10px rgba(0, 229, 255, 0.2) inset; }
 
-  .panel { display: none; animation: fadeIn 0.3s ease; } 
+  .panel { display: none; animation: fadeIn 0.3s ease; }
+  /* Saat soal sedang aktif dijawab (bukan di layar setup/dashboard), header brand
+     & bar nama-NIS disembunyikan sementara supaya kartu soal dapat ruang maksimal
+     di layar HP dan pemain fokus ke pertanyaan, bukan scroll ke bawah. Otomatis
+     muncul kembali begitu balik ke menu/dashboard/hasil (lihat toggleQuizChrome()). */
+  body.quiz-active header, body.quiz-active .whoami { display: none !important; } 
   .panel.active { display: block; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -381,7 +387,7 @@
     font-size: 17px; }
   .start-screen p { color: var(--sub); font-size: 13.5px; margin: 0 0 20px; line-height: 1.5; }
 
-  .setup-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 22px; }
+  .setup-grid { display: grid; grid-template-columns: 1fr; gap: 11px; margin-bottom: 22px; }
   .setup-box { background: linear-gradient(160deg, rgba(255,255,255,.035), rgba(0,0,0,0.3)); border: 1px solid rgba(255,255,255,0.08);
     border-radius: 16px; padding: 14px; text-align: left; box-shadow: inset 0 1px 0 rgba(255,255,255,.04); }
   .setup-box .lbl { font-size: 11.5px; color: var(--cyan); font-weight: 800; margin-bottom: 11px; letter-spacing: 1.2px; text-transform: uppercase;
@@ -403,10 +409,10 @@
   /* tile-row: dipakai utk MODE & JENIS KUIS — kartu ikon+label bertumpuk,
      supaya teks panjang (mis. "Mode Ujian / Level Berjenjang") tidak
      terpotong atau berdesakan seperti tombol pil biasa. */
-  .opt-row.tile-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .opt-row.tile-row button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-    min-height: 68px; padding: 10px 6px; border-radius: 14px; font-size: 12px; line-height: 1.25; text-align: center; }
-  .opt-row.tile-row button .opt-icon { font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,.4)); }
+  .opt-row.tile-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; }
+  .opt-row.tile-row button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    min-height: 58px; padding: 8px 6px; border-radius: 14px; font-size: 12px; line-height: 1.2; text-align: center; }
+  .opt-row.tile-row button .opt-icon { font-size: 17px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,.4)); }
   .opt-row.tile-row button .opt-label { display: flex; flex-direction: column; gap: 1px; }
   .opt-row.tile-row button .opt-label small { font-size: 9.5px; font-weight: 600; opacity: .75; text-transform: none; letter-spacing: 0; }
   .opt-row.tile-row button.active .opt-label small { opacity: .9; }
@@ -620,8 +626,11 @@
   .mission-row .m-icon { flex-shrink: 0; font-size: 15px; }
   .mission-row .m-body { flex: 1; min-width: 0; }
   .mission-row .m-label { color: var(--ink); }
-  .mission-row .m-track { height: 5px; border-radius: 3px; background: rgba(255,255,255,.08); margin-top: 3px; overflow: hidden; }
-  .mission-row .m-fill { height: 100%; background: var(--mint); border-radius: 3px; }
+  .mission-row .m-track { height: 6px; border-radius: 3px; background: rgba(255,255,255,.14); margin-top: 4px; overflow: hidden; }
+  .mission-row .m-fill { height: 100%; background: var(--mint); border-radius: 3px; min-width: 2px; transition: width .3s ease; }
+  .mission-row .m-count { flex-shrink: 0; font-size: 10px; color: var(--sub); font-weight: 700; margin-top: 4px; margin-left: 8px; white-space: nowrap; }
+  .mission-row .m-track-row { display: flex; align-items: center; }
+  .mission-row .m-track-row .m-track { flex: 1; }
   .mission-row.done .m-label { color: var(--mint); text-decoration: line-through; opacity: .75; }
   .mission-row .m-reward { flex-shrink: 0; font-size: 10.5px; font-weight: 800; color: var(--gold); }
 
@@ -1083,8 +1092,17 @@
   .qcard .qtext { font-size: 16px; line-height: 1.5; color: #fff; }
   .qcard .qtext b { color: var(--cyan); }
 
-  .options { display: grid; grid-template-columns: 1fr; gap: 10px; }
-  .opt { text-align: left; padding: 15px 14px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.03); color: var(--ink); cursor: pointer; font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 15px; min-height: 54px; display: flex; align-items: center; }
+  .options { display: grid; grid-template-columns: 1fr; gap: 10px; counter-reset: optletter; }
+  .opt { text-align: left; padding: 15px 14px 15px 46px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.03); color: var(--ink); cursor: pointer; font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 15px; min-height: 54px; display: flex; align-items: center; position: relative; }
+  .opt::before {
+    counter-increment: optletter; content: counter(optletter, upper-alpha);
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    width: 20px; height: 20px; border-radius: 6px; background: rgba(255,255,255,.06);
+    border: 1px solid var(--line); color: var(--sub); font-size: 11px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .opt.correct::before { background: rgba(0, 240, 181, 0.2); border-color: var(--mint); color: var(--mint); }
+  .opt.wrong::before { background: rgba(255, 51, 102, 0.2); border-color: var(--red); color: var(--red); }
   .opt.correct { background: rgba(0, 240, 181, 0.15); border-color: var(--mint); color: var(--mint); }
   .opt.wrong { background: rgba(255, 51, 102, 0.15); border-color: var(--red); color: var(--red); }
 
@@ -1240,7 +1258,7 @@
 <!-- ============================================================
      LANDING PAGE — Ruang Arcade Kabinet Neon
      ============================================================ -->
-<audio id="bgmAudio" src="gyutto.mp3" loop preload="auto"></audio>
+<audio id="bgmAudio" src="harvest_moon_btn.mp3" loop preload="auto"></audio>
 <audio id="songPreviewAudio" preload="none"></audio>
 <div id="landing">
   <div class="floor-glow"></div>
@@ -1655,11 +1673,11 @@ function playSFX(type) {
 }
 
 /* ============================================================
-   MUSIK LATAR (BGM) — pakai file audio asli (gyutto.mp3), bukan
-   lagi sintesis Web Audio. SATU lagu yang sama diputar di semua
-   layar & mode permainan, KECUALI Mode Dengar & Tebak yang sengaja
-   TANPA musik sama sekali (biar tidak mengganggu konsentrasi
-   mendengar soal TTS).
+   MUSIK LATAR (BGM) — pakai file audio asli (default: harvest_moon_btn.mp3),
+   bukan sintesis Web Audio. Lagu yang sedang aktif (lihat SONG_SHOP &
+   applySong) diputar di semua layar & mode permainan, KECUALI Mode
+   Dengar & Tebak yang sengaja TANPA musik sama sekali (biar tidak
+   mengganggu konsentrasi mendengar soal TTS).
    ============================================================ */
 function bgmEl(){ return document.getElementById('bgmAudio'); }
 let bgmPlaying = false;
@@ -1670,7 +1688,7 @@ let bgmPlaying = false;
    penanda "ada musik" (truthy), bukan nama tema lagi. */
 function gameModeBgmTheme(mode, type){
   if(type === 'listening') return null; // tanpa musik, biar tidak ganggu dengar
-  return 'gyutto';
+  return 'bgm-on';
 }
 function setBgmTheme(themeId){
   if(!themeId){ stopBGM(); return; } // listening -> matikan total
@@ -1797,12 +1815,12 @@ function getPlayerProfile(){
       if(!p.avatar) p.avatar = "pelajar";
       if(!p.ownedAvatars) p.ownedAvatars = ["pelajar"];
       // migrasi data lama yang belum punya field lagu (BGM bisa diganti)
-      if(!p.song) p.song = "gyutto";
-      if(!p.ownedSongs) p.ownedSongs = ["gyutto"];
+      if(!p.song) p.song = "harvestmoon";
+      if(!p.ownedSongs) p.ownedSongs = ["harvestmoon"];
       return p;
     }
   }catch(e){}
-  return { xp: 0, coins: 0, theme: "default", ownedThemes: ["default"], avatar: "pelajar", ownedAvatars: ["pelajar"], song: "gyutto", ownedSongs: ["gyutto"], lastPlayDate: null, streakDays: 0 };
+  return { xp: 0, coins: 0, theme: "default", ownedThemes: ["default"], avatar: "pelajar", ownedAvatars: ["pelajar"], song: "harvestmoon", ownedSongs: ["harvestmoon"], lastPlayDate: null, streakDays: 0 };
 }
 function savePlayerProfile(p){ localStorage.setItem(playerProfileKey(), JSON.stringify(p)); }
 
@@ -1828,7 +1846,10 @@ function currentAvatarThumb(sizePx){
   const profile = getPlayerProfile();
   const a = AVATAR_SHOP.find(x=>x.id===profile.avatar) || AVATAR_SHOP[0];
   if(a.img){
-    return `<img src="${a.img}" alt="${a.name}" style="width:${sizePx}px;height:${sizePx}px;object-fit:cover;border-radius:50%;display:inline-block;vertical-align:middle;">`;
+    // Kalau file gambar gagal dimuat (nama salah/hosting lambat/dsb), jatuhkan
+    // ke emoji bawaan avatar itu supaya tidak muncul teks alt yang kepotong
+    // paksa dalam kotak kecil — daripada tampilan yang terlihat rusak.
+    return `<img src="${a.img}" alt="${a.name}" style="width:${sizePx}px;height:${sizePx}px;object-fit:cover;border-radius:50%;display:inline-block;vertical-align:middle;" onerror="this.outerHTML='<span style=&quot;font-size:${Math.round(sizePx*0.55)}px;line-height:1;display:inline-block;vertical-align:middle;&quot;>${a.emoji}</span>'">`;
   }
   return `<span style="font-size:${Math.round(sizePx*0.55)}px;line-height:1;display:inline-block;vertical-align:middle;">${a.emoji}</span>`;
 }
@@ -1871,10 +1892,12 @@ function applyTheme(themeId){
 }
 
 /* Lagu musik latar (BGM) yang bisa dibeli pakai koin di Toko, biar
-   siswa bisa ganti suasana musik sambil belajar. "Gyutto" tetap jadi
-   lagu default gratis; lagu lain seharga 🪙 800 koin. */
+   siswa bisa ganti suasana musik sambil belajar. "OST Harvest Moon BTN"
+   jadi lagu default gratis; "Gyutto" (bekas lagu default) sekarang jadi
+   lagu berbayar 🪙 300 koin, lagu lain tetap 🪙 800 koin. */
 const SONG_SHOP = [
-  { id: "gyutto", name: "Gyutto (Default)", price: 0, file: "gyutto.mp3" },
+  { id: "harvestmoon", name: "OST Harvest Moon BTN (Default)", price: 0, file: "harvest_moon_btn.mp3" },
+  { id: "gyutto", name: "Gyutto", price: 300, file: "gyutto.mp3" },
   { id: "fuyu",   name: "Fuyu no Purezento (Instrumental)", price: 800, file: "fuyu_no_purezento.mp3" },
   { id: "koiiro", name: "Koiiro 恋色 (Piano Cover)", price: 800, file: "koiiro_piano.mp3" }
 ];
@@ -1962,9 +1985,9 @@ function renderPlayerBar(){
   const profile = getPlayerProfile();
   const info = levelInfoFromXP(profile.xp);
   applyTheme(profile.theme || "default");
-  applySong(profile.song || "gyutto");
+  applySong(profile.song || "harvestmoon");
   bar.innerHTML = `
-    <div class="pb-avatar-wrap" id="pbAvatarWrap" title="Buka Toko">
+    <div class="pb-avatar-wrap" id="pbAvatarWrap" title="Ganti Avatar">
       <div class="pb-avatar">${currentAvatarThumb(40)}</div>
       <div class="pb-lvbadge">${info.level}</div>
       ${profile.streakDays > 1 ? `<div class="pb-streakbadge">🔥${profile.streakDays}</div>` : ""}
@@ -1974,9 +1997,9 @@ function renderPlayerBar(){
       <div class="pb-xptrack"><div class="pb-xpfill" style="width:${Math.round(info.xpIntoLevel/info.xpNeeded*100)}%"></div></div>
     </div>
     <div class="pb-coins">🪙 ${profile.coins}</div>
-    <button class="pb-shopbtn" id="openAlbumBtn" style="border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08);">🃏</button>
+    <button class="pb-shopbtn" id="openAlbumBtn" title="Album Kartu Kotodama" style="border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08);">🃏</button>
     <button class="pb-shopbtn" id="openSongShopBtn" title="Beli/Ganti Lagu">🎵</button>
-    <button class="pb-shopbtn" id="openShopBtn">🏪</button>
+    <button class="pb-shopbtn" id="openShopBtn" title="Toko Tema">🏪</button>
   `;
   $("openShopBtn").addEventListener("click", ()=>openShop("theme"));
   $("openAlbumBtn").addEventListener("click", openAlbum);
@@ -2025,7 +2048,7 @@ function openShop(initialTab){
           const top = AVATAR_SHOP.reduce((m,a)=> a.price>m.price?a:m, AVATAR_SHOP[0]);
           const tier = avatarTierInfo(top.price);
           const owned = profile.ownedAvatars.includes(top.id);
-          const stageContent = top.img ? `<img src="${top.img}" alt="${top.name}" style="width:100%;height:100%;object-fit:cover;object-position:center 12%;">` : top.emoji;
+          const stageContent = top.img ? `<img src="${top.img}" alt="${top.name}" style="width:100%;height:100%;object-fit:cover;object-position:center 12%;" onerror="this.outerHTML='<span style=&quot;font-size:64px;display:flex;align-items:center;justify-content:center;width:100%;height:100%;&quot;>${top.emoji}</span>'">` : top.emoji;
           return `<div class="avatar-feature ${tier.cls}">
             <div class="af-badges"><span class="af-badge">SPESIAL</span><span class="af-badge">${tier.name}</span></div>
             <div class="af-stage">${stageContent}</div>
@@ -2038,7 +2061,7 @@ function openShop(initialTab){
             const owned = profile.ownedAvatars.includes(a.id);
             const active = profile.avatar === a.id;
             const tier = avatarTierInfo(a.price);
-            const cellContent = a.img ? `<img class="ac-emoji ac-img" src="${a.img}" alt="${a.name}">` : `<span class="ac-emoji">${a.emoji}</span>`;
+            const cellContent = a.img ? `<img class="ac-emoji ac-img" src="${a.img}" alt="${a.name}" onerror="this.outerHTML='<span class=&quot;ac-emoji&quot;>${a.emoji}</span>'">` : `<span class="ac-emoji">${a.emoji}</span>`;
             return `<div class="avatar-cell ${tier.cls} ${active?'equipped':''} ${!owned?'locked':''}" data-kind="avatar" data-id="${a.id}" data-price="${a.price}" data-name="${a.name}" title="${a.name}">
               ${cellContent}
               ${active ? '<span class="ac-check">✓</span>' : (!owned ? '<span class="ac-lock">🔒</span>' : '')}
@@ -2697,7 +2720,10 @@ function renderMissionsCard(){
         <span class="m-icon">${m.claimed?'✅':m.icon}</span>
         <div class="m-body">
           <div class="m-label">${m.label}</div>
-          <div class="m-track"><div class="m-fill" style="width:${Math.min(100,Math.round(m.progress/m.target*100))}%"></div></div>
+          <div class="m-track-row">
+            <div class="m-track"><div class="m-fill" style="width:${Math.min(100,Math.round(m.progress/m.target*100))}%"></div></div>
+            <div class="m-count">${m.claimed ? 'Selesai' : `${Math.min(m.progress,m.target)}/${m.target}`}</div>
+          </div>
         </div>
         <div class="m-reward">+${m.xp}XP</div>
       </div>
@@ -2821,6 +2847,7 @@ function showPage(page) {
    (XP bar, misi, omikuji) di-refresh ulang siapa tahu ada perubahan
    (misalnya baru saja dapat XP/koin dari sesi kuis). */
 function goHome() {
+  document.body.classList.remove('quiz-active'); // tampilkan lagi header brand & nama-NIS
   if (typeof gState !== 'undefined' && gState && gState.timer) clearInterval(gState.timer);
   if (typeof triviaState !== 'undefined' && triviaState && triviaState.timer) clearInterval(triviaState.timer);
   document.querySelectorAll(".dashboard-layout > .panel").forEach(p => p.classList.remove("active"));
@@ -2848,7 +2875,7 @@ window.addEventListener("load", ()=>{
     initApp();
   }
   const patN = PATTERNS.length, vocN = VOCAB.length, dokN = (typeof DOKKAI !== 'undefined' ? DOKKAI.length : 0);
-  $("dataStats").textContent = `${patN} pola kalimat (N5-N1) • ${vocN} kanji/kosakata (N5-N1) • ${dokN} bacaan dokkai (N5-N1)`;
+  $("dataStats").innerHTML = `<span class="stat-chip">${patN} pola kalimat</span><span class="stat-chip">${vocN} kanji/kosakata</span><span class="stat-chip">${dokN} bacaan dokkai</span>`;
 });
 
 function initApp(){
@@ -3394,6 +3421,7 @@ function buildQuestionsForPacket(scope, count, typeMode, packetIndex){
 }
 
 function renderStart(){
+  document.body.classList.remove('quiz-active'); // tampilkan lagi header brand & nama-NIS
   setBgmTheme('latihan'); // kembali ke musik dashboard/latihan biasa
   startBGM(); // pastikan musik latar menyala lagi begitu kembali ke layar setup/dashboard
   restoreBGMVolume();
@@ -3772,6 +3800,18 @@ function startMemoryMatch(){
 }
 
 function renderMemoryMatch(){
+  document.body.classList.add('quiz-active'); // sembunyikan header selama bermain aktif
+  // Kartu JP (kanji/kosakata pendek) vs kartu arti (bisa berupa definisi panjang
+  // dalam bahasa Inggris/Indonesia) butuh ukuran font berbeda supaya teks yang
+  // panjang tidak terlihat sesak/berantakan di kartu kotak kecil yang sama.
+  const memFontSize = (text, isJp)=>{
+    const len = (text||'').length;
+    if(isJp) return len <= 6 ? 17 : (len <= 12 ? 14 : 12);
+    if(len <= 10) return 13;
+    if(len <= 25) return 11.5;
+    if(len <= 45) return 10;
+    return 8.5;
+  };
   $("gameArea").innerHTML = `
     <div class="quiz-avatar" id="quizAvatar">${currentAvatarThumb(42)}</div>
     <div class="mem-hud">
@@ -3785,7 +3825,7 @@ function renderMemoryMatch(){
         <div class="mem-card ${c.side==='jp'?'jp-card':''} ${c.matched?'matched':''} ${gMem.flipped.includes(i)?'flipped':''}" data-i="${i}">
           <div class="mem-card-inner">
             <div class="mem-face back">?</div>
-            <div class="mem-face front">${c.text}</div>
+            <div class="mem-face front" style="font-size:${memFontSize(c.text, c.side==='jp')}px;">${c.text}</div>
           </div>
         </div>
       `).join("")}
@@ -3921,6 +3961,7 @@ function setupPuzzleWord(){
 }
 
 function renderPuzzleWord(){
+  document.body.classList.add('quiz-active'); // sembunyikan header selama bermain aktif
   if(gPuzzle.wi >= gPuzzle.words.length){ endWordPuzzle(); return; }
   setupPuzzleWord();
   const item = gPuzzle.words[gPuzzle.wi];
@@ -4107,6 +4148,7 @@ function renderQuestion(){
   renderQuestionActual();
 }
 function renderQuestionActual(){
+  document.body.classList.add('quiz-active'); // sembunyikan header selama bermain aktif
   clearInterval(gState.timer);
   const q = gState.questions[gState.qi];
   // Dokkai butuh waktu baca lebih lama; total waktu per bacaan mengikuti
@@ -4473,6 +4515,7 @@ function gradeFor(pct){
 }
 
 function renderResult(){
+  document.body.classList.remove('quiz-active'); // tampilkan lagi header brand & nama-NIS
   if(gState.sessionTimer) clearInterval(gState.sessionTimer); // jaga2 kalau renderResult terpanggil lebih dari sekali
   setBgmTheme('latihan');
   startBGM(); // kuis sudah selesai -> musik latar menyala lagi
@@ -4796,10 +4839,19 @@ function saveHistoryToLocal(record) {
 }
 
 function renderHistory() {
+  document.body.classList.remove('quiz-active'); // tampilkan lagi header brand & nama-NIS
   const listEl = $("historyList");
   const saved = localStorage.getItem("nafis_history");
   if (!saved || JSON.parse(saved).length === 0) {
-    listEl.innerHTML = `<div style="text-align:center;color:var(--sub);padding:20px;">Belum ada riwayat kuis yang dimainkan.</div>`;
+    listEl.innerHTML = `
+      <div style="text-align:center;color:var(--sub);padding:30px 10px;">
+        <div style="font-size:40px;margin-bottom:10px;">📖</div>
+        <div style="font-weight:700;color:var(--ink);margin-bottom:4px;">Belum ada riwayat kuis</div>
+        <div style="font-size:12.5px;line-height:1.5;margin-bottom:16px;">Riwayat skor & progresmu bakal muncul di sini setelah kamu main kuis pertama.</div>
+        <button class="play-btn" id="historyPlayNowBtn" style="width:auto;padding:12px 22px;font-size:13px;">▶ Main Kuis Sekarang</button>
+      </div>`;
+    const btn = $("historyPlayNowBtn");
+    if(btn) btn.addEventListener("click", ()=>{ playSFX && playSFX('click'); showPage('game'); });
     return;
   }
   const list = JSON.parse(saved);
@@ -4879,6 +4931,7 @@ $("downloadHistoryBtn").addEventListener("click", downloadHistoryCSV);
 let triviaState = null;
 
 function renderTriviaStart(){
+  document.body.classList.remove('quiz-active'); // tampilkan lagi header brand & nama-NIS
   startBGM();
   restoreBGMVolume();
   $("gameArea").innerHTML = `
@@ -4938,6 +4991,7 @@ function startTrivia(cat, count){
 }
 
 function renderTriviaQuestion(){
+  document.body.classList.add('quiz-active'); // sembunyikan header selama bermain aktif
   clearInterval(triviaState.timer);
   const q = triviaState.questions[triviaState.qi];
   triviaState.timeLeft = 20; triviaState.timeTotal = 20; triviaState.locked = false;
@@ -5049,6 +5103,7 @@ function selectTriviaAnswer(isCorrect, btnEl){
 }
 
 function renderTriviaResult(){
+  document.body.classList.remove('quiz-active'); // tampilkan lagi header brand & nama-NIS
   clearInterval(triviaState.timer);
   startBGM();
   restoreBGMVolume();

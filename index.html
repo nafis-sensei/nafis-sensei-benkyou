@@ -125,6 +125,14 @@
   }
   #landing.hide { opacity: 0; visibility: hidden; pointer-events: none; }
 
+  /* Redup halus di malam hari (18:00–05:00), biar suasana desa terasa
+     berbeda antara siang & malam — murni overlay warna, tidak mengubah
+     foto latar aslinya. */
+  html.is-night #landing::before {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: rgba(10,15,40,.24); display: block !important;
+  }
+
   /* langit + awan */
   #landing::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -272,7 +280,8 @@
     border:4px solid #734a2f; border-radius:17px; cursor:pointer;
     background:linear-gradient(180deg,#fff0a7,#e9a73d); color:#5c3c27;
     font-family:"Noto Sans JP",sans-serif; font-weight:1000; font-size:16px;
-    box-shadow:0 6px 0 #66432e, 0 12px 18px rgba(50,72,35,.28), inset 0 2px 0 rgba(255,255,255,.75);
+    box-shadow:0 6px 0 #66432e, 0 12px 18px rgba(50,72,35,.28), inset 0 2px 0 rgba(255,255,255,.75),
+      0 0 0 3px color-mix(in srgb, var(--season-color, #ff8fb3) 55%, transparent);
     animation:harvestPulse 2.2s ease-in-out infinite;
   }
   @keyframes harvestPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.025)} }
@@ -2169,9 +2178,9 @@
       </button>
     </div>
 
-    <div class="harvest-copy">
-      <div>Hari ini adalah hari yang baik untuk belajar sesuatu yang baru.</div>
-      <div class="jp-line">今日も楽しく日本語を勉強しましょう！</div>
+    <div class="harvest-copy" id="harvestCopy">
+      <div id="harvestGreetingId">Hari ini adalah hari yang baik untuk belajar sesuatu yang baru.</div>
+      <div class="jp-line" id="harvestGreetingJp">今日も楽しく日本語を勉強しましょう！</div>
     </div>
 
     <button class="harvest-start" id="landingStartBtn" type="button">🌾　村へ入る · MULAI BERMAIN　🌾</button>
@@ -6162,17 +6171,32 @@ function updateSeasonBadge(){
   const meta = SEASON_BADGE_META[currentSeason()];
   el.textContent = `${meta.emoji} ${meta.label}`;
 }
+function isDaytime(h){ return h >= 5 && h < 18; }
 function updateWeatherClock(){
   const el = $("weatherBadge");
-  if(!el) return;
   const now = new Date();
-  let h = now.getHours();
-  const isDay = h >= 5 && h < 18;
-  const ampm = h < 12 ? "AM" : "PM";
-  let h12 = h % 12; if(h12 === 0) h12 = 12;
-  const mm = String(now.getMinutes()).padStart(2,"0");
-  const icon = isDay ? "☀️" : "🌙";
-  el.textContent = `${icon} ${ampm} ${String(h12).padStart(2,"0")}:${mm}`;
+  const h = now.getHours();
+  const isDay = isDaytime(h);
+  if(el){
+    const ampm = h < 12 ? "AM" : "PM";
+    let h12 = h % 12; if(h12 === 0) h12 = 12;
+    const mm = String(now.getMinutes()).padStart(2,"0");
+    const icon = isDay ? "☀️" : "🌙";
+    el.textContent = `${icon} ${ampm} ${String(h12).padStart(2,"0")}:${mm}`;
+  }
+  document.documentElement.classList.toggle("is-night", !isDay);
+  updateHarvestGreeting(h);
+}
+function updateHarvestGreeting(h){
+  const idEl = $("harvestGreetingId"), jpEl = $("harvestGreetingJp");
+  if(!idEl || !jpEl) return;
+  let idText, jpText;
+  if(h >= 4 && h < 11){ idText = "Selamat pagi! Yuk mulai hari dengan belajar bahasa Jepang."; jpText = "おはようございます！今日も日本語を勉強しましょう！"; }
+  else if(h >= 11 && h < 15){ idText = "Selamat siang! Waktu yang pas untuk sedikit latihan kosakata."; jpText = "こんにちは！少し単語の練習をしましょう！"; }
+  else if(h >= 15 && h < 18){ idText = "Selamat sore! Yuk tuntaskan misi harianmu di ladang kata."; jpText = "こんばんは！今日のミッションを終わらせましょう！"; }
+  else { idText = "Selamat malam! Belajar sebentar sebelum istirahat, yuk."; jpText = "こんばんは！寝る前に少し勉強しましょう！"; }
+  idEl.textContent = idText;
+  jpEl.textContent = jpText;
 }
 updateSeasonBadge();
 updateWeatherClock();

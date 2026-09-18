@@ -53,7 +53,7 @@
      gradient body di atas; ini murni lapisan hiasan di atasnya,
      pointer-events:none supaya tidak mengganggu tombol di bawahnya.
      ============================================================ */
-  #seasonLayer { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
+  #seasonLayer { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
   .season-particle { position: absolute; top: -40px; will-change: transform, opacity; user-select: none; }
   @keyframes seasonFall {
     0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
@@ -1043,6 +1043,22 @@
   .mem-card.wrong-flash .mem-face.front { animation: memWrongFlash 0.4s ease; }
   @keyframes memWrongFlash { 0%,100% { border-color: var(--cyan); } 50% { border-color: var(--red); background: rgba(255,51,102,.2); } }
 
+  /* Wajah depan kartu "Cocok Kartu" (mem-face.front) dirancang buat tema
+     gelap: latarnya cuma tint tipis 15% (rgba(...,.15)), jadi begitu duduk
+     di atas .card krem (tema panen), efeknya jadi nyaris putih — dan teks
+     putihnya (color:#fff bawaan) pun ikut hilang. Timpa di sini dengan
+     latar solid + teks gelap yang kontras di kedua tema. */
+  .mem-face.front {
+    background: linear-gradient(160deg, #eaf6ff, #d9ecff) !important;
+    border-color: #4fa3c9 !important;
+    color: #1c3c4d !important;
+  }
+  .mem-card.matched .mem-face.front {
+    background: linear-gradient(160deg, #e6f9ee, #cdeeda) !important;
+    border-color: #3f9e6d !important;
+    color: #1c4a34 !important;
+  }
+
   /* ============================================================
      MODE TEKA-TEKI KATA (WORD PUZZLE) — santai, susun huruf romaji
      acak berdasar arti kata yang jadi petunjuk. Tanpa timer, fokus
@@ -1322,6 +1338,9 @@
     max-width: 1080px;
     padding: 18px 0 70px;
     position: relative;
+    z-index: 2; /* di atas #seasonLayer (z:1) supaya sakura/daun/salju lewat
+                   di belakang seluruh kartu UI, materi belajar & kuis —
+                   tidak pernah menimpa/menghalangi teks. */
   }
 
   /* Header seperti papan kayu rumah desa */
@@ -3673,12 +3692,8 @@ function openLandingDestination(page){
   if(student){
     if($("mainApp").style.display !== 'flex') $("mainApp").style.display = 'flex';
     $("panel-login").classList.remove('active');
-    if(pendingLandingPage === 'shop'){
-      showPage('dashboard');
-      openShop('theme');
-    }else{
-      showPage(pendingLandingPage);
-    }
+    showPage(pendingLandingPage === 'shop' ? 'dashboard' : pendingLandingPage);
+    if(pendingLandingPage === 'shop') openShop('theme');
     return;
   }
 
@@ -3750,6 +3765,14 @@ function showPage(page) {
   } else if (page === 'history') {
     $("panel-history").classList.add("active");
     renderHistory();
+  } else {
+    // 'dashboard' (atau nilai tak dikenal lain) -> selalu jatuh ke Dashboard,
+    // bukan dibiarkan kosong tanpa panel aktif. Dulu ini yang bikin halaman
+    // terasa "kosong" saat tombol landing mengarah ke 'dashboard'.
+    $("panel-dashboard").classList.add("active");
+    renderPlayerBar();
+    renderMissionsCard();
+    renderOmikujiSlot();
   }
 }
 
@@ -3805,13 +3828,8 @@ function initApp(){
   // Jika login biasa / tidak ada tujuan khusus, tetap buka Dashboard.
   const destination = pendingLandingPage || 'dashboard';
   pendingLandingPage = 'dashboard';
-  if(destination === 'game' || destination === 'study' || destination === 'history'){
-    showPage(destination);
-  }else{
-    document.querySelectorAll(".dashboard-layout > .panel").forEach(p => p.classList.remove("active"));
-    $("panel-dashboard").classList.add("active");
-    if(destination === 'shop') openShop('theme');
-  }
+  showPage(destination === 'shop' ? 'dashboard' : destination);
+  if(destination === 'shop') openShop('theme');
 }
 
 /* ================= STUDY MODE ================= */

@@ -779,14 +779,41 @@
 
   .card-reveal-overlay { position: fixed; inset: 0; z-index: 10001; display: flex; align-items: center; justify-content: center;
     background: rgba(5,5,10,.85); animation: fadeIn .25s ease; }
+  /* ============================================================
+     KARTU KOTODAMA — efek 3D flip sungguhan (bukan cuma pop-in):
+     kartu mulai menghadap BELAKANG (misteri), lalu berputar 180°
+     di sumbu-Y mengikuti perspective, mengungkap sisi DEPAN berisi
+     hasil. Dua wajah kartu pakai backface-visibility:hidden supaya
+     yang tak menghadap kamera benar-benar tersembunyi (bukan cermin
+     terbalik), persis seperti kartu fisik dibalik di tangan.
+     ============================================================ */
+  .kc-flip-stage { perspective: 1400px; width: 200px; height: 280px; margin: 0 auto; }
   .kotodama-card {
-    width: 200px; height: 280px; border-radius: 16px; position: relative;
+    width: 100%; height: 100%; position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(-90deg) scale(.7);
+    opacity: 0;
+    transition: transform .6s cubic-bezier(.34,1.56,.64,1), opacity .25s ease;
+  }
+  .kotodama-card.kc-shown { transform: rotateY(0deg) scale(1); opacity: 1; }
+  .kotodama-card.kc-flipped { transform: rotateY(180deg) scale(1); opacity: 1; }
+  .kotodama-card .kc-face {
+    position: absolute; inset: 0; border-radius: 16px; overflow: hidden;
+    backface-visibility: hidden; display: flex; flex-direction: column;
+  }
+  .kotodama-card .kc-face.kc-back {
+    align-items: center; justify-content: center; gap: 10px;
+    background: linear-gradient(160deg, #3a2716, #1e140b);
+    border: 4px solid #8a5a2d; box-shadow: 0 3px 0 #3a2211, 0 12px 26px rgba(40,26,10,.45);
+  }
+  .kotodama-card .kc-back-mark { font-size: 46px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.5)); animation: kcBackPulse 1.4s ease-in-out infinite; }
+  .kotodama-card .kc-back-label { font-family:"Zen Maru Gothic","Noto Sans JP",sans-serif; font-weight:900; font-size:13px; color:#e8cf9e; letter-spacing:2px; }
+  @keyframes kcBackPulse { 0%,100%{ transform:scale(1); opacity:.9; } 50%{ transform:scale(1.12); opacity:1; } }
+  .kotodama-card .kc-face.kc-front {
+    transform: rotateY(180deg);
     background: linear-gradient(#fff8e6, #ead2a6);
     border: 4px solid var(--r1, #8a5a2d); box-shadow: 0 3px 0 color-mix(in srgb, var(--r1,#8a5a2d) 70%, #3a2211), 0 12px 26px rgba(40,26,10,.45);
-    display: flex; flex-direction: column; overflow: hidden;
-    animation: cardFlipIn .55s cubic-bezier(.34,1.56,.64,1);
   }
-  @keyframes cardFlipIn { 0% { transform: rotateY(90deg) scale(0.7); opacity:0; } 100% { transform: rotateY(0) scale(1); opacity:1; } }
   .kotodama-card .kc-band {
     background: linear-gradient(180deg, var(--r2), var(--r1)); padding: 7px 10px 6px; display: flex; align-items: center; justify-content: space-between;
     border-bottom: 3px solid color-mix(in srgb, var(--r1) 75%, #3a2211);
@@ -800,7 +827,7 @@
   .kotodama-card .kc-meaning { font-size: 11.5px; color: #5c4a30; text-align: center; padding: 0 4px; }
   .kotodama-card .kc-badge { width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--r1);
     display: flex; align-items: center; justify-content: center; font-size: 22px; background: rgba(255,255,255,.5); }
-  .kotodama-card .kc-new { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--sakura, #e0793e);
+  .kotodama-card .kc-new { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); background: var(--sakura, #e0793e);
     color: #fff; font-size: 9px; font-weight: 900; padding: 3px 10px; border-radius: 10px; box-shadow: 0 3px 6px rgba(0,0,0,.3); z-index: 2; }
   .card-reveal-caption { text-align: center; margin-top: 16px; color: #fff; font-weight: 800; font-size: 13px; }
   .card-reveal-close { display: block; margin: 14px auto 0; padding: 8px 22px; border-radius: 10px; border: none;
@@ -1418,6 +1445,7 @@
   }
   .dash-menu-btn:hover { transform: translateY(-2px); }
   .dash-menu-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #65482f; }
+  .dash-menu-btn, .shop-item { transition: transform .12s ease-out; will-change: transform; }
   .dash-menu-btn .dmb-icon {
     width: 56px; height: 56px; border-radius: 12px;
     background: #dcebc9 !important;
@@ -3170,26 +3198,52 @@ function showCardReveal(card, rarity, isNew){
   el.className = "card-reveal-overlay";
   el.innerHTML = `
     <div>
-      <div class="kotodama-card ${rarity.cls}">
-        ${isNew ? '<div class="kc-new">✨ KARTU BARU</div>' : ''}
-        <div class="kc-band">
-          <div class="kc-rarity">${rarity.icon} ${rarity.name}</div>
-          <div class="kc-level">${card.level}</div>
-        </div>
-        <div class="kc-body">
-          <div class="kc-jp">${card.jp}</div>
-          <div class="kc-badge">${rarity.icon}</div>
-          <div class="kc-meaning">${card.meaning}</div>
+      <div class="kc-flip-stage">
+        <div class="kotodama-card ${rarity.cls}" id="kcFlipCard">
+          <div class="kc-face kc-back">
+            <div class="kc-back-mark">🎴</div>
+            <div class="kc-back-label">言霊</div>
+          </div>
+          <div class="kc-face kc-front">
+            ${isNew ? '<div class="kc-new">✨ KARTU BARU</div>' : ''}
+            <div class="kc-band">
+              <div class="kc-rarity">${rarity.icon} ${rarity.name}</div>
+              <div class="kc-level">${card.level}</div>
+            </div>
+            <div class="kc-body">
+              <div class="kc-jp">${card.jp}</div>
+              <div class="kc-badge">${rarity.icon}</div>
+              <div class="kc-meaning">${card.meaning}</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="card-reveal-caption">Kartu "${card.jp}" ditambahkan ke Album!</div>
-      <button class="card-reveal-close" id="cardRevealCloseBtn">Lanjut ▶</button>
+      <div class="card-reveal-caption">Ketuk untuk membalik kartu ✨</div>
+      <button class="card-reveal-close" id="cardRevealCloseBtn" style="visibility:hidden;">Lanjut ▶</button>
     </div>
   `;
   document.body.appendChild(el);
-  playSFX('correct');
-  spawnConfetti(window.innerWidth/2, window.innerHeight/2, rarity.cls==='rarity-legend' ? 60 : 30);
-  el.querySelector("#cardRevealCloseBtn").addEventListener("click", ()=> el.remove());
+  const cardEl = el.querySelector("#kcFlipCard");
+  const captionEl = el.querySelector(".card-reveal-caption");
+  const closeBtn = el.querySelector("#cardRevealCloseBtn");
+  const doFlip = ()=>{
+    if(cardEl.classList.contains("kc-flipped")) return;
+    cardEl.classList.add("kc-flipped");
+    playSFX('correct');
+    spawnConfetti(window.innerWidth/2, window.innerHeight/2, rarity.cls==='rarity-legend' ? 60 : 30);
+    captionEl.textContent = `Kartu "${card.jp}" ditambahkan ke Album!`;
+    closeBtn.style.visibility = "visible";
+  };
+  // muncul dulu menghadap belakang (perspective masuk ke layar), lalu
+  // otomatis membalik sendiri — juga bisa diketuk lebih cepat kalau mau skip.
+  requestAnimationFrame(()=> cardEl.classList.add("kc-shown"));
+  const autoFlipTimer = setTimeout(doFlip, 1100);
+  el.addEventListener("click", (ev)=>{
+    if(ev.target === closeBtn) return;
+    clearTimeout(autoFlipTimer);
+    doFlip();
+  });
+  closeBtn.addEventListener("click", ()=> el.remove());
 }
 
 function showCardDupeToast(jp, rarity){
@@ -6232,6 +6286,38 @@ document.addEventListener("click", (ev)=>{
   lastClickSfxAt = now;
   playSFX && playSFX('click');
 }, true);
+
+/* ============================================================
+   EFEK 3D TILT MENGIKUTI KURSOR — khusus perangkat dengan mouse
+   (memakai "pointermove" tapi dijaga hanya utk pointerType 'mouse'
+   supaya di HP/tablet sentuh tidak nyangkut miring). Kartu menu
+   Dashboard & item Toko sedikit memiringkan diri ke arah kursor,
+   dibungkus perspective, lalu kembali rata saat kursor pergi.
+   ============================================================ */
+function attachTilt3D(selector, maxDeg){
+  const strength = maxDeg || 8;
+  document.addEventListener("pointermove", (ev)=>{
+    if(ev.pointerType && ev.pointerType !== 'mouse') return;
+    const target = ev.target.closest(selector);
+    document.querySelectorAll(selector + '.tilt-active').forEach(el=>{
+      if(el !== target){ el.style.transform = ''; el.classList.remove('tilt-active'); }
+    });
+    if(!target) return;
+    const r = target.getBoundingClientRect();
+    const px = (ev.clientX - r.left) / r.width;   // 0..1
+    const py = (ev.clientY - r.top) / r.height;   // 0..1
+    const rx = (0.5 - py) * strength * 2;
+    const ry = (px - 0.5) * strength * 2;
+    target.classList.add('tilt-active');
+    target.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(2px)`;
+  }, true);
+  document.addEventListener("pointerleave", (ev)=>{
+    const target = ev.target && ev.target.closest ? ev.target.closest(selector) : null;
+    if(target){ target.style.transform = ''; target.classList.remove('tilt-active'); }
+  }, true);
+}
+attachTilt3D(".dash-menu-btn", 7);
+attachTilt3D(".shop-item", 6);
 
 </script>
 </body>

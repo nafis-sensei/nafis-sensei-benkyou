@@ -198,15 +198,15 @@
      layar sempit. Ukurannya proporsional ke tinggi layar (vh) supaya
      tetap terlihat pas di HP maupun tablet/desktop. */
   .landing-mascot {
-    position: fixed; left: min(1vw, 8px); bottom: 4%;
-    height: min(220px, 26vh); width: auto;
+    position: fixed; left: min(1vw, 10px); bottom: 3%;
+    height: min(340px, 42vh); width: auto;
     z-index: 4; pointer-events: none; user-select: none;
     filter: drop-shadow(0 10px 10px rgba(20,30,15,.35));
     animation: mascotBob 3.2s ease-in-out infinite;
   }
   @keyframes mascotBob { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-6px); } }
   @media (max-width: 480px) {
-    .landing-mascot { height: min(150px, 20vh); left: -2px; bottom: 3%; }
+    .landing-mascot { height: min(230px, 30vh); left: -4px; bottom: 2%; }
   }
 
   .harvest-topbar {
@@ -889,6 +889,17 @@
   .album-overlay { position: fixed; inset: 0; z-index: 10000; background: rgba(5,5,10,.85); display: flex; align-items: center; justify-content: center; padding: 16px; }
   .album-card { width: 100%; max-width: 480px; max-height: 85vh; overflow-y: auto; background: var(--panel2); border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
 
+  /* Galeri Pencapaian — lencana terkunci (abu2/gembok) vs terbuka (warna) */
+  .achv-gallery { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  .achv-tile { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.04); }
+  .achv-tile.locked { opacity: .55; }
+  .achv-tile.unlocked { border-color: var(--gold); background: rgba(255,215,0,.08); }
+  .achv-tile-icon { font-size: 26px; flex-shrink: 0; width: 36px; text-align: center; }
+  .achv-tile-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .achv-tile-text b { font-size: 13px; }
+  .achv-tile-text small { font-size: 11px; color: var(--sub); }
+  .achv-tile-date { font-size: 9.5px; color: var(--gold); font-weight: 800; margin-top: 2px; }
+
   /* Papan Peringkat Desa — leaderboard lintas-siswa 1 perangkat */
   .vlb-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; max-height: 50vh; overflow-y: auto; }
   .vlb-row { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid var(--line); }
@@ -1317,6 +1328,9 @@
   .export-row button { flex: 1; min-width: calc(50% - 4px); padding: 12px 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); color: var(--cyan); font-weight: 600; font-size: 12.5px; cursor: pointer; min-height: 44px; }
   
   .miss-list, .history-list { text-align: left; max-height: 220px; overflow-y: auto; margin: 0 0 20px; padding-right: 4px; }
+  .hist-subtabs { display: flex; gap: 6px; margin-bottom: 14px; }
+  .hist-subtab { flex: 1; padding: 9px 8px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: var(--sub); font-weight: 800; font-size: 12px; cursor: pointer; }
+  .hist-subtab.active { background: rgba(0,229,255,.12); border-color: var(--cyan); color: var(--cyan); }
   .miss-item, .history-item { background: rgba(0,0,0,.2); border-left: 3px solid var(--sakura); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
   .history-item { border-left-color: var(--cyan); }
   .hi-row { display: flex; align-items: center; gap: 10px; }
@@ -1344,9 +1358,16 @@
   }
   .dash-menu-btn:active { transform: scale(0.98); }
   .dash-menu-btn .dmb-icon {
-    flex-shrink: 0; width: 52px; height: 52px; border-radius: 14px;
+    flex-shrink: 0; width: 52px; height: 52px; border-radius: 14px; position: relative;
     display: flex; align-items: center; justify-content: center; font-size: 26px;
   }
+  .achv-notif-badge {
+    position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; padding: 0 4px;
+    background: var(--red, #ff3366); color: #fff; border-radius: 999px; font-size: 10px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center; border: 2px solid var(--bg, #fff);
+    animation: achvBadgePulse 1.4s ease-in-out infinite;
+  }
+  @keyframes achvBadgePulse { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.15); } }
   .dash-menu-btn .dmb-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
   .dash-menu-btn .dmb-text b { font-size: 15px; color: #fff; font-family: "Noto Sans JP", sans-serif; }
   .dash-menu-btn .dmb-text small { font-size: 11.5px; color: var(--sub); line-height: 1.4; }
@@ -1356,6 +1377,8 @@
   .dash-menu-btn.dash-study .dmb-icon { background: rgba(255,42,122,0.15); box-shadow: 0 0 16px rgba(255,42,122,0.25) inset; }
   .dash-menu-btn.dash-history { border-color: rgba(255,215,0,0.35); }
   .dash-menu-btn.dash-history .dmb-icon { background: rgba(255,215,0,0.15); box-shadow: 0 0 16px rgba(255,215,0,0.25) inset; }
+  .dash-menu-btn.dash-achv { border-color: rgba(255,120,42,0.35); }
+  .dash-menu-btn.dash-achv .dmb-icon { background: rgba(255,120,42,0.15); box-shadow: 0 0 16px rgba(255,120,42,0.25) inset; }
 
   /* ===== HALAMAN ISI (Game/Pelajaran/Riwayat) — header + tombol Home ===== */
   .page-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
@@ -1510,7 +1533,7 @@
   }
   .dash-menu-btn .dmb-text b { color:#5a422d; }
   .dash-menu-btn .dmb-text small { color:#78674e; }
-  .dash-menu-btn.dash-game, .dash-menu-btn.dash-study, .dash-menu-btn.dash-history { border-color:#92704b; }
+  .dash-menu-btn.dash-game, .dash-menu-btn.dash-study, .dash-menu-btn.dash-history, .dash-menu-btn.dash-achv { border-color:#92704b; }
 
   .page-header { margin-bottom: 13px; }
   .page-header .back-btn:active { background:#e1d0ab; }
@@ -2349,6 +2372,10 @@
           <span class="dmb-icon">📜</span>
           <span class="dmb-text"><b>Riwayat Saya</b><small>Lihat progres & skor sesi sebelumnya</small></span>
         </button>
+        <button class="dash-menu-btn dash-achv" id="menuAchvBtn" type="button">
+          <span class="dmb-icon">🏅<span class="achv-notif-badge" id="achvNotifBadge" style="display:none;"></span></span>
+          <span class="dmb-text"><b>Pencapaian</b><small>Kumpulkan lencana dari setiap pencapaianmu</small></span>
+        </button>
       </div>
     </div>
 
@@ -2416,10 +2443,25 @@
         <span class="page-title">📜 Riwayat Saya</span>
       </div>
       <div class="card">
-        <div class="export-row" style="margin-bottom:12px;">
-          <button id="downloadHistoryBtn">⬇️ Unduh Riwayat (CSV)</button>
+        <div class="hist-subtabs">
+          <button class="hist-subtab active" data-tab="riwayat" id="histTabRiwayat">📜 Riwayat</button>
+          <button class="hist-subtab" data-tab="kesalahan" id="histTabKesalahan">📝 Catatan Kesalahan</button>
         </div>
-        <div class="history-list" id="historyList"></div>
+        <div id="riwayatPane">
+          <div class="export-row" style="margin-bottom:12px;">
+            <button id="downloadHistoryBtn">⬇️ Unduh Riwayat (CSV)</button>
+          </div>
+          <div class="history-list" id="historyList"></div>
+        </div>
+        <div id="kesalahanPane" style="display:none;">
+          <div style="font-size:11.5px;color:var(--sub);margin-bottom:10px;">
+            Kata/pola yang pernah salah kamu jawab, terkumpul otomatis dari semua sesi kuis — pelajari lagi supaya tidak salah lagi.
+          </div>
+          <div class="export-row" style="margin-bottom:12px;">
+            <button id="clearMistakesBtn">🗑️ Bersihkan Catatan</button>
+          </div>
+          <div class="history-list" id="mistakesList"></div>
+        </div>
       </div>
     </div>
 
@@ -2814,6 +2856,96 @@ function getPlayerProfile(){
 function savePlayerProfile(p){ localStorage.setItem(playerProfileKey(), JSON.stringify(p)); }
 
 /* ============================================================
+   GALERI PENCAPAIAN — daftar lencana tetap (bukan cuma toast
+   sekilas di layar hasil) yang bisa dilihat kapan saja lewat menu
+   Dashboard. Status buka/kunci disimpan permanen per-siswa di
+   localStorage (nafis_achv_<nis>), dicek ulang tiap kali selesai
+   kuis lewat checkAchievements() di bawah — tidak menghapus/mengubah
+   toast pencapaian yang sudah ada di layar hasil, ini cuma
+   menambah lapisan "diingat selamanya + bisa dilihat lagi".
+   ============================================================ */
+const ACHIEVEMENT_DEFS = [
+  { id: "first_win",  icon: "🌱", label: "Langkah Pertama", desc: "Selesaikan kuis pertamamu" },
+  { id: "perfect",    icon: "🎯", label: "Nilai Sempurna", desc: "Jawab semua soal benar dalam satu sesi" },
+  { id: "combo10",    icon: "🔥", label: "Combo Master", desc: "Raih combo jawaban benar x10 berturut-turut" },
+  { id: "score500",   icon: "💯", label: "Skor Tinggi", desc: "Raih 500+ poin dalam satu sesi" },
+  { id: "top1",       icon: "🏆", label: "Juara Papan Skor", desc: "Jadi peringkat #1 di papan skor sebuah kuis" },
+  { id: "loyal10",    icon: "📚", label: "Pemain Setia", desc: "Selesaikan 10 sesi kuis" },
+  { id: "collector",  icon: "🃏", label: "Kolektor Kotodama", desc: "Kumpulkan 10 kartu Kotodama berbeda" },
+  { id: "kirakira",   icon: "✨", label: "Fusi Pertama", desc: "Fusi 3 kartu sama jadi versi Kirakira" },
+  { id: "harvester",  icon: "🌻", label: "Panen Raya", desc: "Isi penuh Kebun Belajar (capai 100% ke level berikutnya)" }
+];
+function achvStoreKey(){ return `nafis_achv_${(student && student.nis) || "guest"}`; }
+function getUnlockedAchievements(){
+  try{ return JSON.parse(localStorage.getItem(achvStoreKey())) || {}; }catch(e){ return {}; }
+}
+/* Mengunci pencapaian id ke penyimpanan permanen (sekali saja, tanggal
+   pertama kali dibuka disimpan). Mengembalikan true kalau ini BARU
+   dibuka barusan (dipakai pemanggil untuk keputusan tampilkan toast). */
+function unlockAchievement(id){
+  const store = getUnlockedAchievements();
+  if(store[id]) return false;
+  store[id] = todayKey();
+  localStorage.setItem(achvStoreKey(), JSON.stringify(store));
+  return true;
+}
+/* Badge notifikasi "ada lencana baru" di tombol menu Dashboard — dihitung
+   dari selisih lencana yang sudah TERBUKA vs yang sudah PERNAH DILIHAT
+   (ditandai lihat begitu galeri dibuka), jadi tidak terus menyala kalau
+   siswa sudah membuka galerinya sekali. */
+function achvSeenKey(){ return `nafis_achv_seen_${(student && student.nis) || "guest"}`; }
+function getUnseenAchievementCount(){
+  const unlocked = getUnlockedAchievements();
+  let seen = [];
+  try{ seen = JSON.parse(localStorage.getItem(achvSeenKey())) || []; }catch(e){}
+  return Object.keys(unlocked).filter(id => !seen.includes(id)).length;
+}
+function markAllAchievementsSeen(){
+  localStorage.setItem(achvSeenKey(), JSON.stringify(Object.keys(getUnlockedAchievements())));
+}
+function updateAchvBadge(){
+  const badge = $("achvNotifBadge");
+  if(!badge) return;
+  const n = getUnseenAchievementCount();
+  badge.style.display = n > 0 ? "flex" : "none";
+  badge.textContent = n > 9 ? "9+" : String(n);
+}
+function openAchievementGallery(){
+  const unlocked = getUnlockedAchievements();
+  const unlockedCount = Object.keys(unlocked).length;
+  const el = document.createElement("div");
+  el.className = "album-overlay";
+  el.innerHTML = `
+    <div class="album-card" style="max-width:440px;">
+      <h3>🏅 Pencapaian</h3>
+      <div class="album-progress">${unlockedCount} / ${ACHIEVEMENT_DEFS.length} lencana terkumpul</div>
+      <div class="album-track"><div class="album-track-fill" style="width:${Math.round(unlockedCount/ACHIEVEMENT_DEFS.length*100)}%"></div></div>
+      <div class="achv-gallery">
+      ${ACHIEVEMENT_DEFS.map(a=>{
+        const got = unlocked[a.id];
+        return `
+        <div class="achv-tile ${got?'unlocked':'locked'}">
+          <div class="achv-tile-icon">${got ? a.icon : '🔒'}</div>
+          <div class="achv-tile-text">
+            <b>${a.label}</b>
+            <small>${a.desc}</small>
+            ${got ? `<span class="achv-tile-date">Dibuka ${got}</span>` : ''}
+          </div>
+        </div>`;
+      }).join("")}
+      </div>
+      <button class="shop-close" id="achvCloseBtn">Tutup</button>
+    </div>
+  `;
+  document.body.appendChild(el);
+  markAllAchievementsSeen();
+  updateAchvBadge();
+  const close = ()=> el.remove();
+  el.querySelector("#achvCloseBtn").addEventListener("click", close);
+  el.addEventListener("click", (ev)=>{ if(ev.target === el) close(); });
+}
+
+/* ============================================================
    PAPAN PERINGKAT DESA — leaderboard lintas-siswa dalam SATU
    perangkat/browser yang sama (mis. komputer lab LPK yang dipakai
    bergantian). Setiap siswa yang pernah login di perangkat ini
@@ -2990,6 +3122,7 @@ function awardXPCoins(xp, coins){
   return profile;
 }
 function showLevelUpBanner(level){
+  unlockAchievement("harvester");
   const el = document.createElement("div");
   el.className = "levelup-banner";
   el.innerHTML = `
@@ -3109,6 +3242,7 @@ function renderPlayerBar(){
   $("openLeaderboardBtn").addEventListener("click", openVillageLeaderboard);
   $("pbAvatarWrap").addEventListener("click", ()=>openShop("avatar"));
   renderGardenCard();
+  updateAchvBadge();
 }
 
 function openShop(initialTab){
@@ -3763,6 +3897,7 @@ function fuseCard(jp){
   card.count -= 2; // 2 duplikat "dilebur", sisa 1 jadi versi kirakira
   card.evolved = true;
   saveCardCollection(coll);
+  unlockAchievement("kirakira");
   const p = getPlayerProfile();
   p.coins += 25;
   savePlayerProfile(p);
@@ -3984,6 +4119,7 @@ function levelColor(lvl){
 $("menuGameBtn").addEventListener("click", () => showPage('game'));
 $("menuStudyBtn").addEventListener("click", () => showPage('study'));
 $("menuHistoryBtn").addEventListener("click", () => showPage('history'));
+$("menuAchvBtn").addEventListener("click", openAchievementGallery);
 $("backFromGameBtn").addEventListener("click", goHome);
 $("backFromStudyBtn").addEventListener("click", goHome);
 $("backFromHistoryBtn").addEventListener("click", goHome);
@@ -5730,6 +5866,7 @@ function renderResult(){
     akurasi: acc,
     nilai: grade.letter
   });
+  addMistakes(gState.misses);
 
   sendToGoogleSheet(materiLabel + (gState.paketLabel ? ' ('+gState.paketLabel+')' : ''), dateStr);
 
@@ -5740,13 +5877,21 @@ function renderResult(){
 
   // --- pencapaian/achievement yang baru terbuka sesi ini ---
   const achievements = [];
-  if(acc === 100) achievements.push({icon:"🎯", label:"Nilai Sempurna"});
-  if(gState.maxStreak >= 10) achievements.push({icon:"🔥", label:"Combo Master"});
-  if(gState.score >= 500) achievements.push({icon:"💯", label:"Skor Tinggi"});
-  if(myRank === 0) achievements.push({icon:"🏆", label:"Juara Papan Skor"});
+  // pencapaian permanen: dicek & dibuka di sini, TOAST di layar hasil
+  // (achievements[]) tetap tampil hanya untuk yang BARU dibuka sesi ini,
+  // supaya tidak mengulang notifikasi yang sama tiap main.
+  const profileForAchv = getPlayerProfile();
+  profileForAchv.totalSessions = (profileForAchv.totalSessions || 0) + 1;
+  savePlayerProfile(profileForAchv);
+  if(profileForAchv.totalSessions === 1 && unlockAchievement("first_win")) achievements.push({icon:"🌱", label:"Langkah Pertama"});
+  if(acc === 100 && unlockAchievement("perfect")) achievements.push({icon:"🎯", label:"Nilai Sempurna"});
+  if(gState.maxStreak >= 10 && unlockAchievement("combo10")) achievements.push({icon:"🔥", label:"Combo Master"});
+  if(gState.score >= 500 && unlockAchievement("score500")) achievements.push({icon:"💯", label:"Skor Tinggi"});
+  if(myRank === 0 && unlockAchievement("top1")) achievements.push({icon:"🏆", label:"Juara Papan Skor"});
+  if(profileForAchv.totalSessions >= 10 && unlockAchievement("loyal10")) achievements.push({icon:"📚", label:"Pemain Setia (10x)"});
   try{
-    const histLen = JSON.parse(localStorage.getItem("nafis_history")||"[]").length;
-    if(histLen === 10 || histLen === 25 || histLen === 50) achievements.push({icon:"📚", label:"Pemain Setia ("+histLen+"x)"});
+    const cardCount = Object.keys(getCardCollection()).length;
+    if(cardCount >= 10 && unlockAchievement("collector")) achievements.push({icon:"🃏", label:"Kolektor Kotodama"});
   }catch(e){}
 
   const leaderboardHtml = leaderboard.length ? `
@@ -6052,6 +6197,45 @@ function saveHistoryToLocal(record) {
   localStorage.setItem("nafis_history", JSON.stringify(list));
 }
 
+/* ============================================================
+   CATATAN KESALAHAN — kumpulan kata/pola yang pernah salah dijawab,
+   terkumpul otomatis lintas-sesi (bukan cuma tampil sekali di layar
+   hasil lalu hilang). Disimpan per-siswa; entri yang sama (jp sama)
+   di-dedupe dan dihitung berapa kali salah + kapan terakhir salah,
+   supaya yang paling sering keliru naik ke atas.
+   ============================================================ */
+function mistakesKey(){ return `nafis_mistakes_${(student && student.nis) || "guest"}`; }
+function getMistakes(){
+  try{ return JSON.parse(localStorage.getItem(mistakesKey())) || []; }catch(e){ return []; }
+}
+function addMistakes(misses){
+  if(!misses || !misses.length) return;
+  const list = getMistakes();
+  const today = todayKey();
+  misses.forEach(m=>{
+    const existing = list.find(x=>x.jp === m.jp);
+    if(existing){ existing.count += 1; existing.meaning = m.meaning; existing.lastDate = today; }
+    else list.unshift({ jp: m.jp, meaning: m.meaning, count: 1, lastDate: today });
+  });
+  list.sort((a,b)=> b.count - a.count || new Date(b.lastDate) - new Date(a.lastDate));
+  localStorage.setItem(mistakesKey(), JSON.stringify(list.slice(0,100)));
+}
+function renderMistakesList(){
+  const el = $("mistakesList");
+  if(!el) return;
+  const list = getMistakes();
+  if(!list.length){
+    el.innerHTML = `<div style="text-align:center;color:var(--sub);padding:24px 10px;font-size:12px;">Belum ada catatan kesalahan. Kerjakan kuis dulu, ya!</div>`;
+    return;
+  }
+  el.innerHTML = list.map(m=>`
+    <div class="miss-item">
+      <div class="mi-pattern">${m.jp}${m.count>1 ? ` <span style="color:var(--sakura);font-size:11px;">&times;${m.count} salah</span>` : ''}</div>
+      <div class="mi-meaning">${m.meaning}</div>
+    </div>
+  `).join("");
+}
+
 function renderHistory() {
   document.body.classList.remove('quiz-active'); // tampilkan lagi header brand & nama-NIS
   const listEl = $("historyList");
@@ -6135,6 +6319,24 @@ function downloadHistoryCSV(){
   setTimeout(()=> URL.revokeObjectURL(url), 2000);
 }
 $("downloadHistoryBtn").addEventListener("click", downloadHistoryCSV);
+$("histTabRiwayat").addEventListener("click", ()=>{
+  $("histTabRiwayat").classList.add("active");
+  $("histTabKesalahan").classList.remove("active");
+  $("riwayatPane").style.display = "";
+  $("kesalahanPane").style.display = "none";
+});
+$("histTabKesalahan").addEventListener("click", ()=>{
+  $("histTabKesalahan").classList.add("active");
+  $("histTabRiwayat").classList.remove("active");
+  $("kesalahanPane").style.display = "";
+  $("riwayatPane").style.display = "none";
+  renderMistakesList();
+});
+$("clearMistakesBtn").addEventListener("click", ()=>{
+  if(!confirm("Hapus semua catatan kesalahan?")) return;
+  localStorage.removeItem(mistakesKey());
+  renderMistakesList();
+});
 
 /* ============================================================
    MODE TRIVIA — dikembangkan dari trivia-integration.js dasar,

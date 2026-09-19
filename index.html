@@ -2302,6 +2302,67 @@
     .omikuji-slip .os-lucky { font-size: 9.5px; padding: 6px 5px; }
   }
 
+
+/* ===== KOTOBA SEHARI-HARI V2 ===== */
+.kh-v2-overlay{position:fixed;inset:0;z-index:11000;display:flex;align-items:center;justify-content:center;padding:12px;background:rgba(31,24,16,.58);backdrop-filter:blur(8px);animation:khV2Fade .22s ease}
+@keyframes khV2Fade{from{opacity:0}to{opacity:1}}
+.kh-v2-shell{width:min(980px,100%);max-height:min(92vh,900px);overflow:hidden;display:flex;flex-direction:column;border:3px solid #8f633b;border-radius:26px;background:linear-gradient(180deg,#fff8e9,#f7e8c9);box-shadow:0 18px 60px rgba(48,30,14,.38),inset 0 1px 0 rgba(255,255,255,.8);color:#4b3522;position:relative}
+.kh-v2-shell:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(#8f633b .7px,transparent .7px);background-size:8px 8px}
+.kh-v2-head{position:relative;z-index:1;padding:18px 20px 15px;background:linear-gradient(135deg,#dff0d2,#f9edc9 55%,#f5d9b6);border-bottom:2px solid #c89a65}
+.kh-v2-title-row{display:flex;align-items:center;gap:12px}
+.kh-v2-logo{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;font-size:30px;background:linear-gradient(145deg,#fffdf3,#f4d49e);border:2px solid #b57d48;box-shadow:0 4px 0 #9b6639,0 7px 14px rgba(105,68,35,.18)}
+.kh-v2-title{font-family:"Zen Maru Gothic",sans-serif;font-size:22px;font-weight:900;line-height:1.1;color:#5a3a20}
+.kh-v2-subtitle{font-size:11px;color:#80634a;margin-top:4px;line-height:1.45}
+.kh-v2-close{margin-left:auto;width:38px;height:38px;border-radius:12px;border:2px solid #b98451;background:#fff7e8;color:#694528;font-size:20px;font-weight:900;cursor:pointer;box-shadow:0 3px 0 #a16d42}
+.kh-v2-stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.kh-v2-stat{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.65);border:1px solid #d2ad7e;font-size:10px;font-weight:900;color:#765438}
+.kh-v2-toolbar{position:relative;z-index:1;padding:12px 16px 8px;background:#fff8e9;border-bottom:1px solid #dfc49c}
+.kh-v2-search-wrap{position:relative}
+.kh-v2-search{width:100%;box-sizing:border-box;border:2px solid #d1ae7c;border-radius:14px;padding:10px 13px 10px 38px;background:#fffdf7;color:#503822;font:700 12px "Inter",sans-serif;outline:none}
+.kh-v2-search:focus{border-color:#8fb46f;box-shadow:0 0 0 3px rgba(143,180,111,.16)}
+.kh-v2-search-icon{position:absolute;left:13px;top:9px;font-size:16px;opacity:.65}
+.kh-v2-tabs{display:flex;gap:7px;overflow-x:auto;padding:9px 0 3px;scrollbar-width:none}
+.kh-v2-tabs::-webkit-scrollbar{display:none}
+.kh-v2-tab{flex:0 0 auto;border:2px solid #d4b382;border-radius:999px;padding:7px 11px;background:#fffdf7;color:#7b5b3d;font:900 10px "Inter",sans-serif;cursor:pointer;white-space:nowrap}
+.kh-v2-tab.active{background:#7ea765;color:#fff;border-color:#648b4e;box-shadow:0 3px 0 #5d7f48}
+.kh-v2-body{position:relative;z-index:1;overflow:auto;padding:14px 16px 18px;min-height:0}
+.kh-v2-category-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:2px 2px 11px}
+.kh-v2-category-title{font:900 17px "Zen Maru Gothic",sans-serif;color:#5b3b23}
+.kh-v2-category-desc{font-size:10px;color:#907052;margin-top:2px}
+.kh-v2-count{font-size:10px;font-weight:900;color:#7e6145;background:#fffdf6;border:1px solid #d8bb91;border-radius:999px;padding:5px 8px}
+.kh-v2-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.kh-v2-card{position:relative;overflow:hidden;min-width:0;cursor:pointer;text-align:center;border:2px solid #d5b487;border-radius:18px;padding:9px 8px 11px;background:linear-gradient(180deg,#fffdf7,#f8edda);box-shadow:0 4px 0 #c5a071,0 8px 16px rgba(92,58,29,.09);transition:transform .16s,box-shadow .16s,border-color .16s;animation:khV2CardIn .32s ease backwards}
+@keyframes khV2CardIn{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.kh-v2-card:hover{transform:translateY(-3px);border-color:#9cb67e;box-shadow:0 6px 0 #b28d5c,0 12px 20px rgba(92,58,29,.13)}
+.kh-v2-card:active{transform:translateY(1px);box-shadow:0 2px 0 #b28d5c}
+.kh-v2-art{height:74px;border-radius:13px;display:grid;place-items:center;font-size:43px;background:linear-gradient(145deg,#eef5df,#fff3d7);border:1px solid #dfc9a4;margin-bottom:8px;position:relative}
+.kh-v2-art:after{content:"";position:absolute;left:10%;right:10%;bottom:5px;height:6px;border-radius:50%;background:rgba(117,77,38,.08);filter:blur(2px)}
+.kh-v2-speaker{position:absolute;right:6px;top:6px;width:25px;height:25px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.86);border:1px solid #d7bd98;font-size:12px;z-index:2}
+.kh-v2-jp{font:900 17px "Zen Maru Gothic",sans-serif;color:#3f2c1c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kh-v2-hira{font:700 10px "Zen Maru Gothic",sans-serif;color:#8b6c4e;margin-top:2px}
+.kh-v2-romaji{font:italic 9px "Inter",sans-serif;color:#a18467;margin-top:1px}
+.kh-v2-id{margin-top:6px;font-size:11px;font-weight:900;color:#66834f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kh-v2-counter{grid-column:1/-1;text-align:left;padding:12px}
+.kh-v2-counter-top{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.kh-v2-counter .kh-v2-art{width:64px;height:56px;flex:0 0 64px;margin:0;font-size:32px}
+.kh-v2-counter-title{font:900 17px "Zen Maru Gothic",sans-serif;color:#3f2c1c}
+.kh-v2-counter-desc{font-size:10px;color:#8b6c4e;margin-top:2px}
+.kh-v2-seq{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px}
+.kh-v2-cell{background:#fffaf0;border:1px solid #dfc59d;border-radius:9px;padding:6px 2px;text-align:center;cursor:pointer}
+.kh-v2-cell:hover{background:#edf5e4;border-color:#9bb37f}
+.kh-v2-cell b{display:block;font-size:9px;color:#9a7b5b}
+.kh-v2-cell span{display:block;font:800 10px "Zen Maru Gothic",sans-serif;color:#4f3823;margin-top:2px;white-space:nowrap}
+.kh-v2-cell mark{background:#f2c978;color:#704719;border-radius:3px;padding:0 1px}
+.kh-v2-empty{text-align:center;padding:35px 15px;color:#8d7053;font-size:12px}
+.kh-v2-footer{position:relative;z-index:1;padding:10px 16px 13px;background:#fff8e9;border-top:1px solid #dfc49c;text-align:center}
+.kh-v2-tip{font-size:10px;color:#8a6a4d;margin-bottom:7px}
+.kh-v2-tip strong{color:#678650}
+.kh-v2-footer-btn{border:2px solid #a87847;border-radius:12px;background:#fffdf6;color:#684629;padding:8px 24px;font:900 11px "Inter",sans-serif;cursor:pointer;box-shadow:0 3px 0 #b1875b}
+.kh-v2-speaking{border-color:#78a65d!important;background:#eef7e6!important;box-shadow:0 0 0 3px rgba(120,166,93,.15),0 4px 0 #9dbb83!important}
+.kh-v2-speaking .kh-v2-speaker{background:#78a65d;color:#fff;animation:khV2Pulse .55s infinite}
+@keyframes khV2Pulse{50%{transform:scale(1.12)}}
+@media(max-width:760px){.kh-v2-shell{max-height:94vh;border-radius:21px}.kh-v2-head{padding:14px 14px 11px}.kh-v2-title{font-size:19px}.kh-v2-logo{width:47px;height:47px;font-size:26px}.kh-v2-body{padding:12px 11px 16px}.kh-v2-toolbar{padding:10px 11px 6px}.kh-v2-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kh-v2-card{border-radius:15px;padding:8px 6px 10px}.kh-v2-art{height:68px;font-size:39px}.kh-v2-jp{font-size:16px}.kh-v2-seq{grid-template-columns:repeat(5,minmax(0,1fr))}.kh-v2-category-title{font-size:15px}.kh-v2-count{font-size:9px}}
+
 </style>
 </head>
 <body>
@@ -2455,10 +2516,10 @@
       </div>
 
       <button class="kotoba-harian-cta" id="openKotobaHarianBtn" type="button">
-        <span class="khc-emoji">🍎🚗📅</span>
+        <span class="khc-emoji">📚🌱</span>
         <span class="khc-text">
-          <b>Kotoba Sehari-hari</b>
-          <small>Kosakata dasar bergambar untuk pemula — hari, angka, warna, makanan, minuman, buah, sayur, keluarga, cuaca, pekerjaan, dll</small>
+          <b>Kotoba Sehari-hari <span style="font-size:10px;opacity:.8;">ことば</span></b>
+          <small>Belajar kosakata Jepang dari benda dan situasi sehari-hari • dengarkan pelafalan • cari kata dengan cepat</small>
         </span>
         <span class="khc-arrow">›</span>
       </button>
@@ -3307,45 +3368,119 @@ function renderKotobaHarianGrid(){
   }).join("");
 }
 function openKotobaHarian(){
-  const el = document.createElement("div");
-  el.className = "album-overlay";
-  el.innerHTML = `
-    <div class="album-card" style="max-width:480px;">
-      <h3>🍎 Kotoba Sehari-hari</h3>
-      <div style="font-size:11px;color:var(--sub);text-align:center;margin:-4px 0 12px;">
-        Kosakata dasar bergambar — sentuh kategorinya untuk berpindah, sentuh kartunya untuk dengar cara baca 🔊
+  const el=document.createElement("div");
+  el.className="kh-v2-overlay";
+  el.innerHTML=`
+    <div class="kh-v2-shell" role="dialog" aria-modal="true" aria-label="Kotoba Sehari-hari">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">📚</div>
+          <div>
+            <div class="kh-v2-title">Kotoba Sehari-hari</div>
+            <div class="kh-v2-subtitle">ことばをおぼえよう！ • Kenali kosakata Jepang dari benda dan situasi sehari-hari.</div>
+          </div>
+          <button class="kh-v2-close" id="khV2Close" aria-label="Tutup">×</button>
+        </div>
+        <div class="kh-v2-stats">
+          <span class="kh-v2-stat">🌱 Mode Pemula</span>
+          <span class="kh-v2-stat">🔊 Tekan kartu untuk mendengar</span>
+          <span class="kh-v2-stat">🗾 Jepang → Indonesia</span>
+        </div>
       </div>
-      <div class="kh-tabs" id="khTabs">
-        ${Object.keys(KOTOBA_HARIAN).map(key=>`<button class="kh-tab ${key===khCurrentCat?'active':''}" data-cat="${key}">${KOTOBA_HARIAN[key].label}</button>`).join("")}
+      <div class="kh-v2-toolbar">
+        <div class="kh-v2-search-wrap">
+          <span class="kh-v2-search-icon">🔎</span>
+          <input id="khV2Search" class="kh-v2-search" type="search" placeholder="Cari kosakata… contoh: apel, りんご, ringo" autocomplete="off">
+        </div>
+        <div class="kh-v2-tabs" id="khV2Tabs">
+          ${Object.keys(KOTOBA_HARIAN).map(key=>`<button class="kh-v2-tab ${key===khCurrentCat?'active':''}" data-cat="${key}">${KOTOBA_HARIAN[key].label}</button>`).join("")}
+        </div>
       </div>
-      <div class="kh-grid" id="khGrid"></div>
-      <button class="shop-close" id="khCloseBtn">Tutup</button>
-    </div>
-  `;
-  document.body.appendChild(el);
-  renderKotobaHarianGrid();
-  // delegasi 1 listener untuk semua kartu (termasuk yang muncul lagi
-  // setelah ganti tab), supaya sentuh kartu = dengar pengucapannya
-  el.querySelector("#khGrid").addEventListener("click", (ev)=>{
-    const target = ev.target.closest(".kh-speak-btn");
-    if(!target) return;
-    const cardEl = (target.classList.contains("kh-card") || target.classList.contains("kh-counter-cell"))
-      ? target : (target.closest(".kh-card") || target);
-    speakJapanese(target.dataset.say, cardEl);
-  });
-  el.querySelectorAll(".kh-tab").forEach(tab=>{
-    tab.addEventListener("click", ()=>{
-      khCurrentCat = tab.dataset.cat;
-      el.querySelectorAll(".kh-tab").forEach(t=>t.classList.toggle("active", t===tab));
-      renderKotobaHarianGrid();
-      playSFX('click');
-    });
-  });
-  const close = ()=> el.remove();
-  el.querySelector("#khCloseBtn").addEventListener("click", close);
-  el.addEventListener("click", (ev)=>{ if(ev.target === el) close(); });
-}
+      <div class="kh-v2-body">
+        <div class="kh-v2-category-head">
+          <div>
+            <div class="kh-v2-category-title" id="khV2CategoryTitle"></div>
+            <div class="kh-v2-category-desc" id="khV2CategoryDesc"></div>
+          </div>
+          <div class="kh-v2-count" id="khV2Count"></div>
+        </div>
+        <div class="kh-v2-grid" id="khV2Grid"></div>
+      </div>
+      <div class="kh-v2-footer">
+        <div class="kh-v2-tip">💡 <strong>Tips:</strong> dengarkan pelafalan beberapa kali, lalu coba ucapkan sendiri.</div>
+        <button class="kh-v2-footer-btn" id="khV2CloseBottom">Tutup ✕</button>
+      </div>
+    </div>`;
 
+  document.body.appendChild(el);
+  const grid=el.querySelector("#khV2Grid");
+  const search=el.querySelector("#khV2Search");
+
+  function renderV2(){
+    const cat=KOTOBA_HARIAN[khCurrentCat];
+    const q=(search.value||"").trim().toLowerCase();
+    const items=cat.items.filter(w=>{
+      if(!q)return true;
+      return [w.jp,w.hira,w.romaji,w.id,w.desc].filter(Boolean).join(" ").toLowerCase().includes(q);
+    });
+    el.querySelector("#khV2CategoryTitle").textContent=cat.label;
+    el.querySelector("#khV2CategoryDesc").textContent=khCurrentCat==="penghitung"
+      ?"Perhatikan perubahan bunyi saat menghitung."
+      :"Kosakata yang sering ditemui dalam kehidupan sehari-hari.";
+    el.querySelector("#khV2Count").textContent=`${items.length} kosakata`;
+
+    if(!items.length){
+      grid.innerHTML=`<div class="kh-v2-empty" style="grid-column:1/-1">🌾 Kosakata tidak ditemukan.<br><small>Coba kata lain.</small></div>`;
+      return;
+    }
+
+    grid.innerHTML=items.map((w,idx)=>{
+      if(w.seq){
+        const base=w.seq[3];
+        const fmt=r=>w.noHighlight?r:highlightIrregular(r,base);
+        return `<div class="kh-v2-card kh-v2-counter" style="animation-delay:${idx*25}ms">
+          <div class="kh-v2-counter-top">
+            <div class="kh-v2-art kh-v2-speak-btn" data-say="${w.jp}" title="Dengar">${w.emoji}<span class="kh-v2-speaker">🔊</span></div>
+            <div><div class="kh-v2-counter-title">${w.jp}</div><div class="kh-v2-counter-desc">${w.desc}</div></div>
+          </div>
+          <div class="kh-v2-seq">${w.seq.map((r,i)=>`<div class="kh-v2-cell kh-v2-speak-btn" data-say="${r}"><b>${i+1}</b><span>${fmt(r)}</span></div>`).join("")}</div>
+        </div>`;
+      }
+      return `<div class="kh-v2-card kh-v2-speak-btn" data-say="${w.jp}" style="animation-delay:${idx*25}ms">
+        <div class="kh-v2-art">${w.emoji}<span class="kh-v2-speaker">🔊</span></div>
+        <div class="kh-v2-jp">${w.jp}</div>
+        <div class="kh-v2-hira">${w.hira}</div>
+        <div class="kh-v2-romaji">${w.romaji}</div>
+        <div class="kh-v2-id">${w.id}</div>
+      </div>`;
+    }).join("");
+  }
+
+  el.querySelectorAll(".kh-v2-tab").forEach(tab=>tab.addEventListener("click",()=>{
+    khCurrentCat=tab.dataset.cat;
+    el.querySelectorAll(".kh-v2-tab").forEach(t=>t.classList.toggle("active",t===tab));
+    renderV2(); playSFX("click"); el.querySelector(".kh-v2-body").scrollTop=0;
+  }));
+
+  grid.addEventListener("click",ev=>{
+    const target=ev.target.closest(".kh-v2-speak-btn");
+    if(!target)return;
+    const cardEl=target.classList.contains("kh-v2-card")?target:(target.closest(".kh-v2-card")||target);
+    speakJapanese(target.dataset.say,cardEl);
+  });
+
+  search.addEventListener("input",renderV2);
+
+  const close=()=>{
+    if("speechSynthesis" in window)window.speechSynthesis.cancel();
+    el.remove();
+  };
+  el.querySelector("#khV2Close").addEventListener("click",close);
+  el.querySelector("#khV2CloseBottom").addEventListener("click",close);
+  el.addEventListener("click",ev=>{if(ev.target===el)close();});
+
+  renderV2();
+}
 function openVillageLeaderboard(){
   const rows = getVillageLeaderboard();
   const myNis = student ? student.nis : null;

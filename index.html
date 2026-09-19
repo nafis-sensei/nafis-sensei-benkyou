@@ -904,6 +904,35 @@
   .album-overlay { position: fixed; inset: 0; z-index: 10000; background: rgba(5,5,10,.85); display: flex; align-items: center; justify-content: center; padding: 16px; }
   .album-card { width: 100%; max-width: 480px; max-height: 85vh; overflow-y: auto; background: var(--panel2); border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
 
+  /* Kotoba Sehari-hari — tab kategori + grid kartu bergambar (emoji) */
+  .kh-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .kh-tab { padding: 7px 11px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: var(--sub); font-weight: 800; font-size: 11.5px; cursor: pointer; }
+  .kh-tab.active { background: rgba(255,111,97,.15); border-color: #ff6f61; color: #ff6f61; }
+  .kh-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
+  .kh-card { text-align: center; padding: 14px 8px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.04);
+    cursor: pointer; animation: khCardIn .35s ease backwards; transition: transform .12s ease, border-color .15s ease; }
+  .kh-card:active { transform: scale(.96); }
+  @keyframes khCardIn { from { opacity: 0; transform: translateY(10px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  .kh-speaker { font-size: 14px; opacity: .55; vertical-align: middle; }
+  .kh-card.kh-speaking, .kh-counter-cell.kh-speaking { border-color: var(--cyan); background: rgba(0,229,255,.1); }
+  .kh-card.kh-speaking .kh-speaker { opacity: 1; animation: khSpeakPulse .5s ease-in-out infinite; }
+  @keyframes khSpeakPulse { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.35); } }
+  .kh-emoji { font-size: 36px; margin-bottom: 6px; }
+  .kh-jp { font-family: "Noto Sans JP", sans-serif; font-weight: 800; font-size: 16px; }
+  .kh-hira { font-family: "Noto Sans JP", sans-serif; font-size: 11px; color: var(--sub); margin-top: 1px; }
+  .kh-romaji { font-size: 10px; color: var(--sub); font-style: italic; margin-top: 1px; }
+  .kh-id { margin-top: 6px; font-size: 12px; font-weight: 700; color: var(--mint); }
+
+  /* Kartu khusus "Kata Bantu Bilangan": 1 kolom penuh, berisi mini-tabel konjugasi 1-10 */
+  .kh-grid-counter { grid-template-columns: 1fr; }
+  .kh-counter-card { text-align: center; }
+  .kh-counter-seq { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 4px; }
+  .kh-counter-cell { background: rgba(255,255,255,.05); border-radius: 8px; padding: 6px 2px; cursor: pointer; border: 1px solid transparent; transition: border-color .15s ease; }
+  .kh-counter-cell:active { transform: scale(.94); }
+  .kh-counter-cell b { display: block; font-size: 10px; color: var(--sub); font-weight: 900; }
+  .kh-counter-cell span { display: block; font-family: "Noto Sans JP", sans-serif; font-size: 11.5px; font-weight: 700; margin-top: 2px; }
+  .kh-counter-cell mark { background: rgba(255,111,97,.25); color: #ff6f61; border-radius: 3px; padding: 0 1px; font-weight: 900; }
+
   /* Galeri Pencapaian — lencana terkunci (abu2/gembok) vs terbuka (warna) */
   .achv-gallery { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
   .achv-tile { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.04); }
@@ -1365,6 +1394,21 @@
 
   /* ===== DASHBOARD / HOME — menu utama gaya kartu besar ===== */
   .dashboard-menu { display: flex; flex-direction: column; gap: 12px; }
+
+  /* Tombol ajakan besar ke "Kotoba Sehari-hari" di atas Menu Pelajaran */
+  .kotoba-harian-cta {
+    display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;
+    padding: 16px; border-radius: 16px; border: none; cursor: pointer; margin-bottom: 14px;
+    background: linear-gradient(135deg, #ff9a5a, #ff6f61); color: #fff;
+    box-shadow: 0 6px 0 #c1502f, 0 10px 20px rgba(193,80,47,.3);
+  }
+  .kotoba-harian-cta:active { transform: translateY(3px); box-shadow: 0 3px 0 #c1502f; }
+  .kotoba-harian-cta .khc-emoji { font-size: 26px; flex-shrink: 0; }
+  .kotoba-harian-cta .khc-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .kotoba-harian-cta .khc-text b { font-size: 15px; }
+  .kotoba-harian-cta .khc-text small { font-size: 11px; opacity: .92; line-height: 1.4; }
+  .kotoba-harian-cta .khc-arrow { font-size: 22px; opacity: .85; flex-shrink: 0; }
+
   .dash-menu-btn {
     display: flex; align-items: center; gap: 14px; text-align: left;
     padding: 16px; border-radius: 16px; border: 1px solid var(--line);
@@ -2409,6 +2453,16 @@
         <button class="back-btn" id="backFromStudyBtn" type="button">← Home</button>
         <span class="page-title">📖 Menu Pelajaran</span>
       </div>
+
+      <button class="kotoba-harian-cta" id="openKotobaHarianBtn" type="button">
+        <span class="khc-emoji">🍎🚗📅</span>
+        <span class="khc-text">
+          <b>Kotoba Sehari-hari</b>
+          <small>Kosakata dasar bergambar untuk pemula — hari, angka, warna, makanan, minuman, buah, sayur, keluarga, cuaca, pekerjaan, dll</small>
+        </span>
+        <span class="khc-arrow">›</span>
+      </button>
+
       <div class="card">
         <div class="modern-select-wrap">
           <label>Jenis Materi</label>
@@ -2993,6 +3047,305 @@ function getVillageLeaderboard(){
   rows.sort((a,b)=> b.xp - a.xp);
   return rows;
 }
+/* ============================================================
+   KOTOBA SEHARI-HARI — kosakata dasar bergambar (emoji) untuk
+   pemula, DIPISAH TOTAL dari sistem VOCAB/PATTERNS di file
+   eksternal (vocab.js dkk.) supaya tidak berisiko mengganggu
+   materi/kuis yang sudah ada. Murni galeri untuk dibaca-baca &
+   dikenali secara visual — cocok untuk pemula sebelum masuk ke
+   kuis kosakata yang lebih formal.
+   ============================================================ */
+const KOTOBA_HARIAN = {
+  hari: { label: "📅 Hari (曜日)", items: [
+    {emoji:"🌙", jp:"月曜日", hira:"げつようび", romaji:"getsuyoubi", id:"Senin"},
+    {emoji:"🔥", jp:"火曜日", hira:"かようび", romaji:"kayoubi", id:"Selasa"},
+    {emoji:"💧", jp:"水曜日", hira:"すいようび", romaji:"suiyoubi", id:"Rabu"},
+    {emoji:"🌳", jp:"木曜日", hira:"もくようび", romaji:"mokuyoubi", id:"Kamis"},
+    {emoji:"🪙", jp:"金曜日", hira:"きんようび", romaji:"kin'youbi", id:"Jumat"},
+    {emoji:"🪨", jp:"土曜日", hira:"どようび", romaji:"doyoubi", id:"Sabtu"},
+    {emoji:"☀️", jp:"日曜日", hira:"にちようび", romaji:"nichiyoubi", id:"Minggu"}
+  ]},
+  sayuran: { label: "🥕 Sayuran (野菜)", items: [
+    {emoji:"🥕", jp:"にんじん", hira:"にんじん", romaji:"ninjin", id:"Wortel"},
+    {emoji:"🧅", jp:"たまねぎ", hira:"たまねぎ", romaji:"tamanegi", id:"Bawang bombay"},
+    {emoji:"🥔", jp:"じゃがいも", hira:"じゃがいも", romaji:"jagaimo", id:"Kentang"},
+    {emoji:"🥒", jp:"きゅうり", hira:"きゅうり", romaji:"kyuuri", id:"Timun"},
+    {emoji:"🍅", jp:"トマト", hira:"トマト", romaji:"tomato", id:"Tomat"},
+    {emoji:"🍆", jp:"なす", hira:"なす", romaji:"nasu", id:"Terong"},
+    {emoji:"🥬", jp:"ほうれん草", hira:"ほうれんそう", romaji:"hourensou", id:"Bayam"},
+    {emoji:"🌽", jp:"とうもろこし", hira:"とうもろこし", romaji:"toumorokoshi", id:"Jagung"},
+    {emoji:"🎃", jp:"かぼちゃ", hira:"かぼちゃ", romaji:"kabocha", id:"Labu"},
+    {emoji:"🥦", jp:"ブロッコリー", hira:"ブロッコリー", romaji:"burokkorii", id:"Brokoli"},
+    {emoji:"🫑", jp:"ピーマン", hira:"ピーマン", romaji:"piiman", id:"Paprika"},
+    {emoji:"🧄", jp:"にんにく", hira:"にんにく", romaji:"ninniku", id:"Bawang putih"},
+    {emoji:"🍄", jp:"きのこ", hira:"きのこ", romaji:"kinoko", id:"Jamur"},
+    {emoji:"🌶️", jp:"とうがらし", hira:"とうがらし", romaji:"tougarashi", id:"Cabai"}
+  ]},
+  buah: { label: "🍎 Buah (果物)", items: [
+    {emoji:"🍎", jp:"りんご", hira:"りんご", romaji:"ringo", id:"Apel"},
+    {emoji:"🍌", jp:"バナナ", hira:"バナナ", romaji:"banana", id:"Pisang"},
+    {emoji:"🍊", jp:"みかん", hira:"みかん", romaji:"mikan", id:"Jeruk"},
+    {emoji:"🍇", jp:"ぶどう", hira:"ぶどう", romaji:"budou", id:"Anggur"},
+    {emoji:"🍓", jp:"いちご", hira:"いちご", romaji:"ichigo", id:"Stroberi"},
+    {emoji:"🍉", jp:"すいか", hira:"すいか", romaji:"suika", id:"Semangka"},
+    {emoji:"🍑", jp:"もも", hira:"もも", romaji:"momo", id:"Persik"},
+    {emoji:"🍐", jp:"なし", hira:"なし", romaji:"nashi", id:"Pir"},
+    {emoji:"🍋", jp:"レモン", hira:"レモン", romaji:"remon", id:"Lemon"},
+    {emoji:"🍈", jp:"メロン", hira:"メロン", romaji:"meron", id:"Melon"},
+    {emoji:"🍒", jp:"さくらんぼ", hira:"さくらんぼ", romaji:"sakuranbo", id:"Ceri"},
+    {emoji:"🍍", jp:"パイナップル", hira:"パイナップル", romaji:"painappuru", id:"Nanas"},
+    {emoji:"🥝", jp:"キウイ", hira:"キウイ", romaji:"kiui", id:"Kiwi"},
+    {emoji:"🥭", jp:"マンゴー", hira:"マンゴー", romaji:"mangoo", id:"Mangga"}
+  ]},
+  minuman: { label: "🥤 Minuman (飲み物)", items: [
+    {emoji:"💧", jp:"水", hira:"みず", romaji:"mizu", id:"Air putih"},
+    {emoji:"🍵", jp:"お茶", hira:"おちゃ", romaji:"ocha", id:"Teh"},
+    {emoji:"☕", jp:"コーヒー", hira:"コーヒー", romaji:"koohii", id:"Kopi"},
+    {emoji:"🥛", jp:"牛乳", hira:"ぎゅうにゅう", romaji:"gyuunyuu", id:"Susu"},
+    {emoji:"🧃", jp:"ジュース", hira:"ジュース", romaji:"juusu", id:"Jus"},
+    {emoji:"🥤", jp:"ソーダ", hira:"ソーダ", romaji:"sooda", id:"Soda"},
+    {emoji:"🍺", jp:"ビール", hira:"ビール", romaji:"biiru", id:"Bir"},
+    {emoji:"🫖", jp:"紅茶", hira:"こうちゃ", romaji:"koucha", id:"Teh hitam"}
+  ]},
+  makanan: { label: "🍚 Makanan (食べ物)", items: [
+    {emoji:"🍚", jp:"ご飯", hira:"ごはん", romaji:"gohan", id:"Nasi"},
+    {emoji:"🍞", jp:"パン", hira:"パン", romaji:"pan", id:"Roti"},
+    {emoji:"🍜", jp:"ラーメン", hira:"ラーメン", romaji:"raamen", id:"Ramen"},
+    {emoji:"🍣", jp:"寿司", hira:"すし", romaji:"sushi", id:"Sushi"},
+    {emoji:"🥩", jp:"肉", hira:"にく", romaji:"niku", id:"Daging"},
+    {emoji:"🐟", jp:"魚", hira:"さかな", romaji:"sakana", id:"Ikan"},
+    {emoji:"🥚", jp:"卵", hira:"たまご", romaji:"tamago", id:"Telur"},
+    {emoji:"🍛", jp:"カレー", hira:"カレー", romaji:"karee", id:"Kari"}
+  ]},
+  kendaraan: { label: "🚗 Kendaraan (乗り物)", items: [
+    {emoji:"🚗", jp:"車", hira:"くるま", romaji:"kuruma", id:"Mobil"},
+    {emoji:"🚌", jp:"バス", hira:"バス", romaji:"basu", id:"Bus"},
+    {emoji:"🚃", jp:"電車", hira:"でんしゃ", romaji:"densha", id:"Kereta"},
+    {emoji:"🚲", jp:"自転車", hira:"じてんしゃ", romaji:"jitensha", id:"Sepeda"},
+    {emoji:"🏍️", jp:"バイク", hira:"バイク", romaji:"baiku", id:"Motor"},
+    {emoji:"✈️", jp:"飛行機", hira:"ひこうき", romaji:"hikouki", id:"Pesawat"},
+    {emoji:"🚢", jp:"船", hira:"ふね", romaji:"fune", id:"Kapal"},
+    {emoji:"🚕", jp:"タクシー", hira:"タクシー", romaji:"takushii", id:"Taksi"}
+  ]},
+  tempat: { label: "🏫 Tempat (場所)", items: [
+    {emoji:"🏫", jp:"学校", hira:"がっこう", romaji:"gakkou", id:"Sekolah"},
+    {emoji:"🏥", jp:"病院", hira:"びょういん", romaji:"byouin", id:"Rumah sakit"},
+    {emoji:"🏦", jp:"銀行", hira:"ぎんこう", romaji:"ginkou", id:"Bank"},
+    {emoji:"🚉", jp:"駅", hira:"えき", romaji:"eki", id:"Stasiun"},
+    {emoji:"🏞️", jp:"公園", hira:"こうえん", romaji:"kouen", id:"Taman"},
+    {emoji:"📚", jp:"図書館", hira:"としょかん", romaji:"toshokan", id:"Perpustakaan"},
+    {emoji:"🛒", jp:"スーパー", hira:"スーパー", romaji:"suupaa", id:"Supermarket"},
+    {emoji:"🏠", jp:"家", hira:"いえ", romaji:"ie", id:"Rumah"}
+  ]},
+  angka: { label: "🔢 Angka (数字)", items: [
+    {emoji:"1️⃣", jp:"一", hira:"いち", romaji:"ichi", id:"Satu"},
+    {emoji:"2️⃣", jp:"二", hira:"に", romaji:"ni", id:"Dua"},
+    {emoji:"3️⃣", jp:"三", hira:"さん", romaji:"san", id:"Tiga"},
+    {emoji:"4️⃣", jp:"四", hira:"よん", romaji:"yon", id:"Empat"},
+    {emoji:"5️⃣", jp:"五", hira:"ご", romaji:"go", id:"Lima"},
+    {emoji:"6️⃣", jp:"六", hira:"ろく", romaji:"roku", id:"Enam"},
+    {emoji:"7️⃣", jp:"七", hira:"なな", romaji:"nana", id:"Tujuh"},
+    {emoji:"8️⃣", jp:"八", hira:"はち", romaji:"hachi", id:"Delapan"},
+    {emoji:"9️⃣", jp:"九", hira:"きゅう", romaji:"kyuu", id:"Sembilan"},
+    {emoji:"🔟", jp:"十", hira:"じゅう", romaji:"juu", id:"Sepuluh"},
+    {emoji:"💯", jp:"百", hira:"ひゃく", romaji:"hyaku", id:"Seratus (100)"},
+    {emoji:"🔢", jp:"千", hira:"せん", romaji:"sen", id:"Seribu (1.000)"},
+    {emoji:"🔢", jp:"一万", hira:"いちまん", romaji:"ichiman", id:"Sepuluh ribu (10.000)"},
+    {emoji:"🔢", jp:"十万", hira:"じゅうまん", romaji:"juuman", id:"Seratus ribu (100.000)"},
+    {emoji:"🔢", jp:"百万", hira:"ひゃくまん", romaji:"hyakuman", id:"Satu juta (1.000.000)"}
+  ]},
+  penghitung: { label: "📏 Kata Bantu Bilangan (助数詞)", items: [
+    {emoji:"🔹", jp:"つ", desc:"benda umum/kecil (apel, kursi, ide)", noHighlight: true,
+      seq:["ひとつ","ふたつ","みっつ","よっつ","いつつ","むっつ","ななつ","やっつ","ここのつ","とお"]},
+    {emoji:"🍎", jp:"個", desc:"benda bulat kecil (telur, kue, buah)",
+      seq:["いっこ","にこ","さんこ","よんこ","ごこ","ろっこ","ななこ","はっこ","きゅうこ","じゅっこ"]},
+    {emoji:"📏", jp:"本", desc:"benda panjang (pensil, botol, pohon)",
+      seq:["いっぽん","にほん","さんぼん","よんほん","ごほん","ろっぽん","ななほん","はっぽん","きゅうほん","じゅっぽん"]},
+    {emoji:"📖", jp:"冊", desc:"buku, majalah, kamus",
+      seq:["いっさつ","にさつ","さんさつ","よんさつ","ごさつ","ろくさつ","ななさつ","はっさつ","きゅうさつ","じゅっさつ"]},
+    {emoji:"👟", jp:"足", desc:"sepatu, kaos kaki (per-pasang)",
+      seq:["いっそく","にそく","さんぞく","よんそく","ごそく","ろくそく","ななそく","はっそく","きゅうそく","じゅっそく"]},
+    {emoji:"👕", jp:"着", desc:"baju (per-potong)",
+      seq:["いっちゃく","にちゃく","さんちゃく","よんちゃく","ごちゃく","ろくちゃく","ななちゃく","はっちゃく","きゅうちゃく","じゅっちゃく"]},
+    {emoji:"📄", jp:"枚", desc:"lembar/helai (kertas, kaos, piring)",
+      seq:["いちまい","にまい","さんまい","よんまい","ごまい","ろくまい","ななまい","はちまい","きゅうまい","じゅうまい"]},
+    {emoji:"🧍", jp:"人", desc:"orang", noHighlight: true,
+      seq:["ひとり","ふたり","さんにん","よにん","ごにん","ろくにん","ななにん","はちにん","きゅうにん","じゅうにん"]},
+    {emoji:"🐱", jp:"匹", desc:"hewan kecil (kucing, ikan, serangga)",
+      seq:["いっぴき","にひき","さんびき","よんひき","ごひき","ろっぴき","ななひき","はっぴき","きゅうひき","じゅっぴき"]},
+    {emoji:"🚗", jp:"台", desc:"mobil, mesin, komputer",
+      seq:["いちだい","にだい","さんだい","よんだい","ごだい","ろくだい","ななだい","はちだい","きゅうだい","じゅうだい"]}
+  ]},
+  waktu: { label: "⏰ Keterangan Waktu (時間)", items: [
+    {emoji:"📆", jp:"一日", hira:"いちにち", romaji:"ichinichi", id:"Sehari / satu hari"},
+    {emoji:"🗓️", jp:"一週間", hira:"いっしゅうかん", romaji:"isshuukan", id:"Seminggu"},
+    {emoji:"📅", jp:"一ヶ月", hira:"いっかげつ", romaji:"ikkagetsu", id:"Sebulan"},
+    {emoji:"🎊", jp:"一年", hira:"いちねん", romaji:"ichinen", id:"Setahun"},
+    {emoji:"📍", jp:"今日", hira:"きょう", romaji:"kyou", id:"Hari ini"},
+    {emoji:"➡️", jp:"明日", hira:"あした", romaji:"ashita", id:"Besok"},
+    {emoji:"⬅️", jp:"昨日", hira:"きのう", romaji:"kinou", id:"Kemarin"},
+    {emoji:"📍", jp:"今週", hira:"こんしゅう", romaji:"konshuu", id:"Minggu ini"},
+    {emoji:"➡️", jp:"来週", hira:"らいしゅう", romaji:"raishuu", id:"Minggu depan"},
+    {emoji:"⬅️", jp:"先週", hira:"せんしゅう", romaji:"senshuu", id:"Minggu lalu"},
+    {emoji:"📍", jp:"今月", hira:"こんげつ", romaji:"kongetsu", id:"Bulan ini"},
+    {emoji:"➡️", jp:"来月", hira:"らいげつ", romaji:"raigetsu", id:"Bulan depan"},
+    {emoji:"⬅️", jp:"先月", hira:"せんげつ", romaji:"sengetsu", id:"Bulan lalu"},
+    {emoji:"📍", jp:"今年", hira:"ことし", romaji:"kotoshi", id:"Tahun ini"},
+    {emoji:"➡️", jp:"来年", hira:"らいねん", romaji:"rainen", id:"Tahun depan"},
+    {emoji:"⬅️", jp:"去年", hira:"きょねん", romaji:"kyonen", id:"Tahun lalu"}
+  ]},
+  warna: { label: "🎨 Warna (色)", items: [
+    {emoji:"🔴", jp:"赤", hira:"あか", romaji:"aka", id:"Merah"},
+    {emoji:"🔵", jp:"青", hira:"あお", romaji:"ao", id:"Biru"},
+    {emoji:"🟡", jp:"黄色", hira:"きいろ", romaji:"kiiro", id:"Kuning"},
+    {emoji:"🟢", jp:"緑", hira:"みどり", romaji:"midori", id:"Hijau"},
+    {emoji:"⚫", jp:"黒", hira:"くろ", romaji:"kuro", id:"Hitam"},
+    {emoji:"⚪", jp:"白", hira:"しろ", romaji:"shiro", id:"Putih"},
+    {emoji:"🟤", jp:"茶色", hira:"ちゃいろ", romaji:"chairo", id:"Cokelat"},
+    {emoji:"🟠", jp:"オレンジ", hira:"オレンジ", romaji:"orenji", id:"Oranye"},
+    {emoji:"🟣", jp:"紫", hira:"むらさき", romaji:"murasaki", id:"Ungu"},
+    {emoji:"🩷", jp:"ピンク", hira:"ピンク", romaji:"pinku", id:"Merah muda"}
+  ]},
+  keluarga: { label: "👨‍👩‍👧 Keluarga (家族)", items: [
+    {emoji:"👨", jp:"お父さん", hira:"おとうさん", romaji:"otousan", id:"Ayah"},
+    {emoji:"👩", jp:"お母さん", hira:"おかあさん", romaji:"okaasan", id:"Ibu"},
+    {emoji:"🧑", jp:"お兄さん", hira:"おにいさん", romaji:"oniisan", id:"Kakak laki-laki"},
+    {emoji:"👧", jp:"お姉さん", hira:"おねえさん", romaji:"oneesan", id:"Kakak perempuan"},
+    {emoji:"👦", jp:"弟", hira:"おとうと", romaji:"otouto", id:"Adik laki-laki"},
+    {emoji:"👶", jp:"妹", hira:"いもうと", romaji:"imouto", id:"Adik perempuan"},
+    {emoji:"👴", jp:"おじいさん", hira:"おじいさん", romaji:"ojiisan", id:"Kakek"},
+    {emoji:"👵", jp:"おばあさん", hira:"おばあさん", romaji:"obaasan", id:"Nenek"}
+  ]},
+  cuaca: { label: "🌦️ Cuaca (天気)", items: [
+    {emoji:"☀️", jp:"晴れ", hira:"はれ", romaji:"hare", id:"Cerah"},
+    {emoji:"🌧️", jp:"雨", hira:"あめ", romaji:"ame", id:"Hujan"},
+    {emoji:"☁️", jp:"曇り", hira:"くもり", romaji:"kumori", id:"Mendung"},
+    {emoji:"❄️", jp:"雪", hira:"ゆき", romaji:"yuki", id:"Salju"},
+    {emoji:"💨", jp:"風", hira:"かぜ", romaji:"kaze", id:"Angin"},
+    {emoji:"🌀", jp:"台風", hira:"たいふう", romaji:"taifuu", id:"Topan"},
+    {emoji:"⚡", jp:"雷", hira:"かみなり", romaji:"kaminari", id:"Petir"},
+    {emoji:"🌈", jp:"虹", hira:"にじ", romaji:"niji", id:"Pelangi"}
+  ]},
+  pekerjaan: { label: "💼 Pekerjaan (仕事)", items: [
+    {emoji:"🧑‍🏫", jp:"先生", hira:"せんせい", romaji:"sensei", id:"Guru"},
+    {emoji:"👨‍⚕️", jp:"医者", hira:"いしゃ", romaji:"isha", id:"Dokter"},
+    {emoji:"👮", jp:"警察官", hira:"けいさつかん", romaji:"keisatsukan", id:"Polisi"},
+    {emoji:"👨‍🍳", jp:"料理人", hira:"りょうりにん", romaji:"ryourinin", id:"Koki"},
+    {emoji:"👨‍🌾", jp:"農家", hira:"のうか", romaji:"nouka", id:"Petani"},
+    {emoji:"👩‍⚕️", jp:"看護師", hira:"かんごし", romaji:"kangoshi", id:"Perawat"},
+    {emoji:"👨‍🚒", jp:"消防士", hira:"しょうぼうし", romaji:"shouboushi", id:"Pemadam kebakaran"},
+    {emoji:"🧑‍💼", jp:"会社員", hira:"かいしゃいん", romaji:"kaishain", id:"Karyawan kantor"}
+  ]}
+};
+let khCurrentCat = "hari";
+/* Ucapkan teks Jepang pakai suara bawaan browser (Web Speech API) —
+   tanpa perlu file audio sama sekali. Kalau perangkat tidak punya
+   suara ja-JP (jarang terjadi di HP modern), browser akan tetap coba
+   pakai suara default terdekat, jadi tetap ada fallback yang wajar. */
+function speakJapanese(text, cardEl){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel(); // hentikan ucapan sebelumnya biar tidak numpuk
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'ja-JP';
+  utter.rate = 0.85; // sedikit lebih pelan supaya jelas didengar pemula
+  if(cardEl){
+    cardEl.classList.add('kh-speaking');
+    utter.onend = ()=> cardEl.classList.remove('kh-speaking');
+    utter.onerror = ()=> cardEl.classList.remove('kh-speaking');
+  }
+  window.speechSynthesis.speak(utter);
+}
+/* Pada tabel konjugasi kata bantu bilangan, bagian bunyi yang BERUBAH
+   dari pola dasarnya (mis. ぽ→ほ→ぼ pada 本) sengaja ditandai warna
+   beda, supaya pemula langsung sadar "oh ini yang berubah-ubah",
+   bukan menghafal 10 bacaan sebagai teks acak tanpa pola. */
+function highlightIrregular(reading, baseReading){
+  if(reading === baseReading) return reading;
+  let i = 0;
+  while(i < reading.length && i < baseReading.length && reading[i] === baseReading[i]) i++;
+  let j = 0;
+  while(j < reading.length-i-1 && j < baseReading.length-i-1 &&
+        reading[reading.length-1-j] === baseReading[baseReading.length-1-j]) j++;
+  const pre = reading.slice(0, i);
+  const mid = reading.slice(i, reading.length-j);
+  const post = j>0 ? reading.slice(reading.length-j) : "";
+  return mid ? `${pre}<mark>${mid}</mark>${post}` : reading;
+}
+function renderKotobaHarianGrid(){
+  const el = $("khGrid");
+  if(!el) return;
+  const cat = KOTOBA_HARIAN[khCurrentCat];
+  const isCounterCat = khCurrentCat === "penghitung";
+  el.className = isCounterCat ? "kh-grid kh-grid-counter" : "kh-grid";
+  el.innerHTML = cat.items.map((w,idx)=>{
+    if(w.seq){
+      // Kartu kata bantu bilangan: tampilkan seluruh konjugasi 1-10
+      // sekaligus (bacaannya berubah tidak beraturan per angka), bukan
+      // cuma satu bacaan "hitotsu" saja seperti kartu kosakata biasa.
+      // Bacaan angka "4" dipakai sebagai pola dasar pembanding karena
+      // paling jarang berubah bentuk (yon-, yom-, dst konsisten).
+      const base = w.seq[3];
+      const fmt = (r) => w.noHighlight ? r : highlightIrregular(r, base);
+      return `
+      <div class="kh-card kh-counter-card" style="animation-delay:${idx*35}ms">
+        <div class="kh-emoji kh-speak-btn" data-say="${w.jp}" title="Dengar cara baca">${w.emoji} <span class="kh-speaker">🔊</span></div>
+        <div class="kh-jp">${w.jp}</div>
+        <div class="kh-id" style="margin-bottom:8px;">${w.desc}</div>
+        <div class="kh-counter-seq">
+          ${w.seq.map((r,i)=>`<div class="kh-counter-cell kh-speak-btn" data-say="${r}"><b>${i+1}</b><span>${fmt(r)}</span></div>`).join("")}
+        </div>
+      </div>`;
+    }
+    return `
+    <div class="kh-card kh-speak-btn" data-say="${w.jp}" style="animation-delay:${idx*35}ms">
+      <div class="kh-emoji">${w.emoji} <span class="kh-speaker">🔊</span></div>
+      <div class="kh-jp">${w.jp}</div>
+      <div class="kh-hira">${w.hira}</div>
+      <div class="kh-romaji">${w.romaji}</div>
+      <div class="kh-id">${w.id}</div>
+    </div>`;
+  }).join("");
+}
+function openKotobaHarian(){
+  const el = document.createElement("div");
+  el.className = "album-overlay";
+  el.innerHTML = `
+    <div class="album-card" style="max-width:480px;">
+      <h3>🍎 Kotoba Sehari-hari</h3>
+      <div style="font-size:11px;color:var(--sub);text-align:center;margin:-4px 0 12px;">
+        Kosakata dasar bergambar — sentuh kategorinya untuk berpindah, sentuh kartunya untuk dengar cara baca 🔊
+      </div>
+      <div class="kh-tabs" id="khTabs">
+        ${Object.keys(KOTOBA_HARIAN).map(key=>`<button class="kh-tab ${key===khCurrentCat?'active':''}" data-cat="${key}">${KOTOBA_HARIAN[key].label}</button>`).join("")}
+      </div>
+      <div class="kh-grid" id="khGrid"></div>
+      <button class="shop-close" id="khCloseBtn">Tutup</button>
+    </div>
+  `;
+  document.body.appendChild(el);
+  renderKotobaHarianGrid();
+  // delegasi 1 listener untuk semua kartu (termasuk yang muncul lagi
+  // setelah ganti tab), supaya sentuh kartu = dengar pengucapannya
+  el.querySelector("#khGrid").addEventListener("click", (ev)=>{
+    const target = ev.target.closest(".kh-speak-btn");
+    if(!target) return;
+    const cardEl = (target.classList.contains("kh-card") || target.classList.contains("kh-counter-cell"))
+      ? target : (target.closest(".kh-card") || target);
+    speakJapanese(target.dataset.say, cardEl);
+  });
+  el.querySelectorAll(".kh-tab").forEach(tab=>{
+    tab.addEventListener("click", ()=>{
+      khCurrentCat = tab.dataset.cat;
+      el.querySelectorAll(".kh-tab").forEach(t=>t.classList.toggle("active", t===tab));
+      renderKotobaHarianGrid();
+      playSFX('click');
+    });
+  });
+  const close = ()=> el.remove();
+  el.querySelector("#khCloseBtn").addEventListener("click", close);
+  el.addEventListener("click", (ev)=>{ if(ev.target === el) close(); });
+}
+
 function openVillageLeaderboard(){
   const rows = getVillageLeaderboard();
   const myNis = student ? student.nis : null;
@@ -4141,6 +4494,7 @@ $("menuHistoryBtn").addEventListener("click", () => showPage('history'));
 $("menuAchvBtn").addEventListener("click", openAchievementGallery);
 $("backFromGameBtn").addEventListener("click", goHome);
 $("backFromStudyBtn").addEventListener("click", goHome);
+$("openKotobaHarianBtn").addEventListener("click", openKotobaHarian);
 $("backFromHistoryBtn").addEventListener("click", goHome);
 
 function showPage(page) {

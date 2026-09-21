@@ -2360,6 +2360,31 @@
 .kh-v2-footer-btn{border:2px solid #a87847;border-radius:12px;background:#fffdf6;color:#684629;padding:8px 24px;font:900 11px "Inter",sans-serif;cursor:pointer;box-shadow:0 3px 0 #b1875b}
 .kh-v2-speaking{border-color:#78a65d!important;background:#eef7e6!important;box-shadow:0 0 0 3px rgba(120,166,93,.15),0 4px 0 #9dbb83!important}
 .kh-v2-speaking .kh-v2-speaker{background:#78a65d;color:#fff;animation:khV2Pulse .55s infinite}
+
+/* Mode Kuis Kotoba — soal visual (emoji besar + 4 pilihan) */
+.kh-v2-quiz-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;border:2px solid #d2703f;background:linear-gradient(135deg,#ff9a5a,#ff6f61);color:#fff;font:900 10px "Inter",sans-serif;cursor:pointer;box-shadow:0 3px 0 #b6502c;margin-left:auto}
+.kh-quiz-shell{max-width:440px}
+.kh-quiz-body{position:relative;z-index:1;padding:26px 20px;text-align:center;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.kh-quiz-emoji{font-size:64px;margin-bottom:14px;filter:drop-shadow(0 4px 6px rgba(80,50,20,.2))}
+.kh-quiz-question{font:700 14px "Inter",sans-serif;color:#5b3b23;margin-bottom:16px;line-height:1.5}
+.kh-quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.kh-quiz-opt{display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 8px;border-radius:14px;border:2px solid #d4b382;background:#fffdf7;cursor:pointer;font:900 18px "Zen Maru Gothic",sans-serif;color:#4f3823}
+.kh-quiz-opt small{font:700 10px "Inter",sans-serif;color:#8b6c4e}
+.kh-quiz-opt:active{transform:scale(.96)}
+.kh-quiz-opt.correct{background:#e6f7e0;border-color:#7ea765;color:#3f6b2c}
+.kh-quiz-opt.wrong{background:#fbe4e0;border-color:#c96a56;color:#8a3624}
+.kh-quiz-feedback{margin-top:16px;font:700 12px "Inter",sans-serif;color:#5b3b23;min-height:20px}
+.kh-quiz-hint{display:block;margin-top:4px;font-size:11px;color:#8b6c4e}
+.kh-quiz-result{display:flex;flex-direction:column;align-items:center;gap:6px}
+.kh-quiz-result-emoji{font-size:56px}
+.kh-quiz-result-score{font:900 20px "Zen Maru Gothic",sans-serif;color:#5b3b23}
+.kh-quiz-result-coin{font:800 13px "Inter",sans-serif;color:#a4741f}
+.kh-quiz-result-actions{display:flex;gap:10px;margin-top:14px}
+.kh-quiz-setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
+.kh-quiz-setup-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:18px 8px;border-radius:16px;border:2px solid #d4b382;background:#fffdf7;cursor:pointer;font:900 26px "Zen Maru Gothic",sans-serif;color:#4f3823}
+.kh-quiz-setup-btn small{font:700 10px "Inter",sans-serif;color:#8b6c4e}
+.kh-quiz-setup-btn:hover{background:#eef7e6;border-color:#7ea765}
+.kh-quiz-setup-btn:active{transform:scale(.96)}
 @keyframes khV2Pulse{50%{transform:scale(1.12)}}
 @media(max-width:760px){.kh-v2-shell{max-height:94vh;border-radius:21px}.kh-v2-head{padding:14px 14px 11px}.kh-v2-title{font-size:19px}.kh-v2-logo{width:47px;height:47px;font-size:26px}.kh-v2-body{padding:12px 11px 16px}.kh-v2-toolbar{padding:10px 11px 6px}.kh-v2-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kh-v2-card{border-radius:15px;padding:8px 6px 10px}.kh-v2-art{height:68px;font-size:39px}.kh-v2-jp{font-size:16px}.kh-v2-seq{grid-template-columns:repeat(5,minmax(0,1fr))}.kh-v2-category-title{font-size:15px}.kh-v2-count{font-size:9px}}
 
@@ -3210,10 +3235,10 @@ const KOTOBA_HARIAN = {
     {emoji:"9️⃣", jp:"九", hira:"きゅう", romaji:"kyuu", id:"Sembilan"},
     {emoji:"🔟", jp:"十", hira:"じゅう", romaji:"juu", id:"Sepuluh"},
     {emoji:"💯", jp:"百", hira:"ひゃく", romaji:"hyaku", id:"Seratus (100)"},
-    {emoji:"🔢", jp:"千", hira:"せん", romaji:"sen", id:"Seribu (1.000)"},
-    {emoji:"🔢", jp:"一万", hira:"いちまん", romaji:"ichiman", id:"Sepuluh ribu (10.000)"},
-    {emoji:"🔢", jp:"十万", hira:"じゅうまん", romaji:"juuman", id:"Seratus ribu (100.000)"},
-    {emoji:"🔢", jp:"百万", hira:"ひゃくまん", romaji:"hyakuman", id:"Satu juta (1.000.000)"}
+    {emoji:"💴", jp:"千", hira:"せん", romaji:"sen", id:"Seribu (1.000)"},
+    {emoji:"💴💴", jp:"一万", hira:"いちまん", romaji:"ichiman", id:"Sepuluh ribu (10.000)"},
+    {emoji:"💰", jp:"十万", hira:"じゅうまん", romaji:"juuman", id:"Seratus ribu (100.000)"},
+    {emoji:"🤑", jp:"百万", hira:"ひゃくまん", romaji:"hyakuman", id:"Satu juta (1.000.000)"}
   ]},
   penghitung: { label: "📏 Kata Bantu Bilangan (助数詞)", items: [
     {emoji:"🔹", jp:"つ", desc:"benda umum/kecil (apel, kursi, ide)", noHighlight: true,
@@ -3396,6 +3421,7 @@ function openKotobaHarian(){
           <span class="kh-v2-stat">🌱 Mode Pemula</span>
           <span class="kh-v2-stat">🔊 Tekan kartu untuk mendengar</span>
           <span class="kh-v2-stat">🗾 Jepang → Indonesia</span>
+          <button class="kh-v2-quiz-btn" id="khV2QuizBtn">🎮 Mode Kuis</button>
         </div>
       </div>
       <div class="kh-v2-toolbar">
@@ -3489,8 +3515,195 @@ function openKotobaHarian(){
   el.querySelector("#khV2Close").addEventListener("click",close);
   el.querySelector("#khV2CloseBottom").addEventListener("click",close);
   el.addEventListener("click",ev=>{if(ev.target===el)close();});
+  el.querySelector("#khV2QuizBtn").addEventListener("click",()=>{
+    playSFX("click");
+    openKotobaKuisSetup();
+  });
 
   renderV2();
+}
+
+/* ============================================================
+   MODE KUIS KOTOBA SEHARI-HARI — soal VISUAL: emoji besar
+   ditampilkan, siswa pilih tulisan Jepang (kanji/katakana) yang
+   benar dari 4 pilihan. Dipisah total dari mesin kuis utama
+   (PATTERNS/VOCAB) — data sendiri, skor sendiri, tidak
+   menyentuh gState/renderQuestion sama sekali supaya aman.
+   ============================================================ */
+function buildKotobaKuisPool(onlyCat){
+  const cats = onlyCat && onlyCat !== "penghitung" ? [onlyCat] : Object.keys(KOTOBA_HARIAN).filter(k=>k!=="penghitung");
+  let pool = [];
+  cats.forEach(k=> pool = pool.concat(KOTOBA_HARIAN[k].items.map(w=>({...w, cat:k}))));
+  return pool;
+}
+function shuffleArr(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+/* Ambil N soal ACAK & CAMPURAN dari seluruh kategori (bukan cuma satu
+   kategori) — kalau N lebih besar dari jumlah kosakata yang ada,
+   kumpulan kosakata diputar ulang (di-acak lagi tiap putaran) supaya
+   tetap bisa membuat kuis 50 atau 100 soal walau total kosakata belum
+   sebanyak itu, tanpa dua soal identik muncul berurutan. */
+function pickKuisQuestions(pool, n){
+  const out = [];
+  while(out.length < n){
+    const batch = shuffleArr(pool);
+    for(const item of batch){
+      if(out.length >= n) break;
+      out.push(item);
+    }
+  }
+  return out;
+}
+/* Layar pemilihan jumlah soal — selalu CAMPURAN semua kategori
+   kosakata (bukan dibatasi ke tab yang lagi dibuka), sesuai
+   permintaan: "soalnya campuran ... 25-50-100". */
+function openKotobaKuisSetup(){
+  const fullPool = buildKotobaKuisPool(null);
+  const maxAvail = fullPool.length;
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Pilih Jumlah Soal">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">🎮</div>
+          <div>
+            <div class="kh-v2-title">Kuis Kotoba Sehari-hari</div>
+            <div class="kh-v2-subtitle">Soal campuran dari semua kategori (${maxAvail} kosakata tersedia)</div>
+          </div>
+          <button class="kh-v2-close" id="khSetupClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body">
+        <div class="kh-quiz-question" style="margin-bottom:18px;">Mau berapa soal?</div>
+        <div class="kh-quiz-setup-grid">
+          ${[10,25,50,100].map(n=>`<button class="kh-quiz-setup-btn" data-n="${n}">${n}<small>soal</small></button>`).join("")}
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#khSetupClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+  el.querySelectorAll(".kh-quiz-setup-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const n = parseInt(btn.dataset.n, 10);
+      playSFX('click');
+      close();
+      openKotobaKuis(n);
+    });
+  });
+}
+function openKotobaKuis(totalQRequested){
+  const fullPool = buildKotobaKuisPool(null); // selalu campuran semua kategori
+  if(fullPool.length < 4){ showGameToast("🌱 Kosakata belum cukup untuk kuis."); return; }
+  const totalQ = totalQRequested || Math.min(10, fullPool.length);
+  const questions = pickKuisQuestions(fullPool, totalQ);
+  let qi = 0, correctCount = 0, locked = false;
+  const missed = []; // dipakai untuk kartu unduhan hasil di akhir
+
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Kuis Kotoba Sehari-hari">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">🎮</div>
+          <div>
+            <div class="kh-v2-title">Kuis Kotoba Sehari-hari</div>
+            <div class="kh-v2-subtitle" id="khQuizProgress">Soal 1 / ${totalQ}</div>
+          </div>
+          <button class="kh-v2-close" id="khQuizClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" id="khQuizBody"></div>
+    </div>`;
+  document.body.appendChild(el);
+  const body = el.querySelector("#khQuizBody");
+  const progress = el.querySelector("#khQuizProgress");
+  const close = ()=>{ if("speechSynthesis" in window) window.speechSynthesis.cancel(); el.remove(); };
+  el.querySelector("#khQuizClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+
+  function renderQuestion(){
+    locked = false;
+    const q = questions[qi];
+    progress.textContent = `Soal ${qi+1} / ${totalQ} · Benar: ${correctCount}`;
+    // 3 pengecoh: utamakan dari kategori sama biar mirip & benar-benar menguji, kalau kurang ambil dari mana saja
+    const sameCat = fullPool.filter(w=> w.cat===q.cat && w.jp!==q.jp);
+    const others = fullPool.filter(w=> w.cat!==q.cat && w.jp!==q.jp);
+    const distractors = shuffleArr(sameCat).slice(0,3);
+    while(distractors.length < 3 && others.length){ distractors.push(others.splice(Math.floor(Math.random()*others.length),1)[0]); }
+    const opts = shuffleArr([q, ...distractors]);
+    body.innerHTML = `
+      <div class="kh-quiz-emoji">${q.emoji}</div>
+      <div class="kh-quiz-question">Tulisan Jepang untuk <b>"${q.id}"</b> adalah?</div>
+      <div class="kh-quiz-opts">
+        ${opts.map((o,i)=>`<button class="kh-quiz-opt" data-correct="${o.jp===q.jp}" data-idx="${i}">${o.jp}<small>${o.hira||''}</small></button>`).join("")}
+      </div>
+      <div class="kh-quiz-feedback" id="khQuizFeedback"></div>
+    `;
+    body.querySelectorAll(".kh-quiz-opt").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        if(locked) return;
+        locked = true;
+        const isCorrect = btn.dataset.correct === "true";
+        body.querySelectorAll(".kh-quiz-opt").forEach(b=>{
+          if(b.dataset.correct === "true") b.classList.add("correct");
+          else if(b === btn) b.classList.add("wrong");
+        });
+        const fb = el.querySelector("#khQuizFeedback");
+        if(isCorrect){
+          correctCount++;
+          playSFX('correct');
+          fb.innerHTML = `✅ Benar! <span class="kh-quiz-hint">${q.jp} (${q.hira||''}) — ${q.id}</span>`;
+        } else {
+          playSFX('wrong');
+          missed.push(q);
+          fb.innerHTML = `❌ Belum tepat. <span class="kh-quiz-hint">Yang benar: ${q.jp} (${q.hira||''}) — ${q.id}</span>`;
+        }
+        setTimeout(()=>{
+          qi++;
+          if(qi < totalQ) renderQuestion();
+          else renderResult();
+        }, 1100);
+      });
+    });
+  }
+
+  function renderResult(){
+    const pct = Math.round((correctCount/totalQ)*100);
+    const coinReward = correctCount * 2;
+    try{
+      const p = getPlayerProfile();
+      p.coins = (p.coins||0) + coinReward;
+      savePlayerProfile(p);
+      if(typeof renderPlayerBar === "function") renderPlayerBar();
+    }catch(e){}
+    spawnConfetti(window.innerWidth/2, window.innerHeight/2, pct>=70?40:18);
+    progress.textContent = "Selesai!";
+    body.innerHTML = `
+      <div class="kh-quiz-result">
+        <div class="kh-quiz-result-emoji">${pct>=80?'🌟':pct>=50?'🌻':'🌱'}</div>
+        <div class="kh-quiz-result-score">${correctCount} / ${totalQ} benar (${pct}%)</div>
+        <div class="kh-quiz-result-coin">🪙 +${coinReward} koin</div>
+        <div class="kh-quiz-result-actions">
+          <button class="kh-v2-footer-btn" id="khQuizDownload">⬇️ Unduh Hasil</button>
+          <button class="kh-v2-footer-btn" id="khQuizRetry">🔁 Ulangi</button>
+          <button class="kh-v2-footer-btn" id="khQuizDone">Selesai ✕</button>
+        </div>
+      </div>`;
+    el.querySelector("#khQuizRetry").addEventListener("click", ()=>{ close(); openKotobaKuisSetup(); });
+    el.querySelector("#khQuizDone").addEventListener("click", close);
+    el.querySelector("#khQuizDownload").addEventListener("click", ()=>{
+      downloadKotobaKuisResult({ totalQ, correctCount, pct, missed });
+    });
+  }
+
+  renderQuestion();
 }
 function openVillageLeaderboard(){
   const rows = getVillageLeaderboard();
@@ -6685,6 +6898,28 @@ function downloadResultCard(grade, acc, total, dateStr){
     correctCount: gState.correctCount,
     total,
     acc
+  });
+}
+
+/* Kartu unduhan hasil khusus Mode Kuis Kotoba Sehari-hari — pakai
+   ulang mesin gambar kartu laporan panen yang sama (renderResultCardToImage)
+   supaya gaya visualnya konsisten dengan kartu hasil kuis utama. */
+function downloadKotobaKuisResult(opts){
+  const grade = gradeFor(opts.pct);
+  const now = new Date();
+  const dateStr = now.toLocaleString("id-ID");
+  renderResultCardToImage({
+    materiLabel: "Kotoba Sehari-hari",
+    paketLabel: `${opts.totalQ} Soal Campuran`,
+    studentName: student ? student.nama : "Pemain",
+    studentNis: student ? student.nis : "-",
+    studentKelas: student ? student.kelas : "-",
+    dateStr,
+    gradeLetter: grade.letter,
+    score: opts.correctCount * 10,
+    correctCount: opts.correctCount,
+    total: opts.totalQ,
+    acc: opts.pct
   });
 }
 

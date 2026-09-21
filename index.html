@@ -2326,6 +2326,16 @@
 .kh-v2-tab{flex:0 0 auto;border:2px solid #d4b382;border-radius:999px;padding:7px 11px;background:#fffdf7;color:#7b5b3d;font:900 10px "Inter",sans-serif;cursor:pointer;white-space:nowrap}
 .kh-v2-tab.active{background:#7ea765;color:#fff;border-color:#648b4e;box-shadow:0 3px 0 #5d7f48}
 .kh-v2-body{position:relative;z-index:1;overflow:auto;padding:14px 16px 18px;min-height:0}
+.kh-v2-cat-menu{grid-template-columns:repeat(2,1fr)!important}
+.kh-v2-cat-tile{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 8px;border-radius:16px;border:2px solid #d4b382;background:#fffdf7;cursor:pointer;animation:khV2CardIn .3s ease backwards;text-align:center}
+.kh-v2-cat-tile:hover{background:#eef7e6;border-color:#7ea765}
+.kh-v2-cat-tile:active{transform:scale(.96)}
+.kh-v2-cat-tile-icon{font-size:32px}
+.kh-v2-cat-tile-label{font:900 12px "Inter",sans-serif;color:#4f3823}
+.kh-v2-cat-tile-count{font:700 10px "Inter",sans-serif;color:#8b6c4e}
+.kh-v2-back-btn{flex:0 0 auto;border:2px solid #d4b382;border-radius:999px;padding:7px 13px;background:#fffdf7;color:#7b5b3d;font:900 11px "Inter",sans-serif;cursor:pointer}
+.kh-v2-back-btn:hover{background:#eef7e6;border-color:#7ea765}
+.kh-v2-back-btn:active{transform:scale(.96)}
 .kh-v2-category-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:2px 2px 11px}
 .kh-v2-category-title{font:900 17px "Zen Maru Gothic",sans-serif;color:#5b3b23}
 .kh-v2-category-desc{font-size:10px;color:#907052;margin-top:2px}
@@ -2385,6 +2395,14 @@
 .kh-quiz-setup-btn small{font:700 10px "Inter",sans-serif;color:#8b6c4e}
 .kh-quiz-setup-btn:hover{background:#eef7e6;border-color:#7ea765}
 .kh-quiz-setup-btn:active{transform:scale(.96)}
+.kh-quiz-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.kh-quiz-mode-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;border-radius:14px;border:2px solid #d4b382;background:#fffdf7;cursor:pointer;font:900 15px "Zen Maru Gothic",sans-serif;color:#4f3823}
+.kh-quiz-mode-btn small{font:700 9.5px "Inter",sans-serif;color:#8b6c4e;white-space:normal;text-align:center;line-height:1.3}
+.kh-quiz-mode-btn.active{background:#eef7e6;border-color:#7ea765;color:#3f6b2c}
+.kh-quiz-mode-btn:active{transform:scale(.96)}
+.kh-quiz-jp-big{font:900 40px "Zen Maru Gothic",sans-serif;color:#4f3823;margin-bottom:2px}
+.kh-quiz-jp-hira{font:700 13px "Inter",sans-serif;color:#8b6c4e;margin-bottom:14px}
+.kh-quiz-result-achv{margin-top:6px;font:900 12px "Inter",sans-serif;color:#a4741f;background:rgba(255,215,0,.15);border:1px solid #d9b34d;border-radius:10px;padding:6px 12px}
 @keyframes khV2Pulse{50%{transform:scale(1.12)}}
 @media(max-width:760px){.kh-v2-shell{max-height:94vh;border-radius:21px}.kh-v2-head{padding:14px 14px 11px}.kh-v2-title{font-size:19px}.kh-v2-logo{width:47px;height:47px;font-size:26px}.kh-v2-body{padding:12px 11px 16px}.kh-v2-toolbar{padding:10px 11px 6px}.kh-v2-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kh-v2-card{border-radius:15px;padding:8px 6px 10px}.kh-v2-art{height:68px;font-size:39px}.kh-v2-jp{font-size:16px}.kh-v2-seq{grid-template-columns:repeat(5,minmax(0,1fr))}.kh-v2-category-title{font-size:15px}.kh-v2-count{font-size:9px}}
 
@@ -3032,7 +3050,9 @@ const ACHIEVEMENT_DEFS = [
   { id: "loyal10",    icon: "📚", label: "Pemain Setia", desc: "Selesaikan 10 sesi kuis" },
   { id: "collector",  icon: "🃏", label: "Kolektor Kotodama", desc: "Kumpulkan 10 kartu Kotodama berbeda" },
   { id: "kirakira",   icon: "✨", label: "Fusi Pertama", desc: "Fusi 3 kartu sama jadi versi Kirakira" },
-  { id: "harvester",  icon: "🌻", label: "Panen Raya", desc: "Isi penuh Kebun Belajar (capai 100% ke level berikutnya)" }
+  { id: "harvester",  icon: "🌻", label: "Panen Raya", desc: "Isi penuh Kebun Belajar (capai 100% ke level berikutnya)" },
+  { id: "kotoba_master",   icon: "🈴", label: "Master Kotoba", desc: "Nilai sempurna (100%) di Kuis Kotoba Sehari-hari, minimal 25 soal" },
+  { id: "kotoba_explorer", icon: "🗺️", label: "Penjelajah Kotoba", desc: "Buka semua kategori di Kotoba Sehari-hari" }
 ];
 function achvStoreKey(){ return `nafis_achv_${(student && student.nis) || "guest"}`; }
 function getUnlockedAchievements(){
@@ -3321,9 +3341,97 @@ const KOTOBA_HARIAN = {
     {emoji:"👩‍⚕️", jp:"看護師", hira:"かんごし", romaji:"kangoshi", id:"Perawat"},
     {emoji:"👨‍🚒", jp:"消防士", hira:"しょうぼうし", romaji:"shouboushi", id:"Pemadam kebakaran"},
     {emoji:"🧑‍💼", jp:"会社員", hira:"かいしゃいん", romaji:"kaishain", id:"Karyawan kantor"}
+  ]},
+  tubuh: { label: "🧍 Bagian Tubuh (体)", items: [
+    {emoji:"👁️", jp:"目", hira:"め", romaji:"me", id:"Mata"},
+    {emoji:"👂", jp:"耳", hira:"みみ", romaji:"mimi", id:"Telinga"},
+    {emoji:"👃", jp:"鼻", hira:"はな", romaji:"hana", id:"Hidung"},
+    {emoji:"👄", jp:"口", hira:"くち", romaji:"kuchi", id:"Mulut"},
+    {emoji:"✋", jp:"手", hira:"て", romaji:"te", id:"Tangan"},
+    {emoji:"🦵", jp:"足", hira:"あし", romaji:"ashi", id:"Kaki"},
+    {emoji:"👤", jp:"頭", hira:"あたま", romaji:"atama", id:"Kepala"},
+    {emoji:"🦷", jp:"歯", hira:"は", romaji:"ha", id:"Gigi"},
+    {emoji:"💇", jp:"髪の毛", hira:"かみのけ", romaji:"kaminoke", id:"Rambut"},
+    {emoji:"❤️", jp:"心臓", hira:"しんぞう", romaji:"shinzou", id:"Jantung"}
+  ]},
+  pakaian: { label: "👕 Pakaian (服)", items: [
+    {emoji:"👕", jp:"シャツ", hira:"シャツ", romaji:"shatsu", id:"Kemeja"},
+    {emoji:"👖", jp:"ズボン", hira:"ズボン", romaji:"zubon", id:"Celana"},
+    {emoji:"👟", jp:"靴", hira:"くつ", romaji:"kutsu", id:"Sepatu"},
+    {emoji:"🧢", jp:"帽子", hira:"ぼうし", romaji:"boushi", id:"Topi"},
+    {emoji:"🧦", jp:"靴下", hira:"くつした", romaji:"kutsushita", id:"Kaos kaki"},
+    {emoji:"👓", jp:"めがね", hira:"めがね", romaji:"megane", id:"Kacamata"},
+    {emoji:"⌚", jp:"時計", hira:"とけい", romaji:"tokei", id:"Jam tangan"},
+    {emoji:"🎒", jp:"かばん", hira:"かばん", romaji:"kaban", id:"Tas"},
+    {emoji:"👗", jp:"スカート", hira:"スカート", romaji:"sukaato", id:"Rok"},
+    {emoji:"👔", jp:"ネクタイ", hira:"ネクタイ", romaji:"nekutai", id:"Dasi"}
+  ]},
+  aktivitas: { label: "🏃 Aktivitas Sehari-hari (活動)", items: [
+    {emoji:"⏰", jp:"起きる", hira:"おきる", romaji:"okiru", id:"Bangun tidur"},
+    {emoji:"😴", jp:"寝る", hira:"ねる", romaji:"neru", id:"Tidur"},
+    {emoji:"🍽️", jp:"食べる", hira:"たべる", romaji:"taberu", id:"Makan"},
+    {emoji:"🥤", jp:"飲む", hira:"のむ", romaji:"nomu", id:"Minum"},
+    {emoji:"🚶", jp:"行く", hira:"いく", romaji:"iku", id:"Pergi"},
+    {emoji:"🏃", jp:"来る", hira:"くる", romaji:"kuru", id:"Datang"},
+    {emoji:"👀", jp:"見る", hira:"みる", romaji:"miru", id:"Melihat/menonton"},
+    {emoji:"📖", jp:"読む", hira:"よむ", romaji:"yomu", id:"Membaca"},
+    {emoji:"✍️", jp:"書く", hira:"かく", romaji:"kaku", id:"Menulis"},
+    {emoji:"🗣️", jp:"話す", hira:"はなす", romaji:"hanasu", id:"Berbicara"},
+    {emoji:"📚", jp:"勉強する", hira:"べんきょうする", romaji:"benkyousuru", id:"Belajar"},
+    {emoji:"💼", jp:"働く", hira:"はたらく", romaji:"hataraku", id:"Bekerja"},
+    {emoji:"🧼", jp:"洗う", hira:"あらう", romaji:"arau", id:"Mencuci"},
+    {emoji:"🎮", jp:"遊ぶ", hira:"あそぶ", romaji:"asobu", id:"Bermain"}
+  ]},
+  sifat: { label: "🎭 Kata Sifat Dasar (形容詞)", items: [
+    {emoji:"🐘", jp:"大きい", hira:"おおきい", romaji:"ookii", id:"Besar"},
+    {emoji:"🐜", jp:"小さい", hira:"ちいさい", romaji:"chiisai", id:"Kecil"},
+    {emoji:"🏔️", jp:"高い", hira:"たかい", romaji:"takai", id:"Tinggi / mahal"},
+    {emoji:"🏷️", jp:"安い", hira:"やすい", romaji:"yasui", id:"Murah"},
+    {emoji:"✨", jp:"新しい", hira:"あたらしい", romaji:"atarashii", id:"Baru"},
+    {emoji:"📜", jp:"古い", hira:"ふるい", romaji:"furui", id:"Lama / tua"},
+    {emoji:"🥵", jp:"暑い", hira:"あつい", romaji:"atsui", id:"Panas (cuaca)"},
+    {emoji:"🥶", jp:"寒い", hira:"さむい", romaji:"samui", id:"Dingin (cuaca)"},
+    {emoji:"⏳", jp:"忙しい", hira:"いそがしい", romaji:"isogashii", id:"Sibuk"},
+    {emoji:"😄", jp:"楽しい", hira:"たのしい", romaji:"tanoshii", id:"Menyenangkan"},
+    {emoji:"🤯", jp:"難しい", hira:"むずかしい", romaji:"muzukashii", id:"Sulit"},
+    {emoji:"👍", jp:"簡単", hira:"かんたん", romaji:"kantan", id:"Mudah"},
+    {emoji:"😋", jp:"おいしい", hira:"おいしい", romaji:"oishii", id:"Enak"},
+    {emoji:"🥰", jp:"かわいい", hira:"かわいい", romaji:"kawaii", id:"Lucu / imut"}
+  ]},
+  binatang: { label: "🐾 Binatang (動物)", items: [
+    {emoji:"🐕", jp:"犬", hira:"いぬ", romaji:"inu", id:"Anjing"},
+    {emoji:"🐈", jp:"猫", hira:"ねこ", romaji:"neko", id:"Kucing"},
+    {emoji:"🐦", jp:"鳥", hira:"とり", romaji:"tori", id:"Burung"},
+    {emoji:"🐟", jp:"魚", hira:"さかな", romaji:"sakana", id:"Ikan"},
+    {emoji:"🐄", jp:"牛", hira:"うし", romaji:"ushi", id:"Sapi"},
+    {emoji:"🐴", jp:"馬", hira:"うま", romaji:"uma", id:"Kuda"},
+    {emoji:"🐷", jp:"豚", hira:"ぶた", romaji:"buta", id:"Babi"},
+    {emoji:"🐑", jp:"羊", hira:"ひつじ", romaji:"hitsuji", id:"Domba"},
+    {emoji:"🦁", jp:"ライオン", hira:"ライオン", romaji:"raion", id:"Singa"},
+    {emoji:"🐘", jp:"象", hira:"ぞう", romaji:"zou", id:"Gajah"},
+    {emoji:"🐒", jp:"猿", hira:"さる", romaji:"saru", id:"Monyet"},
+    {emoji:"🐰", jp:"うさぎ", hira:"うさぎ", romaji:"usagi", id:"Kelinci"},
+    {emoji:"🐢", jp:"カメ", hira:"カメ", romaji:"kame", id:"Kura-kura"},
+    {emoji:"🐍", jp:"ヘビ", hira:"ヘビ", romaji:"hebi", id:"Ular"}
   ]}
 };
 let khCurrentCat = "hari";
+/* Lacak kategori Kotoba yang sudah pernah dibuka (per-siswa, permanen)
+   untuk pencapaian "Penjelajah Kotoba" — buka SEMUA kategori minimal
+   sekali. Tidak mengganggu apa pun di luar ini, cuma catatan progres. */
+function khVisitedKey(){ return `nafis_kh_visited_${(student && student.nis) || "guest"}`; }
+function markKotobaCatVisited(cat){
+  let visited = [];
+  try{ visited = JSON.parse(localStorage.getItem(khVisitedKey())) || []; }catch(e){}
+  if(!visited.includes(cat)) visited.push(cat);
+  localStorage.setItem(khVisitedKey(), JSON.stringify(visited));
+  const allCats = Object.keys(KOTOBA_HARIAN);
+  if(allCats.every(c=> visited.includes(c))){
+    if(unlockAchievement("kotoba_explorer")){
+      showGameToast("🗺️ Pencapaian terbuka: Penjelajah Kotoba!");
+    }
+  }
+}
 /* Ucapkan teks Jepang pakai suara bawaan browser (Web Speech API) —
    tanpa perlu file audio sama sekali. Kalau perangkat tidak punya
    suara ja-JP (jarang terjadi di HP modern), browser akan tetap coba
@@ -3429,12 +3537,10 @@ function openKotobaHarian(){
           <span class="kh-v2-search-icon">🔎</span>
           <input id="khV2Search" class="kh-v2-search" type="search" placeholder="Cari kosakata… contoh: apel, りんご, ringo" autocomplete="off">
         </div>
-        <div class="kh-v2-tabs" id="khV2Tabs">
-          ${Object.keys(KOTOBA_HARIAN).map(key=>`<button class="kh-v2-tab ${key===khCurrentCat?'active':''}" data-cat="${key}">${KOTOBA_HARIAN[key].label}</button>`).join("")}
-        </div>
       </div>
       <div class="kh-v2-body">
-        <div class="kh-v2-category-head">
+        <div class="kh-v2-category-head" id="khV2CategoryHead" style="display:none;">
+          <button class="kh-v2-back-btn" id="khV2BackBtn">← Semua Kategori</button>
           <div>
             <div class="kh-v2-category-title" id="khV2CategoryTitle"></div>
             <div class="kh-v2-category-desc" id="khV2CategoryDesc"></div>
@@ -3452,8 +3558,76 @@ function openKotobaHarian(){
   document.body.appendChild(el);
   const grid=el.querySelector("#khV2Grid");
   const search=el.querySelector("#khV2Search");
+  const catHead=el.querySelector("#khV2CategoryHead");
+  let khView = "menu"; // "menu" = grid semua kategori, "category" = isi satu kategori
 
-  function renderV2(){
+  function renderMenu(){
+    catHead.style.display="none";
+    grid.className="kh-v2-grid kh-v2-cat-menu";
+    const qRaw=(search.value||"").trim().toLowerCase();
+    if(qRaw){
+      // Pencarian global lintas-kategori langsung dari layar menu
+      let results=[];
+      Object.keys(KOTOBA_HARIAN).forEach(key=>{
+        KOTOBA_HARIAN[key].items.forEach(w=>{
+          const hay=[w.jp,w.hira,w.romaji,w.id,w.desc].filter(Boolean).join(" ").toLowerCase();
+          if(hay.includes(qRaw)) results.push({...w, cat:key});
+        });
+      });
+      grid.className="kh-v2-grid";
+      if(!results.length){
+        grid.innerHTML=`<div class="kh-v2-empty" style="grid-column:1/-1">🌾 Kosakata tidak ditemukan.<br><small>Coba kata lain.</small></div>`;
+        return;
+      }
+      grid.innerHTML=results.map((w,idx)=>renderItemCard(w,idx)).join("");
+      return;
+    }
+    grid.innerHTML=Object.keys(KOTOBA_HARIAN).map((key,idx)=>{
+      const cat=KOTOBA_HARIAN[key];
+      const iconEmoji=(cat.items[0]&&cat.items[0].emoji)||"📘";
+      return `<button class="kh-v2-cat-tile" data-cat="${key}" style="animation-delay:${idx*30}ms">
+        <span class="kh-v2-cat-tile-icon">${iconEmoji}</span>
+        <span class="kh-v2-cat-tile-label">${cat.label}</span>
+        <span class="kh-v2-cat-tile-count">${cat.items.length} kata</span>
+      </button>`;
+    }).join("");
+    grid.querySelectorAll(".kh-v2-cat-tile").forEach(tile=>{
+      tile.addEventListener("click",()=>{
+        khCurrentCat=tile.dataset.cat;
+        markKotobaCatVisited(khCurrentCat);
+        khView="category";
+        playSFX("click");
+        search.value="";
+        renderV2();
+        el.querySelector(".kh-v2-body").scrollTop=0;
+      });
+    });
+  }
+
+  function renderItemCard(w,idx){
+    if(w.seq){
+      const base=w.seq[3];
+      const fmt=r=>w.noHighlight?r:highlightIrregular(r,base);
+      return `<div class="kh-v2-card kh-v2-counter" style="animation-delay:${idx*25}ms">
+        <div class="kh-v2-counter-top">
+          <div class="kh-v2-art kh-v2-speak-btn" data-say="${w.jp}" title="Dengar">${w.emoji}<span class="kh-v2-speaker">🔊</span></div>
+          <div><div class="kh-v2-counter-title">${w.jp}</div><div class="kh-v2-counter-desc">${w.desc}</div></div>
+        </div>
+        <div class="kh-v2-seq">${w.seq.map((r,i)=>`<div class="kh-v2-cell kh-v2-speak-btn" data-say="${r}"><b>${i+1}</b><span>${fmt(r)}</span></div>`).join("")}</div>
+      </div>`;
+    }
+    return `<div class="kh-v2-card kh-v2-speak-btn" data-say="${w.jp}" style="animation-delay:${idx*25}ms">
+      <div class="kh-v2-art">${w.emoji}<span class="kh-v2-speaker">🔊</span></div>
+      <div class="kh-v2-jp">${w.jp}</div>
+      <div class="kh-v2-hira">${w.hira}</div>
+      <div class="kh-v2-romaji">${w.romaji}</div>
+      <div class="kh-v2-id">${w.id}</div>
+    </div>`;
+  }
+
+  function renderCategory(){
+    grid.className="kh-v2-grid";
+    catHead.style.display="flex";
     const cat=KOTOBA_HARIAN[khCurrentCat];
     const q=(search.value||"").trim().toLowerCase();
     const items=cat.items.filter(w=>{
@@ -3470,34 +3644,21 @@ function openKotobaHarian(){
       grid.innerHTML=`<div class="kh-v2-empty" style="grid-column:1/-1">🌾 Kosakata tidak ditemukan.<br><small>Coba kata lain.</small></div>`;
       return;
     }
-
-    grid.innerHTML=items.map((w,idx)=>{
-      if(w.seq){
-        const base=w.seq[3];
-        const fmt=r=>w.noHighlight?r:highlightIrregular(r,base);
-        return `<div class="kh-v2-card kh-v2-counter" style="animation-delay:${idx*25}ms">
-          <div class="kh-v2-counter-top">
-            <div class="kh-v2-art kh-v2-speak-btn" data-say="${w.jp}" title="Dengar">${w.emoji}<span class="kh-v2-speaker">🔊</span></div>
-            <div><div class="kh-v2-counter-title">${w.jp}</div><div class="kh-v2-counter-desc">${w.desc}</div></div>
-          </div>
-          <div class="kh-v2-seq">${w.seq.map((r,i)=>`<div class="kh-v2-cell kh-v2-speak-btn" data-say="${r}"><b>${i+1}</b><span>${fmt(r)}</span></div>`).join("")}</div>
-        </div>`;
-      }
-      return `<div class="kh-v2-card kh-v2-speak-btn" data-say="${w.jp}" style="animation-delay:${idx*25}ms">
-        <div class="kh-v2-art">${w.emoji}<span class="kh-v2-speaker">🔊</span></div>
-        <div class="kh-v2-jp">${w.jp}</div>
-        <div class="kh-v2-hira">${w.hira}</div>
-        <div class="kh-v2-romaji">${w.romaji}</div>
-        <div class="kh-v2-id">${w.id}</div>
-      </div>`;
-    }).join("");
+    grid.innerHTML=items.map((w,idx)=>renderItemCard(w,idx)).join("");
   }
 
-  el.querySelectorAll(".kh-v2-tab").forEach(tab=>tab.addEventListener("click",()=>{
-    khCurrentCat=tab.dataset.cat;
-    el.querySelectorAll(".kh-v2-tab").forEach(t=>t.classList.toggle("active",t===tab));
-    renderV2(); playSFX("click"); el.querySelector(".kh-v2-body").scrollTop=0;
-  }));
+  function renderV2(){
+    if(khView==="menu") renderMenu();
+    else renderCategory();
+  }
+
+  el.querySelector("#khV2BackBtn").addEventListener("click",()=>{
+    khView="menu";
+    search.value="";
+    playSFX("click");
+    renderV2();
+    el.querySelector(".kh-v2-body").scrollTop=0;
+  });
 
   grid.addEventListener("click",ev=>{
     const target=ev.target.closest(".kh-v2-speak-btn");
@@ -3563,6 +3724,7 @@ function pickKuisQuestions(pool, n){
 function openKotobaKuisSetup(){
   const fullPool = buildKotobaKuisPool(null);
   const maxAvail = fullPool.length;
+  let selectedMode = "visual";
   const el = document.createElement("div");
   el.className = "kh-v2-overlay";
   el.innerHTML = `
@@ -3578,7 +3740,12 @@ function openKotobaKuisSetup(){
         </div>
       </div>
       <div class="kh-quiz-body">
-        <div class="kh-quiz-question" style="margin-bottom:18px;">Mau berapa soal?</div>
+        <div class="kh-quiz-question" style="margin-bottom:10px;">Arah soal?</div>
+        <div class="kh-quiz-mode-grid">
+          <button class="kh-quiz-mode-btn active" data-mode="visual">🖼️ ➜ 🇯🇵<small>Lihat gambar, pilih tulisan Jepang</small></button>
+          <button class="kh-quiz-mode-btn" data-mode="reverse">🇯🇵 ➜ 🇮🇩<small>Lihat tulisan Jepang, pilih artinya</small></button>
+        </div>
+        <div class="kh-quiz-question" style="margin:18px 0 10px;">Mau berapa soal?</div>
         <div class="kh-quiz-setup-grid">
           ${[10,25,50,100].map(n=>`<button class="kh-quiz-setup-btn" data-n="${n}">${n}<small>soal</small></button>`).join("")}
         </div>
@@ -3588,16 +3755,24 @@ function openKotobaKuisSetup(){
   const close = ()=> el.remove();
   el.querySelector("#khSetupClose").addEventListener("click", close);
   el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+  el.querySelectorAll(".kh-quiz-mode-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      selectedMode = btn.dataset.mode;
+      el.querySelectorAll(".kh-quiz-mode-btn").forEach(b=>b.classList.toggle("active", b===btn));
+      playSFX('click');
+    });
+  });
   el.querySelectorAll(".kh-quiz-setup-btn").forEach(btn=>{
     btn.addEventListener("click", ()=>{
       const n = parseInt(btn.dataset.n, 10);
       playSFX('click');
       close();
-      openKotobaKuis(n);
+      openKotobaKuis(n, selectedMode);
     });
   });
 }
-function openKotobaKuis(totalQRequested){
+function openKotobaKuis(totalQRequested, mode){
+  mode = mode || "visual";
   const fullPool = buildKotobaKuisPool(null); // selalu campuran semua kategori
   if(fullPool.length < 4){ showGameToast("🌱 Kosakata belum cukup untuk kuis."); return; }
   const totalQ = totalQRequested || Math.min(10, fullPool.length);
@@ -3638,14 +3813,26 @@ function openKotobaKuis(totalQRequested){
     const distractors = shuffleArr(sameCat).slice(0,3);
     while(distractors.length < 3 && others.length){ distractors.push(others.splice(Math.floor(Math.random()*others.length),1)[0]); }
     const opts = shuffleArr([q, ...distractors]);
-    body.innerHTML = `
-      <div class="kh-quiz-emoji">${q.emoji}</div>
-      <div class="kh-quiz-question">Tulisan Jepang untuk <b>"${q.id}"</b> adalah?</div>
-      <div class="kh-quiz-opts">
-        ${opts.map((o,i)=>`<button class="kh-quiz-opt" data-correct="${o.jp===q.jp}" data-idx="${i}">${o.jp}<small>${o.hira||''}</small></button>`).join("")}
-      </div>
-      <div class="kh-quiz-feedback" id="khQuizFeedback"></div>
-    `;
+    if(mode === "reverse"){
+      body.innerHTML = `
+        <div class="kh-quiz-jp-big">${q.jp}</div>
+        <div class="kh-quiz-jp-hira">${q.hira||''}</div>
+        <div class="kh-quiz-question">Artinya dalam Bahasa Indonesia?</div>
+        <div class="kh-quiz-opts">
+          ${opts.map((o,i)=>`<button class="kh-quiz-opt" data-correct="${o.jp===q.jp}" data-idx="${i}">${o.id}</button>`).join("")}
+        </div>
+        <div class="kh-quiz-feedback" id="khQuizFeedback"></div>
+      `;
+    } else {
+      body.innerHTML = `
+        <div class="kh-quiz-emoji">${q.emoji}</div>
+        <div class="kh-quiz-question">Tulisan Jepang untuk <b>"${q.id}"</b> adalah?</div>
+        <div class="kh-quiz-opts">
+          ${opts.map((o,i)=>`<button class="kh-quiz-opt" data-correct="${o.jp===q.jp}" data-idx="${i}">${o.jp}<small>${o.hira||''}</small></button>`).join("")}
+        </div>
+        <div class="kh-quiz-feedback" id="khQuizFeedback"></div>
+      `;
+    }
     body.querySelectorAll(".kh-quiz-opt").forEach(btn=>{
       btn.addEventListener("click", ()=>{
         if(locked) return;
@@ -3683,6 +3870,12 @@ function openKotobaKuis(totalQRequested){
       savePlayerProfile(p);
       if(typeof renderPlayerBar === "function") renderPlayerBar();
     }catch(e){}
+    let newAchvHtml = "";
+    if(pct === 100 && totalQ >= 25){
+      if(unlockAchievement("kotoba_master")){
+        newAchvHtml = `<div class="kh-quiz-result-achv">🈴 Pencapaian baru: Master Kotoba!</div>`;
+      }
+    }
     spawnConfetti(window.innerWidth/2, window.innerHeight/2, pct>=70?40:18);
     progress.textContent = "Selesai!";
     body.innerHTML = `
@@ -3690,6 +3883,7 @@ function openKotobaKuis(totalQRequested){
         <div class="kh-quiz-result-emoji">${pct>=80?'🌟':pct>=50?'🌻':'🌱'}</div>
         <div class="kh-quiz-result-score">${correctCount} / ${totalQ} benar (${pct}%)</div>
         <div class="kh-quiz-result-coin">🪙 +${coinReward} koin</div>
+        ${newAchvHtml}
         <div class="kh-quiz-result-actions">
           <button class="kh-v2-footer-btn" id="khQuizDownload">⬇️ Unduh Hasil</button>
           <button class="kh-v2-footer-btn" id="khQuizRetry">🔁 Ulangi</button>
@@ -3699,7 +3893,7 @@ function openKotobaKuis(totalQRequested){
     el.querySelector("#khQuizRetry").addEventListener("click", ()=>{ close(); openKotobaKuisSetup(); });
     el.querySelector("#khQuizDone").addEventListener("click", close);
     el.querySelector("#khQuizDownload").addEventListener("click", ()=>{
-      downloadKotobaKuisResult({ totalQ, correctCount, pct, missed });
+      downloadKotobaKuisResult({ totalQ, correctCount, pct, missed, mode });
     });
   }
 
@@ -5496,6 +5690,7 @@ function renderStart(){
             <button data-v="jft"><span class="opt-icon">🏆</span><span class="opt-label">Tryout JFT<small>Paket Lengkap</small></span></button>
             <button data-v="irodori"><span class="opt-icon">🈴</span><span class="opt-label">Irodori<small>Shokyu 1 / 2</small></span></button>
             <button data-v="listening"><span class="opt-icon">🎧</span><span class="opt-label">Dengar &amp; Tebak</span></button>
+            <button data-v="kotobaharian"><span class="opt-icon">📚</span><span class="opt-label">Kotoba Harian<small>Kosakata Visual</small></span></button>
           </div>
           <div class="voice-picker-link" id="voicePickerLink" style="display:none;">🔊 Pilih Suara Jepang (uji &amp; pilih sendiri)</div>
         </div>
@@ -5579,6 +5774,21 @@ function renderStart(){
         // Tryout JFT selalu 1 set utuh, tidak ada pilihan jumlah soal / mode ujian berjenjang.
         $("countBox") && ($("countBox").style.display = 'none');
         $("packetBox") && ($("packetBox").style.display = 'none');
+      } else if(setupType === 'kotobaharian'){
+        // Kotoba Harian punya mesin & data sendiri (KOTOBA_HARIAN), sama
+        // sekali di luar PATTERNS/VOCAB — sembunyikan semua kotak setup
+        // kuis utama (cakupan level, jumlah soal, mode ujian berjenjang)
+        // karena pengaturannya (arah soal + jumlah 10/25/50/100) sudah
+        // ditangani sendiri lewat openKotobaKuisSetup() saat tombol
+        // Mulai ditekan.
+        if(scopeBox) scopeBox.style.display = 'none';
+        $("countBox") && ($("countBox").style.display = 'none');
+        $("packetBox") && ($("packetBox").style.display = 'none');
+        // Mode Ujian berjenjang tidak berlaku untuk tipe ini -> paksa balik ke Latihan Bebas
+        if(setupMode === 'ujian'){
+          setupMode = 'latihan';
+          document.querySelectorAll("#modeRow button").forEach(x=>x.classList.toggle("active", x.dataset.v==='latihan'));
+        }
       } else {
         document.querySelectorAll(".lvl-scope-btn").forEach(x=> x.style.display = '');
         document.querySelectorAll(".irodori-scope-btn").forEach(x=> x.style.display = 'none');
@@ -5607,6 +5817,7 @@ function renderStart(){
   });
 
   $("startBtn").addEventListener("click", ()=>{
+    if(setupType === 'kotobaharian'){ playSFX('click'); openKotobaKuisSetup(); return; }
     if(setupMode === 'memory') startMemoryMatch();
     else if(setupMode === 'puzzle') startWordPuzzle();
     else if(setupMode === 'trivia') renderTriviaStart();
@@ -6910,7 +7121,7 @@ function downloadKotobaKuisResult(opts){
   const dateStr = now.toLocaleString("id-ID");
   renderResultCardToImage({
     materiLabel: "Kotoba Sehari-hari",
-    paketLabel: `${opts.totalQ} Soal Campuran`,
+    paketLabel: `${opts.totalQ} Soal Campuran (${opts.mode==='reverse'?'JP→ID':'Visual→JP'})`,
     studentName: student ? student.nama : "Pemain",
     studentNis: student ? student.nis : "-",
     studentKelas: student ? student.kelas : "-",

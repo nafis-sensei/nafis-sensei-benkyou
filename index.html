@@ -1408,6 +1408,8 @@
   .kotoba-harian-cta .khc-text b { font-size: 15px; }
   .kotoba-harian-cta .khc-text small { font-size: 11px; opacity: .92; line-height: 1.4; }
   .kotoba-harian-cta .khc-arrow { font-size: 22px; opacity: .85; flex-shrink: 0; }
+  .fc-jt-cta { background: linear-gradient(135deg, #6a8dff, #7c5cff); box-shadow: 0 6px 0 #4b3fb0, 0 10px 20px rgba(75,63,176,.3); }
+  .fc-jt-cta:active { box-shadow: 0 3px 0 #4b3fb0; }
 
   .dash-menu-btn {
     display: flex; align-items: center; gap: 14px; text-align: left;
@@ -2415,6 +2417,52 @@ rt{color:#7b5b3d;font-weight:800;}
 .vk-kategori-forms{font:700 11px "Inter",sans-serif;color:#8b6c4e}
 .vk-form-tag{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;background:rgba(126,167,101,.22);color:#3f6b2c;font:900 15px "Zen Maru Gothic","Inter",sans-serif;margin-bottom:14px;border:2px solid rgba(126,167,101,.45)}
 .vk-form-tag-id{font:800 12px "Inter",sans-serif;color:#5c8a48;opacity:.9}
+
+/* ===== Flashcard Jidoushi & Tadoushi ===== */
+.fcjt-shell{max-width:480px}
+.fcjt-body{padding:18px 18px 22px}
+.fcjt-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.fcjt-progress-track{flex:1;height:8px;border-radius:99px;background:#e8d9bb;overflow:hidden}
+.fcjt-progress-fill{height:100%;background:linear-gradient(90deg,#7ea765,#5c8a48);transition:width .3s ease}
+.fcjt-shuffle-btn{flex-shrink:0;width:38px;height:38px;border-radius:12px;border:2px solid #d4b382;background:#fffdf7;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+.fcjt-shuffle-btn.active{background:linear-gradient(135deg,#6a8dff,#7c5cff);border-color:#4b3fb0;filter:none}
+.fcjt-shuffle-btn:active{transform:scale(.92)}
+
+.fcjt-stage{perspective:1400px;width:100%;height:360px;margin-bottom:14px}
+.fcjt-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,.2,.2,1);cursor:pointer}
+.fcjt-card.fcjt-flipped{transform:rotateY(180deg)}
+.fcjt-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;border:3px solid #c99a5b;box-shadow:0 8px 0 #a87b45,0 14px 22px rgba(92,58,29,.18);padding:18px 14px;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
+.fcjt-front{background:linear-gradient(180deg,#fffdf7,#fbf0d8)}
+.fcjt-back{background:linear-gradient(180deg,#f3f9ee,#e6f3dc);transform:rotateY(180deg)}
+
+.fcjt-pair{display:flex;align-items:stretch;justify-content:space-between;gap:8px;flex:1}
+.fcjt-col{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center}
+.fcjt-divider{width:2px;align-self:stretch;background:repeating-linear-gradient(180deg,#c9b28a 0 6px,transparent 6px 12px);margin:6px 0}
+.fcjt-badge{display:inline-block;padding:4px 12px;border-radius:999px;font:900 11px "Inter",sans-serif;color:#fff;white-space:nowrap}
+.fcjt-badge-ji{background:#4a7fd4}
+.fcjt-badge-ta{background:#d4574a}
+.fcjt-word{position:relative;font:900 26px "Zen Maru Gothic",sans-serif;color:#4f3823;cursor:pointer;padding:4px 8px;border-radius:10px;line-height:1.3}
+.fcjt-word.kh-speaking{background:rgba(0,229,255,.12)}
+.fcjt-word .fcjt-speaker{display:inline-block;margin-left:4px;font-size:14px;vertical-align:middle;opacity:.55}
+.fcjt-word.kh-speaking .fcjt-speaker{opacity:1;animation:khSpeakPulse .5s ease-in-out infinite}
+.fcjt-romaji{font:700 12px "Inter",sans-serif;color:#8b6c4e;font-style:italic}
+.fcjt-meaning{font:900 17px "Zen Maru Gothic","Inter",sans-serif;color:#3f6b2c}
+.fcjt-example{background:rgba(255,255,255,.55);border:1.5px dashed #8fae78;border-radius:10px;padding:8px 10px;min-height:56px;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.fcjt-example-jp{font:800 13px "Zen Maru Gothic",sans-serif;color:#2e6b2e}
+.fcjt-example-id{font:700 11.5px "Inter",sans-serif;color:#5a5a5a;font-style:italic}
+.fcjt-tap-tip{text-align:center;font:700 10.5px "Inter",sans-serif;color:#a4906a;margin-top:10px}
+
+.fcjt-hint{text-align:center;font:700 11px "Inter",sans-serif;color:#8b6c4e;margin-bottom:14px}
+.fcjt-nav{display:flex;gap:10px}
+.fcjt-nav-btn{flex:1;padding:13px;border-radius:14px;border:2px solid #d4b382;background:#fffdf7;color:#5c3a21;font:900 14px "Inter",sans-serif;cursor:pointer}
+.fcjt-nav-btn:active{transform:scale(.97)}
+.fcjt-nav-primary{background:linear-gradient(135deg,#8fce6f,#5c8a48);border-color:#466b37;color:#fff;box-shadow:0 4px 0 #3d5a2f}
+.fcjt-nav-primary:active{box-shadow:0 1px 0 #3d5a2f}
+@media(max-width:480px){
+  .fcjt-word{font-size:21px}
+  .fcjt-stage{height:380px}
+  .fcjt-badge{font-size:10px;padding:3px 9px}
+}
 .kh-quiz-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
 .kh-quiz-mode-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;border-radius:14px;border:2px solid #d4b382;background:#fffdf7;cursor:pointer;font:900 15px "Zen Maru Gothic",sans-serif;color:#4f3823}
 .kh-quiz-mode-btn small{font:700 9.5px "Inter",sans-serif;color:#8b6c4e;white-space:normal;text-align:center;line-height:1.3}
@@ -2583,6 +2631,15 @@ rt{color:#7b5b3d;font-weight:800;}
         <span class="khc-text">
           <b>Kotoba Sehari-hari <span style="font-size:10px;opacity:.8;">ことば</span></b>
           <small>Belajar kosakata Jepang dari benda dan situasi sehari-hari • dengarkan pelafalan • cari kata dengan cepat</small>
+        </span>
+        <span class="khc-arrow">›</span>
+      </button>
+
+      <button class="kotoba-harian-cta fc-jt-cta" id="openFlashcardJTBtn" type="button">
+        <span class="khc-emoji">🔄🃏</span>
+        <span class="khc-text">
+          <b>Flashcard Jidoushi &amp; Tadoushi <span style="font-size:10px;opacity:.8;">自動詞・他動詞</span></b>
+          <small>81 pasang kata kerja intransitif/transitif • kanji+furigana • kalimat contoh • dengarkan pelafalan</small>
         </span>
         <span class="khc-arrow">›</span>
       </button>
@@ -5178,6 +5235,7 @@ $("menuAchvBtn").addEventListener("click", openAchievementGallery);
 $("backFromGameBtn").addEventListener("click", goHome);
 $("backFromStudyBtn").addEventListener("click", goHome);
 $("openKotobaHarianBtn").addEventListener("click", openKotobaHarian);
+$("openFlashcardJTBtn").addEventListener("click", openFlashcardJT);
 $("backFromHistoryBtn").addEventListener("click", goHome);
 
 function showPage(page) {
@@ -7329,6 +7387,166 @@ function jtShuffle(arr){
   for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
   return a;
 }
+/* ============================================================
+   FLASHCARD JIDOUSHI & TADOUSHI — 81 pasang kata kerja, murni untuk
+   dibaca-baca/dihafal (bukan kuis), dengan kartu 3D flip, kanji+furigana,
+   kalimat contoh, dan pelafalan (Web Speech API). Berdiri sendiri, tidak
+   menyentuh PATTERNS/VOCAB atau JIDOUSHI_TADOUSHI_SOAL (data kuis) sama sekali.
+   ============================================================ */
+const JIDOUSHI_TADOUSHI_FLASHCARDS = [{"ji_jp": "<ruby>開<rt>あ</rt></ruby>きます", "ji_kana": "あきます", "ji_ro": "Akimasu", "ji_id": "Terbuka", "ji_ex_jp": "ドアが開きます", "ji_ex_id": "(Pintu terbuka)", "ta_jp": "<ruby>開<rt>あ</rt></ruby>けます", "ta_kana": "あけます", "ta_ro": "Akemasu", "ta_id": "Membuka", "ta_ex_jp": "ドアを開けます", "ta_ex_id": "(Membuka pintu)"}, {"ji_jp": "<ruby>閉<rt>し</rt></ruby>まります", "ji_kana": "しまります", "ji_ro": "Shimarimasu", "ji_id": "Tertutup", "ji_ex_jp": "窓が閉まります", "ji_ex_id": "(Jendela tertutup)", "ta_jp": "<ruby>閉<rt>し</rt></ruby>めます", "ta_kana": "しめます", "ta_ro": "Shimemasu", "ta_id": "Menutup", "ta_ex_jp": "窓を閉めます", "ta_ex_id": "(Menutup jendela)"}, {"ji_jp": "<ruby>始<rt>はじ</rt></ruby>まります", "ji_kana": "はじまります", "ji_ro": "Hajimarimasu", "ji_id": "Dimulai", "ji_ex_jp": "映画が始まります", "ji_ex_id": "(Film dimulai)", "ta_jp": "<ruby>始<rt>はじ</rt></ruby>めます", "ta_kana": "はじめます", "ta_ro": "Hajimemasu", "ta_id": "Memulai", "ta_ex_jp": "会議を始めます", "ta_ex_id": "(Memulai rapat)"}, {"ji_jp": "<ruby>終<rt>お</rt></ruby>わります", "ji_kana": "おわります", "ji_ro": "Owarimasu", "ji_id": "Selesai", "ji_ex_jp": "授業が終わります", "ji_ex_id": "(Pelajaran selesai)", "ta_jp": "<ruby>終<rt>お</rt></ruby>えます", "ta_kana": "おえます", "ta_ro": "Oemasu", "ta_id": "Menyelesaikan", "ta_ex_jp": "仕事を終えます", "ta_ex_id": "(Menyelesaikan pekerjaan)"}, {"ji_jp": "<ruby>上<rt>あ</rt></ruby>がります", "ji_kana": "あがります", "ji_ro": "Agarimasu", "ji_id": "Naik", "ji_ex_jp": "値段が上がります", "ji_ex_id": "(Harga naik)", "ta_jp": "<ruby>上<rt>あ</rt></ruby>げます", "ta_kana": "あげます", "ta_ro": "Agemasu", "ta_id": "Menaikkan", "ta_ex_jp": "手を上げます", "ta_ex_id": "(Menaikkan tangan)"}, {"ji_jp": "<ruby>下<rt>さ</rt></ruby>がります", "ji_kana": "さがります", "ji_ro": "Sagarimasu", "ji_id": "Turun", "ji_ex_jp": "熱が下がります", "ji_ex_id": "(Demam turun)", "ta_jp": "<ruby>下<rt>さ</rt></ruby>げます", "ta_kana": "さげます", "ta_ro": "Sagemasu", "ta_id": "Menurunkan", "ta_ex_jp": "頭を下げます", "ta_ex_id": "(Menundukkan kepala)"}, {"ji_jp": "<ruby>入<rt>はい</rt></ruby>ります", "ji_kana": "はいります", "ji_ro": "Hairimasu", "ji_id": "Masuk", "ji_ex_jp": "部屋に入ります", "ji_ex_id": "(Masuk ke kamar)", "ta_jp": "<ruby>入<rt>い</rt></ruby>れます", "ta_kana": "いれます", "ta_ro": "Iremasu", "ta_id": "Memasukkan", "ta_ex_jp": "お茶を入れます", "ta_ex_id": "(Memasukkan/menuang teh)"}, {"ji_jp": "<ruby>出<rt>で</rt></ruby>ます", "ji_kana": "でます", "ji_ro": "Demasu", "ji_id": "Keluar", "ji_ex_jp": "外に出ます", "ji_ex_id": "(Keluar)", "ta_jp": "<ruby>出<rt>だ</rt></ruby>します", "ta_kana": "だします", "ta_ro": "Dashimasu", "ta_id": "Mengeluarkan", "ta_ex_jp": "ゴミを出します", "ta_ex_id": "(Mengeluarkan sampah)"}, {"ji_jp": "<ruby>点<rt>つ</rt></ruby>きます", "ji_kana": "つきます", "ji_ro": "Tsukimasu", "ji_id": "Menyala", "ji_ex_jp": "電気がつきます", "ji_ex_id": "(Lampu menyala)", "ta_jp": "<ruby>点<rt>つ</rt></ruby>けます", "ta_kana": "つけます", "ta_ro": "Tsukemasu", "ta_id": "Menyalakan", "ta_ex_jp": "電気をつけます", "ta_ex_id": "(Menyalakan lampu)"}, {"ji_jp": "<ruby>消<rt>き</rt></ruby>えます", "ji_kana": "きえます", "ji_ro": "Kiemasu", "ji_id": "Padam", "ji_ex_jp": "火が消えます", "ji_ex_id": "(Api padam)", "ta_jp": "<ruby>消<rt>け</rt></ruby>します", "ta_kana": "けします", "ta_ro": "Keshimasu", "ta_id": "Mematikan", "ta_ex_jp": "テレビを消します", "ta_ex_id": "(Mematikan TV)"}, {"ji_jp": "<ruby>起<rt>お</rt></ruby>きます", "ji_kana": "おきます", "ji_ro": "Okimasu", "ji_id": "Bangun", "ji_ex_jp": "早く起きます", "ji_ex_id": "(Bangun cepat)", "ta_jp": "<ruby>起<rt>お</rt></ruby>こします", "ta_kana": "おこします", "ta_ro": "Okoshimasu", "ta_id": "Membangunkan", "ta_ex_jp": "子供を起こします", "ta_ex_id": "(Membangunkan anak)"}, {"ji_jp": "<ruby>落<rt>お</rt></ruby>ちます", "ji_kana": "おちます", "ji_ro": "Ochimasu", "ji_id": "Jatuh", "ji_ex_jp": "りんごが落ちます", "ji_ex_id": "(Apel jatuh)", "ta_jp": "<ruby>落<rt>お</rt></ruby>とします", "ta_kana": "おとします", "ta_ro": "Otoshimasu", "ta_id": "Menjatuhkan", "ta_ex_jp": "財布を落とします", "ta_ex_id": "(Menjatuhkan dompet)"}, {"ji_jp": "<ruby>決<rt>き</rt></ruby>まります", "ji_kana": "きまります", "ji_ro": "Kimarimasu", "ji_id": "Ditetapkan", "ji_ex_jp": "予定が決まります", "ji_ex_id": "(Jadwal ditetapkan)", "ta_jp": "<ruby>決<rt>き</rt></ruby>めます", "ta_kana": "きめます", "ta_ro": "Kimemasu", "ta_id": "Menetapkan", "ta_ex_jp": "ルールを決めます", "ta_ex_id": "(Menetapkan aturan)"}, {"ji_jp": "<ruby>集<rt>あつ</rt></ruby>まります", "ji_kana": "あつまります", "ji_ro": "Atsumarimasu", "ji_id": "Berkumpul", "ji_ex_jp": "人が集まります", "ji_ex_id": "(Orang berkumpul)", "ta_jp": "<ruby>集<rt>あつ</rt></ruby>めます", "ta_kana": "あつめます", "ta_ro": "Atsumemasu", "ta_id": "Mengumpulkan", "ta_ex_jp": "切手を集めます", "ta_ex_id": "(Mengumpulkan prangko)"}, {"ji_jp": "<ruby>変<rt>か</rt></ruby>わります", "ji_kana": "かわります", "ji_ro": "Kawarimasu", "ji_id": "Berubah", "ji_ex_jp": "信号が変わります", "ji_ex_id": "(Lampu berubah)", "ta_jp": "<ruby>変<rt>か</rt></ruby>えます", "ta_kana": "かえます", "ta_ro": "Kaemasu", "ta_id": "Mengubah", "ta_ex_jp": "予定を変えます", "ta_ex_id": "(Mengubah jadwal)"}, {"ji_jp": "<ruby>治<rt>なお</rt></ruby>ります", "ji_kana": "なおります", "ji_ro": "Naorimasu", "ji_id": "Sembuh", "ji_ex_jp": "病気が治ります", "ji_ex_id": "(Penyakit sembuh)", "ta_jp": "<ruby>直<rt>なお</rt></ruby>します", "ta_kana": "なおします", "ta_ro": "Naoshimasu", "ta_id": "Menyembuhkan", "ta_ex_jp": "パソコンを直します", "ta_ex_id": "(Memperbaiki komputer)"}, {"ji_jp": "<ruby>壊<rt>こわ</rt></ruby>れます", "ji_kana": "こわれます", "ji_ro": "Kowaremasu", "ji_id": "Rusak", "ji_ex_jp": "時計が壊れます", "ji_ex_id": "(Jam rusak)", "ta_jp": "<ruby>壊<rt>こわ</rt></ruby>します", "ta_kana": "こわします", "ta_ro": "Kowashimasu", "ta_id": "Merusak", "ta_ex_jp": "おもちゃを壊します", "ta_ex_id": "(Merusak mainan)"}, {"ji_jp": "<ruby>増<rt>ふ</rt></ruby>えます", "ji_kana": "ふえます", "ji_ro": "Fuemasu", "ji_id": "Bertambah", "ji_ex_jp": "貯金が増えます", "ji_ex_id": "(Tabungan bertambah)", "ta_jp": "<ruby>増<rt>ふ</rt></ruby>やします", "ta_kana": "ふやします", "ta_ro": "Fuyashimasu", "ta_id": "Menambah", "ta_ex_jp": "財産を増やします", "ta_ex_id": "(Menambah harta)"}, {"ji_jp": "<ruby>減<rt>へ</rt></ruby>ります", "ji_kana": "へります", "ji_ro": "Herimasu", "ji_id": "Berkurang", "ji_ex_jp": "体重が減ります", "ji_ex_id": "(Berat badan berkurang)", "ta_jp": "<ruby>減<rt>へ</rt></ruby>らします", "ta_kana": "へらします", "ta_ro": "Herashimasu", "ta_id": "Mengurangi", "ta_ex_jp": "無駄を減らします", "ta_ex_id": "(Mengurangi pemborosan)"}, {"ji_jp": "<ruby>動<rt>うご</rt></ruby>きます", "ji_kana": "うごきます", "ji_ro": "Ugokimasu", "ji_id": "Bergerak", "ji_ex_jp": "機械が動きます", "ji_ex_id": "(Mesin bergerak)", "ta_jp": "<ruby>動<rt>うご</rt></ruby>かします", "ta_kana": "うごかします", "ta_ro": "Ugokashimasu", "ta_id": "Menggerakkan", "ta_ex_jp": "機械を動かします", "ta_ex_id": "(Menggerakkan mesin)"}, {"ji_jp": "<ruby>止<rt>と</rt></ruby>まります", "ji_kana": "とまります", "ji_ro": "Tomarimasu", "ji_id": "Berhenti", "ji_ex_jp": "車が止まります", "ji_ex_id": "(Mobil berhenti)", "ta_jp": "<ruby>止<rt>と</rt></ruby>めます", "ta_kana": "とめます", "ta_ro": "Tomemasu", "ta_id": "Menghentikan", "ta_ex_jp": "車を止めます", "ta_ex_id": "(Menghentikan mobil)"}, {"ji_jp": "<ruby>続<rt>つづ</rt></ruby>きます", "ji_kana": "つづきます", "ji_ro": "Tsuzukimasu", "ji_id": "Berlanjut", "ji_ex_jp": "雨が続きます", "ji_ex_id": "(Hujan berlanjut)", "ta_jp": "<ruby>続<rt>つづ</rt></ruby>けます", "ta_kana": "つづけます", "ta_ro": "Tsuzukemasu", "ta_id": "Melanjutkan", "ta_ex_jp": "勉強を続けます", "ta_ex_id": "(Melanjutkan belajar)"}, {"ji_jp": "<ruby>見<rt>み</rt></ruby>つかります", "ji_kana": "みつかります", "ji_ro": "Mitsukarimasu", "ji_id": "Ditemukan", "ji_ex_jp": "鍵が見つかります", "ji_ex_id": "(Kunci ditemukan)", "ta_jp": "<ruby>見<rt>み</rt></ruby>つけます", "ta_kana": "みつけます", "ta_ro": "Mitsukemasu", "ta_id": "Menemukan", "ta_ex_jp": "仕事を見つけます", "ta_ex_id": "(Menemukan pekerjaan)"}, {"ji_jp": "<ruby>生<rt>う</rt></ruby>まれます", "ji_kana": "うまれます", "ji_ro": "Umaremasu", "ji_id": "Lahir", "ji_ex_jp": "赤ちゃんが生まれます", "ji_ex_id": "(Bayi lahir)", "ta_jp": "<ruby>産<rt>う</rt></ruby>みます", "ta_kana": "うみます", "ta_ro": "Umimasu", "ta_id": "Melahirkan", "ta_ex_jp": "卵を産みます", "ta_ex_id": "(Melahirkan/Bertelur)"}, {"ji_jp": "<ruby>育<rt>そだ</rt></ruby>ちます", "ji_kana": "そだちます", "ji_ro": "Sodachimasu", "ji_id": "Tumbuh besar", "ji_ex_jp": "木が育ちます", "ji_ex_id": "(Pohon tumbuh)", "ta_jp": "<ruby>育<rt>そだ</rt></ruby>てます", "ta_kana": "そだてます", "ta_ro": "Sodatemasu", "ta_id": "Membesarkan", "ta_ex_jp": "花を育てます", "ta_ex_id": "(Merawat bunga)"}, {"ji_jp": "<ruby>並<rt>なら</rt></ruby>びます", "ji_kana": "ならびます", "ji_ro": "Narabimasu", "ji_id": "Berbaris", "ji_ex_jp": "人が並びます", "ji_ex_id": "(Orang berbaris)", "ta_jp": "<ruby>並<rt>なら</rt></ruby>べます", "ta_kana": "ならべます", "ta_ro": "Narabemasu", "ta_id": "Menyusun", "ta_ex_jp": "椅子を並べます", "ta_ex_id": "(Menyusun kursi)"}, {"ji_jp": "<ruby>冷<rt>ひ</rt></ruby>えます", "ji_kana": "ひえます", "ji_ro": "Hiemasu", "ji_id": "Dingin", "ji_ex_jp": "ジュースが冷えます", "ji_ex_id": "(Jus dingin)", "ta_jp": "<ruby>冷<rt>ひ</rt></ruby>やします", "ta_kana": "ひやします", "ta_ro": "Hiyashimasu", "ta_id": "Mendinginkan", "ta_ex_jp": "ビールを冷やします", "ta_ex_id": "(Mendinginkan bir)"}, {"ji_jp": "<ruby>温<rt>あたた</rt></ruby>まります", "ji_kana": "あたたまります", "ji_ro": "Atatamarimasu", "ji_id": "Hangat", "ji_ex_jp": "体が温まります", "ji_ex_id": "(Tubuh hangat)", "ta_jp": "<ruby>温<rt>あたた</rt></ruby>めます", "ta_kana": "あたためます", "ta_ro": "Atatamemasu", "ta_id": "Menghangatkan", "ta_ex_jp": "スープを温めます", "ta_ex_id": "(Menghangatkan sup)"}, {"ji_jp": "<ruby>乾<rt>かわ</rt></ruby>きます", "ji_kana": "かわきます", "ji_ro": "Kawakimasu", "ji_id": "Mengering", "ji_ex_jp": "服が乾きます", "ji_ex_id": "(Baju mengering)", "ta_jp": "<ruby>乾<rt>かわ</rt></ruby>かします", "ta_kana": "かわかします", "ta_ro": "Kawakashimasu", "ta_id": "Mengeringkan", "ta_ex_jp": "髪を乾かします", "ta_ex_id": "(Mengeringkan rambut)"}, {"ji_jp": "<ruby>濡<rt>ぬ</rt></ruby>れます", "ji_kana": "ぬれます", "ji_ro": "Nuremasu", "ji_id": "Basah", "ji_ex_jp": "服が濡れます", "ji_ex_id": "(Baju basah)", "ta_jp": "<ruby>濡<rt>ぬ</rt></ruby>らします", "ta_kana": "ぬらします", "ta_ro": "Nurashimasu", "ta_id": "Membasahkan", "ta_ex_jp": "タオルを濡らします", "ta_ex_id": "(Membasahkan handuk)"}, {"ji_jp": "<ruby>焼<rt>や</rt></ruby>けます", "ji_kana": "やけます", "ji_ro": "Yakemasu", "ji_id": "Terbakar", "ji_ex_jp": "パンが焼けます", "ji_ex_id": "(Roti terpanggang)", "ta_jp": "<ruby>焼<rt>や</rt></ruby>きます", "ta_kana": "やきます", "ta_ro": "Yakimasu", "ta_id": "Membakar", "ta_ex_jp": "肉を焼きます", "ta_ex_id": "(Membakar daging)"}, {"ji_jp": "<ruby>沸<rt>わ</rt></ruby>きます", "ji_kana": "わきます", "ji_ro": "Wakimasu", "ji_id": "Mendidih", "ji_ex_jp": "お湯が沸きます", "ji_ex_id": "(Air mendidih)", "ta_jp": "<ruby>沸<rt>わ</rt></ruby>かします", "ta_kana": "わかします", "ta_ro": "Wakashimasu", "ta_id": "Mendidihkan", "ta_ex_jp": "お湯を沸かします", "ta_ex_id": "(Mendidihkan air)"}, {"ji_jp": "<ruby>割<rt>わ</rt></ruby>れます", "ji_kana": "われます", "ji_ro": "Waremasu", "ji_id": "Pecah", "ji_ex_jp": "コップが割れます", "ji_ex_id": "(Gelas pecah)", "ta_jp": "<ruby>割<rt>わ</rt></ruby>ります", "ta_kana": "わります", "ta_ro": "Warimasu", "ta_id": "Memecahkan", "ta_ex_jp": "卵を割ります", "ta_ex_id": "(Memecahkan telur)"}, {"ji_jp": "<ruby>折<rt>お</rt></ruby>れます", "ji_kana": "おれます", "ji_ro": "Oremasu", "ji_id": "Patah", "ji_ex_jp": "枝が折れます", "ji_ex_id": "(Dahan patah)", "ta_jp": "<ruby>折<rt>お</rt></ruby>ります", "ta_kana": "おります", "ta_ro": "Orimasu", "ta_id": "Mematahkan", "ta_ex_jp": "木を折ります", "ta_ex_id": "(Mematahkan kayu)"}, {"ji_jp": "<ruby>慣<rt>な</rt></ruby>れます", "ji_kana": "なれます", "ji_ro": "Naremasu", "ji_id": "Terbiasa", "ji_ex_jp": "仕事に慣れます", "ji_ex_id": "(Terbiasa pekerjaan)", "ta_jp": "<ruby>慣<rt>な</rt></ruby>らします", "ta_kana": "ならします", "ta_ro": "Narashimasu", "ta_id": "Membiasakan", "ta_ex_jp": "耳を慣らします", "ta_ex_id": "(Membiasakan telinga)"}, {"ji_jp": "<ruby>破<rt>やぶ</rt></ruby>れます", "ji_kana": "やぶれます", "ji_ro": "Yaburemasu", "ji_id": "Robek", "ji_ex_jp": "紙が破れます", "ji_ex_id": "(Kertas robek)", "ta_jp": "<ruby>破<rt>やぶ</rt></ruby>ります", "ta_kana": "やぶります", "ta_ro": "Yaburimasu", "ta_id": "Merobek", "ta_ex_jp": "手紙を破ります", "ta_ex_id": "(Merobek surat)"}, {"ji_jp": "<ruby>倒<rt>たお</rt></ruby>れます", "ji_kana": "たおれます", "ji_ro": "Taoremasu", "ji_id": "Tumbang", "ji_ex_jp": "木が倒れます", "ji_ex_id": "(Pohon tumbang)", "ta_jp": "<ruby>倒<rt>たお</rt></ruby>します", "ta_kana": "たおします", "ta_ro": "Taoshimasu", "ta_id": "Menumbangkan", "ta_ex_jp": "敵を倒します", "ta_ex_id": "(Menumbangkan musuh)"}, {"ji_jp": "<ruby>立<rt>た</rt></ruby>ちます", "ji_kana": "たちます", "ji_ro": "Tachimasu", "ji_id": "Berdiri", "ji_ex_jp": "人が立ちます", "ji_ex_id": "(Orang berdiri)", "ta_jp": "<ruby>建<rt>た</rt></ruby>てます", "ta_kana": "たてます", "ta_ro": "Tatemasu", "ta_id": "Mendirikan", "ta_ex_jp": "家を建てます", "ta_ex_id": "(Mendirikan rumah)"}, {"ji_jp": "うつります", "ji_kana": "うつります", "ji_ro": "Utsurimasu", "ji_id": "Berpindah", "ji_ex_jp": "風邪がうつります", "ji_ex_id": "(Flu menular)", "ta_jp": "<ruby>写<rt>うつ</rt></ruby>します", "ta_kana": "うつします", "ta_ro": "Utsushimasu", "ta_id": "Memindahkan", "ta_ex_jp": "写真を写します", "ta_ex_id": "(Menyalin foto)"}, {"ji_jp": "<ruby>揃<rt>そろ</rt></ruby>います", "ji_kana": "そろいます", "ji_ro": "Soroimasu", "ji_id": "Terkumpul", "ji_ex_jp": "家族が揃います", "ji_ex_id": "(Keluarga terkumpul)", "ta_jp": "<ruby>揃<rt>そろ</rt></ruby>えます", "ta_kana": "そろえます", "ta_ro": "Soroemasu", "ta_id": "Melengkapi", "ta_ex_jp": "資料を揃えます", "ta_ex_id": "(Melengkapi dokumen)"}, {"ji_jp": "<ruby>助<rt>たす</rt></ruby>かります", "ji_kana": "たすかります", "ji_ro": "Tasukarimasu", "ji_id": "Tertolong", "ji_ex_jp": "命が助かります", "ji_ex_id": "(Nyawa tertolong)", "ta_jp": "<ruby>助<rt>たす</rt></ruby>けます", "ta_kana": "たすけます", "ta_ro": "Tasukemasu", "ta_id": "Menolong", "ta_ex_jp": "人を助けます", "ta_ex_id": "(Menolong orang)"}, {"ji_jp": "<ruby>過<rt>す</rt></ruby>ぎます", "ji_kana": "すぎます", "ji_ro": "Sugimasu", "ji_id": "Berlalu", "ji_ex_jp": "時間が過ぎます", "ji_ex_id": "(Waktu berlalu)", "ta_jp": "<ruby>過<rt>す</rt></ruby>ごします", "ta_kana": "すごします", "ta_ro": "Sugoshimasu", "ta_id": "Menghabiskan", "ta_ex_jp": "時間を過ごします", "ta_ex_id": "(Menghabiskan waktu)"}, {"ji_jp": "<ruby>混<rt>ま</rt></ruby>ざります", "ji_kana": "まざります", "ji_ro": "Mazarimasu", "ji_id": "Tercampur", "ji_ex_jp": "色が混ざります", "ji_ex_id": "(Warna tercampur)", "ta_jp": "<ruby>混<rt>ま</rt></ruby>ぜます", "ta_kana": "まぜます", "ta_ro": "Mazemasu", "ta_id": "Mencampur", "ta_ex_jp": "色を混ぜます", "ta_ex_id": "(Mencampur warna)"}, {"ji_jp": "<ruby>伸<rt>の</rt></ruby>びます", "ji_kana": "のびます", "ji_ro": "Nobimasu", "ji_id": "Memanjang", "ji_ex_jp": "髪が伸びます", "ji_ex_id": "(Rambut memanjang)", "ta_jp": "<ruby>伸<rt>の</rt></ruby>ばします", "ta_kana": "のばします", "ta_ro": "Nobashimasu", "ta_id": "Memanjangkan", "ta_ex_jp": "髪を伸ばします", "ta_ex_id": "(Memanjangkan rambut)"}, {"ji_jp": "<ruby>切<rt>き</rt></ruby>れます", "ji_kana": "きれます", "ji_ro": "Kiremasu", "ji_id": "Terpotong", "ji_ex_jp": "糸が切れます", "ji_ex_id": "(Benang terpotong)", "ta_jp": "<ruby>切<rt>き</rt></ruby>ります", "ta_kana": "きります", "ta_ro": "Kirimasu", "ta_id": "Memotong", "ta_ex_jp": "糸を切ります", "ta_ex_id": "(Memotong benang)"}, {"ji_jp": "<ruby>抜<rt>ぬ</rt></ruby>けます", "ji_kana": "ぬけます", "ji_ro": "Nukemasu", "ji_id": "Terlepas", "ji_ex_jp": "髪が抜けます", "ji_ex_id": "(Rambut rontok)", "ta_jp": "<ruby>抜<rt>ぬ</rt></ruby>きます", "ta_kana": "ぬきます", "ta_ro": "Nukimasu", "ta_id": "Mencabut", "ta_ex_jp": "草を抜きます", "ta_ex_id": "(Mencabut rumput)"}, {"ji_jp": "<ruby>溶<rt>と</rt></ruby>けます", "ji_kana": "とけます", "ji_ro": "Tokemasu", "ji_id": "Meleleh", "ji_ex_jp": "氷が溶けます", "ji_ex_id": "(Es meleleh)", "ta_jp": "<ruby>溶<rt>と</rt></ruby>かします", "ta_kana": "とかします", "ta_ro": "Tokashimasu", "ta_id": "Melelehkan", "ta_ex_jp": "氷を溶かします", "ta_ex_id": "(Melelehkan es)"}, {"ji_jp": "<ruby>外<rt>はず</rt></ruby>れます", "ji_kana": "はずれます", "ji_ro": "Hazuremasu", "ji_id": "Meleset/Lepas", "ji_ex_jp": "ボタンが外れます", "ji_ex_id": "(Kancing terlepas)", "ta_jp": "<ruby>外<rt>はず</rt></ruby>します", "ta_kana": "はずします", "ta_ro": "Hazushimasu", "ta_id": "Melepaskan", "ta_ex_jp": "ボタンを外します", "ta_ex_id": "(Melepaskan kancing)"}, {"ji_jp": "<ruby>隠<rt>かく</rt></ruby>れます", "ji_kana": "かくれます", "ji_ro": "Kakuremasu", "ji_id": "Bersembunyi", "ji_ex_jp": "月が隠れます", "ji_ex_id": "(Bulan bersembunyi)", "ta_jp": "<ruby>隠<rt>かく</rt></ruby>します", "ta_kana": "かくします", "ta_ro": "Kakushimasu", "ta_id": "Menyembunyikan", "ta_ex_jp": "お金を隠します", "ta_ex_id": "(Menyembunyikan uang)"}, {"ji_jp": "こぼれます", "ji_kana": "こぼれます", "ji_ro": "Koboremasu", "ji_id": "Tumpah", "ji_ex_jp": "水がこぼれます", "ji_ex_id": "(Air tumpah)", "ta_jp": "こぼします", "ta_kana": "こぼします", "ta_ro": "Koboshimasu", "ta_id": "Menumpahkan", "ta_ex_jp": "水をこぼします", "ta_ex_id": "(Menumpahkan air)"}, {"ji_jp": "<ruby>揺<rt>ゆ</rt></ruby>れます", "ji_kana": "ゆれます", "ji_ro": "Yuremasu", "ji_id": "Bergoyang", "ji_ex_jp": "地震で揺れます", "ji_ex_id": "(Bergoyang karena gempa)", "ta_jp": "<ruby>揺<rt>ゆ</rt></ruby>らします", "ta_kana": "ゆらします", "ta_ro": "Yurashimasu", "ta_id": "Menggoyangkan", "ta_ex_jp": "木を揺らします", "ta_ex_id": "(Menggoyangkan pohon)"}, {"ji_jp": "<ruby>生<rt>は</rt></ruby>えます", "ji_kana": "はえます", "ji_ro": "Haemasu", "ji_id": "Tumbuh (gigi)", "ji_ex_jp": "歯が生えます", "ji_ex_id": "(Gigi tumbuh)", "ta_jp": "<ruby>生<rt>は</rt></ruby>やします", "ta_kana": "はやします", "ta_ro": "Hayashimasu", "ta_id": "Menumbuhkan", "ta_ex_jp": "ひげを生やします", "ta_ex_id": "(Menumbuhkan jenggot)"}, {"ji_jp": "<ruby>剥<rt>む</rt></ruby>けます", "ji_kana": "むけます", "ji_ro": "Mukemasu", "ji_id": "Terkelupas", "ji_ex_jp": "皮が剥けます", "ji_ex_id": "(Kulit terkelupas)", "ta_jp": "<ruby>剥<rt>む</rt></ruby>きます", "ta_kana": "むきます", "ta_ro": "Mukimasu", "ta_id": "Mengupas", "ta_ex_jp": "皮を剥きます", "ta_ex_id": "(Mengupas kulit)"}, {"ji_jp": "<ruby>売<rt>う</rt></ruby>れます", "ji_kana": "うれます", "ji_ro": "Uremasu", "ji_id": "Terjual", "ji_ex_jp": "本が売れます", "ji_ex_id": "(Buku terjual)", "ta_jp": "<ruby>売<rt>う</rt></ruby>ります", "ta_kana": "うります", "ta_ro": "Urimasu", "ta_id": "Menjual", "ta_ex_jp": "本を売ります", "ta_ex_id": "(Menjual buku)"}, {"ji_jp": "<ruby>乗<rt>の</rt></ruby>ります", "ji_kana": "のります", "ji_ro": "Norimasu", "ji_id": "Naik", "ji_ex_jp": "電車に乗ります", "ji_ex_id": "(Naik kereta)", "ta_jp": "<ruby>乗<rt>の</rt></ruby>せます", "ta_kana": "のせます", "ta_ro": "Nosemasu", "ta_id": "Menaikkan", "ta_ex_jp": "荷物を乗せます", "ta_ex_id": "(Menaikkan barang)"}, {"ji_jp": "<ruby>回<rt>まわ</rt></ruby>ります", "ji_kana": "まわります", "ji_ro": "Mawarimasu", "ji_id": "Berputar", "ji_ex_jp": "地球が回ります", "ji_ex_id": "(Bumi berputar)", "ta_jp": "<ruby>回<rt>まわ</rt></ruby>します", "ta_kana": "まわします", "ta_ro": "Mawashimasu", "ta_id": "Memutar", "ta_ex_jp": "ハンドルを回します", "ta_ex_id": "(Memutar setir)"}, {"ji_jp": "<ruby>高<rt>たか</rt></ruby>まります", "ji_kana": "たかまります", "ji_ro": "Takamarimasu", "ji_id": "Meningkat", "ji_ex_jp": "人気が高まります", "ji_ex_id": "(Popularitas meningkat)", "ta_jp": "<ruby>高<rt>たか</rt></ruby>めます", "ta_kana": "たかめます", "ta_ro": "Takamemasu", "ta_id": "Meningkatkan", "ta_ex_jp": "能力を高めます", "ta_ex_id": "(Meningkatkan kemampuan)"}, {"ji_jp": "<ruby>深<rt>ふか</rt></ruby>まります", "ji_kana": "ふかまります", "ji_ro": "Fukamarimasu", "ji_id": "Mendalam", "ji_ex_jp": "秋が深まります", "ji_ex_id": "(Musim gugur mendalam)", "ta_jp": "<ruby>深<rt>ふか</rt></ruby>めます", "ta_kana": "ふかめます", "ta_ro": "Fukamemasu", "ta_id": "Mendalamkan", "ta_ex_jp": "理解を深めます", "ta_ex_id": "(Mendalamkan pemahaman)"}, {"ji_jp": "<ruby>広<rt>ひろ</rt></ruby>がります", "ji_kana": "ひろがります", "ji_ro": "Hirogarimasu", "ji_id": "Meluas", "ji_ex_jp": "噂が広がります", "ji_ex_id": "(Rumor meluas)", "ta_jp": "<ruby>広<rt>ひろ</rt></ruby>げます", "ta_kana": "ひろげます", "ta_ro": "Hirogemasu", "ta_id": "Memperluas", "ta_ex_jp": "地図を広げます", "ta_ex_id": "(Membentangkan peta)"}, {"ji_jp": "<ruby>帰<rt>かえ</rt></ruby>ります", "ji_kana": "かえります", "ji_ro": "Kaerimasu", "ji_id": "Pulang/Kembali", "ji_ex_jp": "家に帰ります", "ji_ex_id": "(Pulang ke rumah)", "ta_jp": "<ruby>返<rt>かえ</rt></ruby>します", "ta_kana": "かえします", "ta_ro": "Kaeshimasu", "ta_id": "Mengembalikan", "ta_ex_jp": "本を返します", "ta_ex_id": "(Mengembalikan buku)"}, {"ji_jp": "<ruby>遅<rt>おく</rt></ruby>れます", "ji_kana": "おくれます", "ji_ro": "Okuremasu", "ji_id": "Terlambat", "ji_ex_jp": "授業に遅れます", "ji_ex_id": "(Terlambat ke kelas)", "ta_jp": "<ruby>遅<rt>おく</rt></ruby>らせます", "ta_kana": "おくらせます", "ta_ro": "Okurasemasu", "ta_id": "Menunda", "ta_ex_jp": "出発を遅らせます", "ta_ex_id": "(Menunda keberangkatan)"}, {"ji_jp": "<ruby>進<rt>すす</rt></ruby>みます", "ji_kana": "すすみます", "ji_ro": "Susumimasu", "ji_id": "Maju/Berlanjut", "ji_ex_jp": "計画が進みます", "ji_ex_id": "(Rencana maju)", "ta_jp": "<ruby>進<rt>すす</rt></ruby>めます", "ta_kana": "すすめます", "ta_ro": "Susumemasu", "ta_id": "Memajukan", "ta_ex_jp": "計画を進めます", "ta_ex_id": "(Memajukan rencana)"}, {"ji_jp": "<ruby>済<rt>す</rt></ruby>みます", "ji_kana": "すみます", "ji_ro": "Sumimasu", "ji_id": "Selesai/Beres", "ji_ex_jp": "用事が済みます", "ji_ex_id": "(Urusan selesai)", "ta_jp": "<ruby>済<rt>す</rt></ruby>ませます", "ta_kana": "すませます", "ta_ro": "Sumasemasu", "ta_id": "Membereskan", "ta_ex_jp": "宿題を済ませます", "ta_ex_id": "(Membereskan PR)"}, {"ji_jp": "<ruby>余<rt>あま</rt></ruby>ります", "ji_kana": "あまります", "ji_ro": "Amarimasu", "ji_id": "Tersisa", "ji_ex_jp": "食べ物が余ります", "ji_ex_id": "(Makanan tersisa)", "ta_jp": "<ruby>余<rt>あま</rt></ruby>らせます", "ta_kana": "あまらせます", "ta_ro": "Amarasemasu", "ta_id": "Menyisakan", "ta_ex_jp": "お金を余らせます", "ta_ex_id": "(Menyisakan uang)"}, {"ji_jp": "<ruby>太<rt>ふと</rt></ruby>ります", "ji_kana": "ふとります", "ji_ro": "Futorimasu", "ji_id": "Menjadi gemuk", "ji_ex_jp": "犬が太ります", "ji_ex_id": "(Anjing menjadi gemuk)", "ta_jp": "<ruby>太<rt>ふと</rt></ruby>らせます", "ta_kana": "ふとらせます", "ta_ro": "Futorasemasu", "ta_id": "Menggemukkan", "ta_ex_jp": "豚を太らせます", "ta_ex_id": "(Menggemukkan babi)"}, {"ji_jp": "<ruby>痩<rt>や</rt></ruby>せます", "ji_kana": "やせます", "ji_ro": "Yasemasu", "ji_id": "Menjadi kurus", "ji_ex_jp": "猫が痩せます", "ji_ex_id": "(Kucing kurus)", "ta_jp": "<ruby>痩<rt>や</rt></ruby>せさせます", "ta_kana": "やせさせます", "ta_ro": "Yasesasemasu", "ta_id": "Mengkuruskan", "ta_ex_jp": "体を痩せさせます", "ta_ex_id": "(Mengkuruskan badan)"}, {"ji_jp": "ぬるまります", "ji_kana": "ぬるまります", "ji_ro": "Nurumarimasu", "ji_id": "Menjadi suam", "ji_ex_jp": "お湯がぬるまります", "ji_ex_id": "(Air menjadi suam)", "ta_jp": "ぬるめます", "ta_kana": "ぬるめます", "ta_ro": "Nurumemasu", "ta_id": "Menghangatkan", "ta_ex_jp": "お湯をぬるめます", "ta_ex_id": "(Menghangatkan air)"}, {"ji_jp": "<ruby>喜<rt>よろこ</rt></ruby>びます", "ji_kana": "よろこびます", "ji_ro": "Yorokobimasu", "ji_id": "Bersukacita", "ji_ex_jp": "子供が喜びます", "ji_ex_id": "(Anak bersukacita)", "ta_jp": "<ruby>喜<rt>よろこ</rt></ruby>ばせます", "ta_kana": "よろこばせます", "ta_ro": "Yorokobasemasu", "ta_id": "Membahagiakan", "ta_ex_jp": "親を喜ばせます", "ta_ex_id": "(Membahagiakan orang tua)"}, {"ji_jp": "<ruby>悲<rt>かな</rt></ruby>しみます", "ji_kana": "かなしみます", "ji_ro": "Kanashimimasu", "ji_id": "Bersedih", "ji_ex_jp": "友達が悲しみます", "ji_ex_id": "(Teman bersedih)", "ta_jp": "<ruby>悲<rt>かな</rt></ruby>しませます", "ta_kana": "かなしませます", "ta_ro": "Kanashimasemasu", "ta_id": "Menyedihkan", "ta_ex_jp": "親を悲しませます", "ta_ex_id": "(Membuat sedih)"}, {"ji_jp": "<ruby>苦<rt>くる</rt></ruby>しみます", "ji_kana": "くるしみます", "ji_ro": "Kurushimimasu", "ji_id": "Menderita", "ji_ex_jp": "病気で苦しみます", "ji_ex_id": "(Menderita karena sakit)", "ta_jp": "<ruby>苦<rt>くる</rt></ruby>しめます", "ta_kana": "くるしめます", "ta_ro": "Kurushimemasu", "ta_id": "Menyiksa", "ta_ex_jp": "敵を苦しめます", "ta_ex_id": "(Menyiksa musuh)"}, {"ji_jp": "<ruby>慌<rt>あわ</rt></ruby>てます", "ji_kana": "あわてます", "ji_ro": "Awatemasu", "ji_id": "Panik", "ji_ex_jp": "事故で慌てます", "ji_ex_id": "(Panik karena kecelakaan)", "ta_jp": "<ruby>慌<rt>あわ</rt></ruby>てさせます", "ta_kana": "あわてさせます", "ta_ro": "Awatesasemasu", "ta_id": "Membuat panik", "ta_ex_jp": "人を慌てさせます", "ta_ex_id": "(Membuat orang panik)"}, {"ji_jp": "<ruby>枯<rt>か</rt></ruby>れます", "ji_kana": "かれます", "ji_ro": "Karemasu", "ji_id": "Layu / Kering", "ji_ex_jp": "花が枯れます", "ji_ex_id": "(Bunga layu)", "ta_jp": "<ruby>枯<rt>か</rt></ruby>らします", "ta_kana": "からします", "ta_ro": "Karashimasu", "ta_id": "Melayukan", "ta_ex_jp": "花を枯らします", "ta_ex_id": "(Melayukan bunga)"}, {"ji_jp": "たゆみます", "ji_kana": "たゆみます", "ji_ro": "Tayumimasu", "ji_id": "Mengendur", "ji_ex_jp": "糸がたゆみます", "ji_ex_id": "(Benang mengendur)", "ta_jp": "たゆませます", "ta_kana": "たゆませます", "ta_ro": "Tayumasemasu", "ta_id": "Mengendurkan", "ta_ex_jp": "糸をたゆませます", "ta_ex_id": "(Mengendurkan benang)"}, {"ji_jp": "<ruby>縮<rt>ちぢ</rt></ruby>みます", "ji_kana": "ちぢみます", "ji_ro": "Chijimimasu", "ji_id": "Menyusut", "ji_ex_jp": "服が縮みます", "ji_ex_id": "(Baju menyusut)", "ta_jp": "<ruby>縮<rt>ちぢ</rt></ruby>めます", "ta_kana": "ちぢめます", "ta_ro": "Chijimemasu", "ta_id": "Menyusutkan", "ta_ex_jp": "距離を縮めます", "ta_ex_id": "(Memperpendek jarak)"}, {"ji_jp": "<ruby>和<rt>やわ</rt></ruby>らぎます", "ji_kana": "やわらぎます", "ji_ro": "Yawaragimasu", "ji_id": "Mereda", "ji_ex_jp": "痛みが和らぎます", "ji_ex_id": "(Rasa sakit mereda)", "ta_jp": "<ruby>和<rt>やわ</rt></ruby>らげます", "ta_kana": "やわらげます", "ta_ro": "Yawaragemasu", "ta_id": "Meredakan", "ta_ex_jp": "痛みを和らげます", "ta_ex_id": "(Meredakan sakit)"}, {"ji_jp": "<ruby>休<rt>やす</rt></ruby>まります", "ji_kana": "やすまります", "ji_ro": "Yasumarimasu", "ji_id": "Beristirahat", "ji_ex_jp": "心が休まります", "ji_ex_id": "(Hati beristirahat)", "ta_jp": "<ruby>休<rt>やす</rt></ruby>めます", "ta_kana": "やすめます", "ta_ro": "Yasumemasu", "ta_id": "Mengistirahatkan", "ta_ex_jp": "体を休めます", "ta_ex_id": "(Mengistirahatkan badan)"}, {"ji_jp": "<ruby>静<rt>しず</rt></ruby>まります", "ji_kana": "しずまります", "ji_ro": "Shizumarimasu", "ji_id": "Menjadi tenang", "ji_ex_jp": "風が静まります", "ji_ex_id": "(Angin tenang)", "ta_jp": "<ruby>静<rt>しず</rt></ruby>めます", "ta_kana": "しずめます", "ta_ro": "Shizumemasu", "ta_id": "Menenangkan", "ta_ex_jp": "心を静めます", "ta_ex_id": "(Menenangkan hati)"}, {"ji_jp": "<ruby>建ち<rt>たてまり</rt></ruby>ます", "ji_kana": "たてまります", "ji_ro": "Tatemarimasu", "ji_id": "Berdiri tegak", "ji_ex_jp": "建物が建ちます", "ji_ex_id": "(Bangunan berdiri)", "ta_jp": "<ruby>建<rt>た</rt></ruby>てます", "ta_kana": "たてます", "ta_ro": "Tatemasu", "ta_id": "Menegakkan", "ta_ex_jp": "建物を建てます", "ta_ex_id": "(Mendirikan bangunan)"}, {"ji_jp": "<ruby>収<rt>おさ</rt></ruby>まります", "ji_kana": "おさまります", "ji_ro": "Osamarimasu", "ji_id": "Mereda/Muat", "ji_ex_jp": "嵐が収まります", "ji_ex_id": "(Badai mereda)", "ta_jp": "<ruby>収<rt>おさ</rt></ruby>めます", "ta_kana": "おさめます", "ta_ro": "Osamemasu", "ta_id": "Menyelesaikan", "ta_ex_jp": "争いを収めます", "ta_ex_id": "(Menyelesaikan perselisihan)"}, {"ji_jp": "<ruby>捕<rt>つか</rt></ruby>まります", "ji_kana": "つかまります", "ji_ro": "Tsukamarimasu", "ji_id": "Tertangkap", "ji_ex_jp": "泥棒が捕まります", "ji_ex_id": "(Pencuri tertangkap)", "ta_jp": "<ruby>捕<rt>つか</rt></ruby>まえます", "ta_kana": "つかまえます", "ta_ro": "Tsukamaemasu", "ta_id": "Menangkap", "ta_ex_jp": "泥棒を捕まえます", "ta_ex_id": "(Menangkap pencuri)"}, {"ji_jp": "ぶつかります", "ji_kana": "ぶつかります", "ji_ro": "Butsukarimasu", "ji_id": "Terbentur", "ji_ex_jp": "車がぶつかります", "ji_ex_id": "(Mobil terbentur)", "ta_jp": "ぶつけます", "ta_kana": "ぶつけます", "ta_ro": "Butsukemasu", "ta_id": "Membenturkan", "ta_ex_jp": "頭をぶつけます", "ta_ex_id": "(Membenturkan kepala)"}];
+
+let fcJtIndex = 0;
+let fcJtShuffled = false;
+let fcJtOrder = null; // array indeks kalau mode acak aktif
+function fcJtGetOrder(){
+  if(fcJtShuffled){
+    if(!fcJtOrder) fcJtOrder = vkShuffle([...Array(JIDOUSHI_TADOUSHI_FLASHCARDS.length).keys()]);
+    return fcJtOrder;
+  }
+  return [...Array(JIDOUSHI_TADOUSHI_FLASHCARDS.length).keys()];
+}
+function openFlashcardJT(){
+  fcJtIndex = 0;
+  fcJtShuffled = false;
+  fcJtOrder = null;
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell fcjt-shell" role="dialog" aria-modal="true" aria-label="Flashcard Jidoushi dan Tadoushi">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">🔄</div>
+          <div>
+            <div class="kh-v2-title">Flashcard Jidoushi &amp; Tadoushi</div>
+            <div class="kh-v2-subtitle" id="fcJtProgress">Kartu 1 / ${JIDOUSHI_TADOUSHI_FLASHCARDS.length}</div>
+          </div>
+          <button class="kh-v2-close" id="fcJtClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="fcjt-body">
+        <div class="fcjt-toolbar">
+          <div class="fcjt-progress-track"><div class="fcjt-progress-fill" id="fcJtProgressFill"></div></div>
+          <button class="fcjt-shuffle-btn" id="fcJtShuffleBtn" title="Acak urutan kartu">🔀</button>
+        </div>
+        <div class="fcjt-stage" id="fcJtStage">
+          <div class="fcjt-card" id="fcJtCard">
+            <div class="fcjt-face fcjt-front" id="fcJtFront"></div>
+            <div class="fcjt-face fcjt-back" id="fcJtBack"></div>
+          </div>
+        </div>
+        <div class="fcjt-hint">🔄 Ketuk kartu untuk membalik &nbsp;•&nbsp; 🔊 ketuk kata untuk dengar</div>
+        <div class="fcjt-nav">
+          <button class="fcjt-nav-btn" id="fcJtPrev">◀ Sebelumnya</button>
+          <button class="fcjt-nav-btn fcjt-nav-primary" id="fcJtNext">Lanjut ▶</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+
+  const cardEl = el.querySelector("#fcJtCard");
+  const frontEl = el.querySelector("#fcJtFront");
+  const backEl = el.querySelector("#fcJtBack");
+  const progressEl = el.querySelector("#fcJtProgress");
+  const progressFill = el.querySelector("#fcJtProgressFill");
+
+  function currentItem(){
+    const order = fcJtGetOrder();
+    return JIDOUSHI_TADOUSHI_FLASHCARDS[order[fcJtIndex]];
+  }
+
+  function renderCard(){
+    const d = currentItem();
+    cardEl.classList.remove("fcjt-flipped");
+    const total = JIDOUSHI_TADOUSHI_FLASHCARDS.length;
+    progressEl.textContent = `Kartu ${fcJtIndex+1} / ${total}${fcJtShuffled ? ' · 🔀 Acak' : ''}`;
+    progressFill.style.width = `${((fcJtIndex+1)/total)*100}%`;
+
+    frontEl.innerHTML = `
+      <div class="fcjt-pair">
+        <div class="fcjt-col fcjt-col-ji">
+          <span class="fcjt-badge fcjt-badge-ji">自動詞 [が]</span>
+          <div class="fcjt-word fcjt-speak" data-say="${d.ji_kana}">${d.ji_jp}<span class="fcjt-speaker">🔊</span></div>
+          <div class="fcjt-romaji">${d.ji_ro}</div>
+        </div>
+        <div class="fcjt-divider"></div>
+        <div class="fcjt-col fcjt-col-ta">
+          <span class="fcjt-badge fcjt-badge-ta">他動詞 [を]</span>
+          <div class="fcjt-word fcjt-speak" data-say="${d.ta_kana}">${d.ta_jp}<span class="fcjt-speaker">🔊</span></div>
+          <div class="fcjt-romaji">${d.ta_ro}</div>
+        </div>
+      </div>
+      <div class="fcjt-tap-tip">🔄 Ketuk untuk lihat arti &amp; contoh</div>
+    `;
+    backEl.innerHTML = `
+      <div class="fcjt-pair">
+        <div class="fcjt-col fcjt-col-ji">
+          <span class="fcjt-badge fcjt-badge-ji">Intransitif</span>
+          <div class="fcjt-meaning">${d.ji_id}</div>
+          <div class="fcjt-example">
+            <div class="fcjt-example-jp">${d.ji_ex_jp}</div>
+            <div class="fcjt-example-id">${d.ji_ex_id}</div>
+          </div>
+        </div>
+        <div class="fcjt-divider"></div>
+        <div class="fcjt-col fcjt-col-ta">
+          <span class="fcjt-badge fcjt-badge-ta">Transitif</span>
+          <div class="fcjt-meaning">${d.ta_id}</div>
+          <div class="fcjt-example">
+            <div class="fcjt-example-jp">${d.ta_ex_jp}</div>
+            <div class="fcjt-example-id">${d.ta_ex_id}</div>
+          </div>
+        </div>
+      </div>
+      <div class="fcjt-tap-tip">🔄 Ketuk untuk kembali</div>
+    `;
+  }
+
+  cardEl.addEventListener("click", (ev)=>{
+    if(ev.target.closest(".fcjt-speak")) return; // biar tap kata cuma bunyi, tidak ikut membalik
+    cardEl.classList.toggle("fcjt-flipped");
+  });
+  el.querySelector("#fcJtStage").addEventListener("click", (ev)=>{
+    const btn = ev.target.closest(".fcjt-speak");
+    if(!btn) return;
+    ev.stopPropagation();
+    speakJapaneseCard(btn.dataset.say, btn);
+  });
+
+  function goTo(newIndex){
+    const total = JIDOUSHI_TADOUSHI_FLASHCARDS.length;
+    const doJump = ()=>{
+      fcJtIndex = ((newIndex % total) + total) % total;
+      renderCard();
+    };
+    if(cardEl.classList.contains("fcjt-flipped")){
+      cardEl.classList.remove("fcjt-flipped");
+      setTimeout(doJump, 280);
+    } else {
+      doJump();
+    }
+    playSFX('click');
+  }
+  el.querySelector("#fcJtPrev").addEventListener("click", ()=> goTo(fcJtIndex - 1));
+  el.querySelector("#fcJtNext").addEventListener("click", ()=> goTo(fcJtIndex + 1));
+  el.querySelector("#fcJtShuffleBtn").addEventListener("click", ()=>{
+    fcJtShuffled = !fcJtShuffled;
+    fcJtOrder = null;
+    fcJtIndex = 0;
+    el.querySelector("#fcJtShuffleBtn").classList.toggle("active", fcJtShuffled);
+    playSFX('click');
+    renderCard();
+  });
+
+  const close = ()=>{
+    if("speechSynthesis" in window) window.speechSynthesis.cancel();
+    el.remove();
+  };
+  el.querySelector("#fcJtClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+
+  renderCard();
+}
+
 function openJidoushiTadoushiSetup(){
   const el = document.createElement("div");
   el.className = "kh-v2-overlay";

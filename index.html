@@ -1410,6 +1410,21 @@
   .kotoba-harian-cta .khc-arrow { font-size: 22px; opacity: .85; flex-shrink: 0; }
   .fc-jt-cta { background: linear-gradient(135deg, #6a8dff, #7c5cff); box-shadow: 0 6px 0 #4b3fb0, 0 10px 20px rgba(75,63,176,.3); }
   .fc-jt-cta:active { box-shadow: 0 3px 0 #4b3fb0; }
+  .fc-vk-cta { background: linear-gradient(135deg, #ffb35a, #e07b28); box-shadow: 0 6px 0 #a1550f, 0 10px 20px rgba(161,85,15,.3); }
+  .fc-vk-cta:active { box-shadow: 0 3px 0 #a1550f; }
+
+  .materi-menu-label { font-size: 12px; font-weight: 900; color: var(--sub); letter-spacing: .04em; margin-bottom: 12px; }
+  .materi-menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .materi-menu-tile {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 20px 10px; border-radius: 16px; border: 1px solid var(--line);
+    background: var(--panel2); cursor: pointer; transition: transform .12s ease, border-color .15s ease;
+  }
+  .materi-menu-tile:hover { border-color: var(--cyan); transform: translateY(-2px); }
+  .materi-menu-tile:active { transform: scale(.96); }
+  .materi-menu-icon { font-size: 30px; }
+  .materi-menu-title { font-weight: 900; font-size: 14px; color: var(--ink); }
+  .materi-menu-sub { font-size: 11px; color: var(--sub); }
 
   .dash-menu-btn {
     display: flex; align-items: center; gap: 14px; text-align: left;
@@ -1843,47 +1858,47 @@
     color: #3f3023 !important;
   }
 
-  #panel-study .flash {
+  #flashCard {
     background: #fffdf4 !important;
     border: 2px solid #98734d !important;
     box-shadow: inset 0 0 0 1px rgba(255,255,255,.75), 0 3px 0 rgba(91,64,39,.16) !important;
     color: #3e2f22 !important;
     min-height: 240px;
   }
-  #panel-study .flash .pattern,
-  #panel-study .flash .example-jp {
+  #flashCard .pattern,
+  #flashCard .example-jp {
     color: #3a2a1e !important;
     text-shadow: none !important;
     font-weight: 900 !important;
   }
-  #panel-study .flash .pattern {
+  #flashCard .pattern {
     font-size: 27px !important;
   }
-  #panel-study .flash.kotoba-mode .pattern {
+  #flashCard.kotoba-mode .pattern {
     color: #356b35 !important;
     font-size: 34px !important;
   }
-  #panel-study .flash .meaning {
+  #flashCard .meaning {
     color: #356f38 !important;
     font-weight: 900 !important;
   }
-  #panel-study .flash .romaji-line,
-  #panel-study .flash .example-id,
-  #panel-study .flash .src {
+  #flashCard .romaji-line,
+  #flashCard .example-id,
+  #flashCard .src {
     color: #5e4b39 !important;
     opacity: 1 !important;
   }
-  #panel-study .flash .detail-box {
+  #flashCard .detail-box {
     color: #493728 !important;
     background: #f3e8ce !important;
     border: 2px solid #b09167 !important;
   }
-  #panel-study .flash .example-box {
+  #flashCard .example-box {
     background: #fff8e8 !important;
     border-left: 4px solid #6d9b50 !important;
   }
-  #panel-study .flash .type-badge,
-  #panel-study .flash .lvl {
+  #flashCard .type-badge,
+  #flashCard .lvl {
     opacity: 1 !important;
     font-weight: 800 !important;
   }
@@ -1891,35 +1906,35 @@
   /* Materi Irodori (per-Bab) memakai warna khusus dark-theme (putih/cyan/gold/mint)
      yang jadi tak terbaca di atas kertas krem panel-study. Timpa di sini
      dengan palet cokelat/hijau senada tema lain supaya kontras terjaga. */
-  #panel-study .flash.irodori-mode { color:#3e2f22 !important; }
-  #panel-study .ir-bab-title { color:#5a422d !important; }
-  #panel-study .ir-section-label { color:#8a6a2f !important; }
-  #panel-study .ir-item { background:#fff9e7 !important; border:1px solid #c9b48a !important; }
-  #panel-study .ir-jp { color:#3a2a1e !important; }
-  #panel-study .ir-baca { color:#7b6a52 !important; }
-  #panel-study .ir-arti { color:#3f2c1a !important; }
-  #panel-study .ir-penjelasan { color:#6b5636 !important; }
-  #panel-study .ir-contoh { color:#3f7a3f !important; }
-  #panel-study .ir-pola-item { background:#fff9e7 !important; border:1px solid #c9b48a !important; color:#3e2f22 !important; }
-  #panel-study .ir-pola-title { color:#3a2a1e !important; }
-  #panel-study .ir-pola-arti { color:#3f7a3f !important; }
-  #panel-study .ir-pola-penjelasan { color:#6b5636 !important; }
-  #panel-study .ir-pola-contoh-box { background:#fff3d6 !important; border:1px dashed #b09167 !important; }
-  #panel-study .ir-pola-contoh-jp { color:#3a2a1e !important; }
-  #panel-study .ir-pola-contoh-romaji { color:#7b6a52 !important; }
-  #panel-study .ir-pola-contoh-id { color:#3f7a3f !important; }
+  #flashCard.irodori-mode { color:#3e2f22 !important; }
+  #flashCard .ir-bab-title { color:#5a422d !important; }
+  #flashCard .ir-section-label { color:#8a6a2f !important; }
+  #flashCard .ir-item { background:#fff9e7 !important; border:1px solid #c9b48a !important; }
+  #flashCard .ir-jp { color:#3a2a1e !important; }
+  #flashCard .ir-baca { color:#7b6a52 !important; }
+  #flashCard .ir-arti { color:#3f2c1a !important; }
+  #flashCard .ir-penjelasan { color:#6b5636 !important; }
+  #flashCard .ir-contoh { color:#3f7a3f !important; }
+  #flashCard .ir-pola-item { background:#fff9e7 !important; border:1px solid #c9b48a !important; color:#3e2f22 !important; }
+  #flashCard .ir-pola-title { color:#3a2a1e !important; }
+  #flashCard .ir-pola-arti { color:#3f7a3f !important; }
+  #flashCard .ir-pola-penjelasan { color:#6b5636 !important; }
+  #flashCard .ir-pola-contoh-box { background:#fff3d6 !important; border:1px dashed #b09167 !important; }
+  #flashCard .ir-pola-contoh-jp { color:#3a2a1e !important; }
+  #flashCard .ir-pola-contoh-romaji { color:#7b6a52 !important; }
+  #flashCard .ir-pola-contoh-id { color:#3f7a3f !important; }
 
-  #panel-study .study-nav {
+  #studyNav {
     margin-top: 11px !important;
   }
-  #panel-study .study-nav .navbtn {
+  #studyNav .navbtn {
     color: #493526 !important;
     background: linear-gradient(180deg,#fffdf2,#e7d7b5) !important;
     border: 2px solid #8d6845 !important;
     box-shadow: 0 3px 0 #65482f !important;
     font-weight: 900 !important;
   }
-  #panel-study .progress-text {
+  #studyProgress {
     color: #426b3c !important;
     font-weight: 900 !important;
     text-shadow: none !important;
@@ -1980,40 +1995,40 @@
       border-radius: 8px !important;
       font-size: 12px !important;
     }
-    #panel-study .flash {
+    #flashCard {
       min-height: 205px !important;
       padding: 25px 10px 10px !important;
       border-radius: 11px !important;
       gap: 7px !important;
     }
-    #panel-study .flash .pattern { font-size: 23px !important; line-height: 1.3 !important; }
-    #panel-study .flash.kotoba-mode .pattern { font-size: 29px !important; }
-    #panel-study .flash .meaning { font-size: 13px !important; }
-    #panel-study .flash .romaji-line,
-    #panel-study .flash .example-id { font-size: 11px !important; }
-    #panel-study .flash .detail-box,
-    #panel-study .flash .example-box {
+    #flashCard .pattern { font-size: 23px !important; line-height: 1.3 !important; }
+    #flashCard.kotoba-mode .pattern { font-size: 29px !important; }
+    #flashCard .meaning { font-size: 13px !important; }
+    #flashCard .romaji-line,
+    #flashCard .example-id { font-size: 11px !important; }
+    #flashCard .detail-box,
+    #flashCard .example-box {
       padding: 8px 9px !important;
       margin-top: 3px !important;
       font-size: 11px !important;
       line-height: 1.45 !important;
     }
-    #panel-study .flash .example-jp { font-size: 14px !important; }
-    #panel-study .flash .lvl,
-    #panel-study .flash .src { top: 7px !important; font-size: 9px !important; }
-    #panel-study .flash .lvl { left: 8px !important; }
-    #panel-study .flash .src { right: 8px !important; }
-    #panel-study .study-nav {
+    #flashCard .example-jp { font-size: 14px !important; }
+    #flashCard .lvl,
+    #flashCard .src { top: 7px !important; font-size: 9px !important; }
+    #flashCard .lvl { left: 8px !important; }
+    #flashCard .src { right: 8px !important; }
+    #studyNav {
       margin-top: 7px !important;
       gap: 5px !important;
     }
-    #panel-study .study-nav .navbtn {
+    #studyNav .navbtn {
       padding: 7px 8px !important;
       min-height: 34px !important;
       font-size: 10px !important;
       border-radius: 8px !important;
     }
-    #panel-study .progress-text { font-size: 10px !important; }
+    #studyProgress { font-size: 10px !important; }
 
     .dashboard-menu { gap: 7px !important; }
     .dash-menu-btn {
@@ -2032,11 +2047,11 @@
   }
 
   @media (max-width: 380px) {
-    #panel-study .flash { min-height: 190px !important; }
-    #panel-study .flash .pattern { font-size: 21px !important; }
-    #panel-study .flash.kotoba-mode .pattern { font-size: 27px !important; }
+    #flashCard { min-height: 190px !important; }
+    #flashCard .pattern { font-size: 21px !important; }
+    #flashCard.kotoba-mode .pattern { font-size: 27px !important; }
     #panel-study .modern-select { font-size: 11px !important; }
-    #panel-study .study-nav .navbtn { font-size: 9.5px !important; padding-inline: 6px !important; }
+    #studyNav .navbtn { font-size: 9.5px !important; padding-inline: 6px !important; }
   }
 
 
@@ -2420,7 +2435,7 @@ rt{color:#7b5b3d;font-weight:800;}
 
 /* ===== Flashcard Jidoushi & Tadoushi ===== */
 .fcjt-shell{max-width:480px}
-.fcjt-body{padding:18px 18px 22px}
+.fcjt-body{padding:18px 18px 22px;overflow-y:auto;min-height:0;flex:1}
 .fcjt-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .fcjt-progress-track{flex:1;height:8px;border-radius:99px;background:#e8d9bb;overflow:hidden}
 .fcjt-progress-fill{height:100%;background:linear-gradient(90deg,#7ea765,#5c8a48);transition:width .3s ease}
@@ -2428,7 +2443,7 @@ rt{color:#7b5b3d;font-weight:800;}
 .fcjt-shuffle-btn.active{background:linear-gradient(135deg,#6a8dff,#7c5cff);border-color:#4b3fb0;filter:none}
 .fcjt-shuffle-btn:active{transform:scale(.92)}
 
-.fcjt-stage{perspective:1400px;width:100%;height:360px;margin-bottom:14px}
+.fcjt-stage{perspective:1400px;width:100%;height:clamp(240px,46vh,360px);margin-bottom:14px}
 .fcjt-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,.2,.2,1);cursor:pointer}
 .fcjt-card.fcjt-flipped{transform:rotateY(180deg)}
 .fcjt-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;border:3px solid #c99a5b;box-shadow:0 8px 0 #a87b45,0 14px 22px rgba(92,58,29,.18);padding:18px 14px;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
@@ -2442,9 +2457,9 @@ rt{color:#7b5b3d;font-weight:800;}
 .fcjt-badge-ji{background:#4a7fd4}
 .fcjt-badge-ta{background:#d4574a}
 .fcjt-word{position:relative;font:900 26px "Zen Maru Gothic",sans-serif;color:#4f3823;cursor:pointer;padding:4px 8px;border-radius:10px;line-height:1.3}
-.fcjt-word.kh-speaking{background:rgba(0,229,255,.12)}
-.fcjt-word .fcjt-speaker{display:inline-block;margin-left:4px;font-size:14px;vertical-align:middle;opacity:.55}
-.fcjt-word.kh-speaking .fcjt-speaker{opacity:1;animation:khSpeakPulse .5s ease-in-out infinite}
+.fcjt-word .fcjt-speaker{display:inline-flex;align-items:center;justify-content:center;margin-left:4px;font-size:15px;vertical-align:middle;opacity:.6;cursor:pointer;width:26px;height:26px;border-radius:50%}
+.fcjt-word .fcjt-speaker:active{background:rgba(0,0,0,.08)}
+.fcjt-speaker.kh-speaking{opacity:1;background:rgba(0,229,255,.18);animation:khSpeakPulse .5s ease-in-out infinite}
 .fcjt-romaji{font:700 12px "Inter",sans-serif;color:#8b6c4e;font-style:italic}
 .fcjt-meaning{font:900 17px "Zen Maru Gothic","Inter",sans-serif;color:#3f6b2c}
 .fcjt-example{background:rgba(255,255,255,.55);border:1.5px dashed #8fae78;border-radius:10px;padding:8px 10px;min-height:56px;display:flex;flex-direction:column;justify-content:center;gap:3px}
@@ -2460,7 +2475,6 @@ rt{color:#7b5b3d;font-weight:800;}
 .fcjt-nav-primary:active{box-shadow:0 1px 0 #3d5a2f}
 @media(max-width:480px){
   .fcjt-word{font-size:21px}
-  .fcjt-stage{height:380px}
   .fcjt-badge{font-size:10px;padding:3px 9px}
 }
 .kh-quiz-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
@@ -2644,44 +2658,38 @@ rt{color:#7b5b3d;font-weight:800;}
         <span class="khc-arrow">›</span>
       </button>
 
+      <button class="kotoba-harian-cta fc-vk-cta" id="openFlashcardVkBtn" type="button">
+        <span class="khc-emoji">📐🃏</span>
+        <span class="khc-text">
+          <b>Flashcard Perubahan Kata Kerja <span style="font-size:10px;opacity:.8;">動詞の活用</span></b>
+          <small>1.200 kartu, 4 kategori (て・た・ない ・ ば・可能・普通 ・ 受け身・使役 ・ 命令・意向・禁止) • belajar santai sebelum kuis</small>
+        </span>
+        <span class="khc-arrow">›</span>
+      </button>
+
       <div class="card">
-        <div class="modern-select-wrap">
-          <label>Jenis Materi</label>
-          <select id="typeSelect" class="modern-select">
-            <option value="bunpo">Pola Kalimat (文法)</option>
-            <option value="kanji">Kanji (漢字)</option>
-            <option value="kotoba" selected>Kosakata (言葉)</option>
-            <option value="irodori">Irodori (Shokyu 1 / 2, per Bab)</option>
-          </select>
-        </div>
-        
-        <div class="modern-select-wrap" id="bookSelectWrap">
-          <label>Filter Level</label>
-          <select id="bookSelect" class="modern-select">
-            <option value="all" selected>Semua Level</option>
-            <option value="n5">Level N5</option>
-            <option value="n4">Level N4</option>
-            <option value="n3">Level N3</option>
-            <option value="n2">Level N2</option>
-            <option value="n1">Level N1</option>
-          </select>
-        </div>
-        <div class="modern-select-wrap" id="babSelectWrap" style="display:none;">
-          <label>Pilih Buku &amp; Bab</label>
-          <div style="display:flex;gap:8px;">
-            <select id="irodoriBookSelect" class="modern-select" style="flex:1;">
-              <option value="shokyu1">Shokyu 1</option>
-              <option value="shokyu2">Shokyu 2</option>
-            </select>
-            <select id="babSelect" class="modern-select" style="flex:1;"></select>
-          </div>
-        </div>
-        
-        <div class="flash" id="flashCard"></div>
-        <div class="study-nav" id="studyNav">
-          <button class="navbtn" id="prevBtn">← Sebelumnya</button>
-          <span class="progress-text" id="studyProgress"></span>
-          <button class="navbtn" id="nextBtn">Berikutnya →</button>
+        <div class="materi-menu-label">📖 Pilih Jenis Materi</div>
+        <div class="materi-menu-grid">
+          <button class="materi-menu-tile" data-materi="bunpo">
+            <span class="materi-menu-icon">📐</span>
+            <span class="materi-menu-title">Pola Kalimat</span>
+            <span class="materi-menu-sub">文法</span>
+          </button>
+          <button class="materi-menu-tile" data-materi="kanji">
+            <span class="materi-menu-icon">🈴</span>
+            <span class="materi-menu-title">Kanji</span>
+            <span class="materi-menu-sub">漢字</span>
+          </button>
+          <button class="materi-menu-tile" data-materi="kotoba">
+            <span class="materi-menu-icon">📗</span>
+            <span class="materi-menu-title">Kosakata</span>
+            <span class="materi-menu-sub">言葉</span>
+          </button>
+          <button class="materi-menu-tile" data-materi="irodori">
+            <span class="materi-menu-icon">📘</span>
+            <span class="materi-menu-title">Irodori</span>
+            <span class="materi-menu-sub">Shokyu 1/2, per Bab</span>
+          </button>
         </div>
       </div>
     </div>
@@ -5236,6 +5244,14 @@ $("backFromGameBtn").addEventListener("click", goHome);
 $("backFromStudyBtn").addEventListener("click", goHome);
 $("openKotobaHarianBtn").addEventListener("click", openKotobaHarian);
 $("openFlashcardJTBtn").addEventListener("click", openFlashcardJT);
+$("openFlashcardVkBtn").addEventListener("click", openFlashcardVerbKonjugasi);
+document.querySelectorAll(".materi-menu-tile").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const m = btn.dataset.materi;
+    if(m === "irodori") openIrodoriBrowser();
+    else openMateriBrowser(m);
+  });
+});
 $("backFromHistoryBtn").addEventListener("click", goHome);
 
 function showPage(page) {
@@ -5247,7 +5263,6 @@ function showPage(page) {
     renderStart();
   } else if (page === 'study') {
     $("panel-study").classList.add("active");
-    applyStudyFilter();
   } else if (page === 'history') {
     $("panel-history").classList.add("active");
     renderHistory();
@@ -5323,34 +5338,6 @@ let studyMode = "kotoba";
 let studyBookFilter = "all";
 let studyList = [];
 let studyIdx = 0;
-
-$("typeSelect").addEventListener("change", (e)=>{
-  studyMode = e.target.value;
-  const isIrodori = studyMode === "irodori";
-  $("bookSelectWrap").style.display = isIrodori ? "none" : "";
-  $("babSelectWrap").style.display = isIrodori ? "" : "none";
-  $("studyNav").style.display = isIrodori ? "none" : "";
-  if(isIrodori){ populateBabSelect(); renderIrodoriBab($("irodoriBookSelect").value, parseInt($("babSelect").value || "1")); }
-  else applyStudyFilter();
-});
-$("bookSelect").addEventListener("change", (e)=>{
-  studyBookFilter = e.target.value;
-  applyStudyFilter();
-});
-$("irodoriBookSelect").addEventListener("change", ()=>{
-  populateBabSelect();
-  renderIrodoriBab($("irodoriBookSelect").value, parseInt($("babSelect").value || "1"));
-});
-$("babSelect").addEventListener("change", (e)=>{
-  renderIrodoriBab($("irodoriBookSelect").value, parseInt(e.target.value));
-});
-function populateBabSelect(){
-  const sel = $("babSelect");
-  const bookKey = $("irodoriBookSelect").value;
-  if(!sel || typeof IRODORI_BOOKS === 'undefined') return;
-  const chapters = IRODORI_BOOKS[bookKey].chapters;
-  sel.innerHTML = chapters.map(c=>`<option value="${c.bab}">Bab ${c.bab}${c.judul ? ' — '+c.judul : ''}</option>`).join("");
-}
 
 function matchesBook(p, filterVal){
   switch(filterVal){
@@ -5491,8 +5478,163 @@ function renderFlash(){
   $("prevBtn").disabled = studyIdx===0;
   $("nextBtn").disabled = studyIdx===studyList.length-1;
 }
-$("prevBtn").addEventListener("click", ()=>{ if(studyIdx>0){studyIdx--; renderFlash();} });
-$("nextBtn").addEventListener("click", ()=>{ if(studyIdx<studyList.length-1){studyIdx++; renderFlash();} });
+
+/* ================= NAVIGASI BERLAPIS MENU PELAJARAN (spt Kotoba Sehari-hari) =================
+   Ubin materi (Pola Kalimat/Kanji/Kosakata) -> overlay penuh layar: pilih
+   Level dulu, baru masuk ke layar materi (flashcard + navigasi). Irodori
+   punya alurnya sendiri (pilih Buku -> pilih Bab -> materi), 3 lapis. */
+const MATERI_LABELS = {
+  bunpo: { title: "Pola Kalimat", icon: "📐", jp: "文法" },
+  kanji: { title: "Kanji", icon: "🈴", jp: "漢字" },
+  kotoba: { title: "Kosakata", icon: "📗", jp: "言葉" },
+};
+const MATERI_LEVELS = [
+  { v: "all", label: "Semua Level" },
+  { v: "n5", label: "N5" },
+  { v: "n4", label: "N4" },
+  { v: "n3", label: "N3" },
+  { v: "n2", label: "N2" },
+  { v: "n1", label: "N1" },
+];
+function openMateriBrowser(mode){
+  const meta = MATERI_LABELS[mode];
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell" role="dialog" aria-modal="true" aria-label="Materi ${meta.title}">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">${meta.icon}</div>
+          <div>
+            <div class="kh-v2-title">${meta.title}</div>
+            <div class="kh-v2-subtitle" id="materiSubtitle">${meta.jp} — pilih level utk mulai belajar</div>
+          </div>
+          <button class="kh-v2-close" id="materiClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-v2-body">
+        <div class="kh-v2-grid kh-v2-cat-menu" id="materiLevelMenu">
+          ${MATERI_LEVELS.map(lv=>`<button class="vk-kategori-btn" data-level="${lv.v}" style="text-align:center;">
+            <div class="vk-kategori-title">${lv.label}</div>
+          </button>`).join("")}
+        </div>
+        <div id="materiContentView" style="display:none;">
+          <button class="kh-v2-back-btn" id="materiBackBtn" style="margin-bottom:14px;">← Pilih Level Lain</button>
+          <div class="flash" id="flashCard"></div>
+          <div class="study-nav" id="studyNav">
+            <button class="navbtn" id="prevBtn">← Sebelumnya</button>
+            <span class="progress-text" id="studyProgress"></span>
+            <button class="navbtn" id="nextBtn">Berikutnya →</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#materiClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+
+  const levelMenu = el.querySelector("#materiLevelMenu");
+  const contentView = el.querySelector("#materiContentView");
+  const subtitle = el.querySelector("#materiSubtitle");
+
+  levelMenu.querySelectorAll("[data-level]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      playSFX('click');
+      studyMode = mode;
+      studyBookFilter = btn.dataset.level;
+      const lv = MATERI_LEVELS.find(l=>l.v===btn.dataset.level);
+      subtitle.textContent = `${meta.jp} — ${lv.label}`;
+      levelMenu.style.display = "none";
+      contentView.style.display = "";
+      applyStudyFilter(); // otomatis panggil renderFlash() jg
+    });
+  });
+  // listener prevBtn/nextBtn dipasang SEKALI di sini (elemennya persisten
+  // sepanjang overlay ini terbuka, cuma display-nya yg di-toggle per level
+  // yg dipilih) -- kalau dipasang di dalam handler klik level di atas,
+  // bisa terpasang berkali-kali kalau user gonta-ganti level.
+  el.querySelector("#prevBtn").addEventListener("click", ()=>{ if(studyIdx>0){studyIdx--; renderFlash();} });
+  el.querySelector("#nextBtn").addEventListener("click", ()=>{ if(studyIdx<studyList.length-1){studyIdx++; renderFlash();} });
+  el.querySelector("#materiBackBtn").addEventListener("click", ()=>{
+    playSFX('click');
+    contentView.style.display = "none";
+    levelMenu.style.display = "";
+    subtitle.textContent = `${meta.jp} — pilih level utk mulai belajar`;
+  });
+}
+
+/* Irodori: 3 lapis (Buku -> Bab -> Materi), terpisah dari sistem level N5-N1 */
+function openIrodoriBrowser(){
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell" role="dialog" aria-modal="true" aria-label="Materi Irodori">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">📘</div>
+          <div>
+            <div class="kh-v2-title">Irodori</div>
+            <div class="kh-v2-subtitle" id="irodoriSubtitle">Pilih buku utk mulai belajar</div>
+          </div>
+          <button class="kh-v2-close" id="irodoriClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-v2-body">
+        <div class="kh-v2-grid kh-v2-cat-menu" id="irodoriBookMenu" style="grid-template-columns:1fr;">
+          <button class="vk-kategori-btn" data-book="shokyu1"><div class="vk-kategori-title">📗 Shokyu 1</div></button>
+          <button class="vk-kategori-btn" data-book="shokyu2"><div class="vk-kategori-title">📘 Shokyu 2</div></button>
+        </div>
+        <div id="irodoriBabMenu" class="kh-v2-grid kh-v2-cat-menu" style="display:none;"></div>
+        <div id="irodoriContentView" style="display:none;">
+          <button class="kh-v2-back-btn" id="irodoriBackBtn" style="margin-bottom:14px;">← Pilih Bab Lain</button>
+          <div class="flash" id="flashCard"></div>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#irodoriClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+
+  const bookMenu = el.querySelector("#irodoriBookMenu");
+  const babMenu = el.querySelector("#irodoriBabMenu");
+  const contentView = el.querySelector("#irodoriContentView");
+  const subtitle = el.querySelector("#irodoriSubtitle");
+  let currentBook = null;
+
+  bookMenu.querySelectorAll("[data-book]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      playSFX('click');
+      currentBook = btn.dataset.book;
+      const book = IRODORI_BOOKS[currentBook];
+      subtitle.textContent = `${book.label} — pilih bab`;
+      babMenu.innerHTML = book.chapters.map(c=>`<button class="vk-kategori-btn" data-bab="${c.bab}">
+        <div class="vk-kategori-title">Bab ${c.bab}${c.judul ? " — "+c.judul : ""}</div>
+      </button>`).join("");
+      babMenu.querySelectorAll("[data-bab]").forEach(babBtn=>{
+        babBtn.addEventListener("click", ()=>{
+          playSFX('click');
+          const bab = parseInt(babBtn.dataset.bab, 10);
+          subtitle.textContent = `${book.label} — Bab ${bab}`;
+          babMenu.style.display = "none";
+          contentView.style.display = "";
+          renderIrodoriBab(currentBook, bab);
+        });
+      });
+      bookMenu.style.display = "none";
+      babMenu.style.display = "";
+    });
+  });
+  el.querySelector("#irodoriBackBtn").addEventListener("click", ()=>{
+    playSFX('click');
+    contentView.style.display = "none";
+    babMenu.style.display = "";
+    subtitle.textContent = `${IRODORI_BOOKS[currentBook].label} — pilih bab`;
+  });
+}
+/* prevBtn/nextBtn sekarang dibuat dinamis di dalam openMateriBrowser(),
+   listenernya dipasang ulang tiap overlay dibuka (lihat fungsi tsb). */
 
 /* ================= QUIZ SETUP ================= */
 let setupScope = "all";
@@ -7465,13 +7607,13 @@ function openFlashcardJT(){
       <div class="fcjt-pair">
         <div class="fcjt-col fcjt-col-ji">
           <span class="fcjt-badge fcjt-badge-ji">自動詞 [が]</span>
-          <div class="fcjt-word fcjt-speak" data-say="${d.ji_kana}">${d.ji_jp}<span class="fcjt-speaker">🔊</span></div>
+          <div class="fcjt-word">${d.ji_jp}<span class="fcjt-speaker fcjt-speak" data-say="${d.ji_kana}">🔊</span></div>
           <div class="fcjt-romaji">${d.ji_ro}</div>
         </div>
         <div class="fcjt-divider"></div>
         <div class="fcjt-col fcjt-col-ta">
           <span class="fcjt-badge fcjt-badge-ta">他動詞 [を]</span>
-          <div class="fcjt-word fcjt-speak" data-say="${d.ta_kana}">${d.ta_jp}<span class="fcjt-speaker">🔊</span></div>
+          <div class="fcjt-word">${d.ta_jp}<span class="fcjt-speaker fcjt-speak" data-say="${d.ta_kana}">🔊</span></div>
           <div class="fcjt-romaji">${d.ta_ro}</div>
         </div>
       </div>
@@ -7756,6 +7898,191 @@ const VK_FORM_ID = {
   "意向形": "Bentuk Ajakan",
   "禁止形": "Bentuk Larangan"
 };
+/* ============================================================
+   FLASHCARD PERUBAHAN KATA KERJA — mode belajar santai (bukan kuis
+   berwaktu) utk 1200 soal VERB_KONJUGASI_DATA, dipilih per kategori,
+   memakai ulang mekanisme flip 3D & gaya visual yang sama dengan
+   Flashcard Jidoushi & Tadoushi supaya konsisten satu aplikasi.
+   ============================================================ */
+let fcVkIndex = 0;
+let fcVkShuffled = false;
+let fcVkOrder = null;
+let fcVkPool = null;
+function openFlashcardVerbKonjugasi(){
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Flashcard Perubahan Kata Kerja">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">📐</div>
+          <div>
+            <div class="kh-v2-title">Flashcard Perubahan Kata Kerja</div>
+            <div class="kh-v2-subtitle">動詞の活用 — pilih kategori utk mulai belajar</div>
+          </div>
+          <button class="kh-v2-close" id="fcVkKatClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" style="display:block;">
+        ${Object.keys(VERB_KONJUGASI_DATA).map(kkey=>{
+          const kat = VERB_KONJUGASI_DATA[kkey];
+          const forms = kat.sections.map(s=>s.label).join(" ・ ");
+          const total = kat.sections.reduce((a,s)=>a+s.items.length,0);
+          return `<button class="vk-kategori-btn" data-kat="${kkey}">
+            <div class="vk-kategori-title">${kat.label}</div>
+            <div class="vk-kategori-forms">${forms} &middot; ${total} kartu</div>
+          </button>`;
+        }).join("")}
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#fcVkKatClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+  el.querySelectorAll(".vk-kategori-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      playSFX('click');
+      close();
+      openFlashcardVerbKonjugasiBrowse(btn.dataset.kat);
+    });
+  });
+}
+function openFlashcardVerbKonjugasiBrowse(katKey){
+  const kat = VERB_KONJUGASI_DATA[katKey];
+  fcVkPool = [];
+  kat.sections.forEach(sec => sec.items.forEach(it => fcVkPool.push({...it, formLabel: sec.label})));
+  fcVkIndex = 0;
+  fcVkShuffled = false;
+  fcVkOrder = null;
+
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell fcjt-shell" role="dialog" aria-modal="true" aria-label="Belajar ${kat.label}">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">📐</div>
+          <div>
+            <div class="kh-v2-title">${kat.label}</div>
+            <div class="kh-v2-subtitle" id="fcVkProgress">Kartu 1 / ${fcVkPool.length}</div>
+          </div>
+          <button class="kh-v2-close" id="fcVkClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="fcjt-body">
+        <div class="fcjt-toolbar">
+          <div class="fcjt-progress-track"><div class="fcjt-progress-fill" id="fcVkProgressFill"></div></div>
+          <button class="fcjt-shuffle-btn" id="fcVkShuffleBtn" title="Acak urutan kartu">🔀</button>
+        </div>
+        <div class="fcjt-stage" id="fcVkStage">
+          <div class="fcjt-card" id="fcVkCard">
+            <div class="fcjt-face fcjt-front" id="fcVkFront"></div>
+            <div class="fcjt-face fcjt-back" id="fcVkBack"></div>
+          </div>
+        </div>
+        <div class="fcjt-hint">🔄 Ketuk kartu untuk membalik &nbsp;•&nbsp; 🔊 ketuk kata untuk dengar</div>
+        <div class="fcjt-nav">
+          <button class="fcjt-nav-btn" id="fcVkPrev">◀ Sebelumnya</button>
+          <button class="fcjt-nav-btn fcjt-nav-primary" id="fcVkNext">Lanjut ▶</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+
+  const cardEl = el.querySelector("#fcVkCard");
+  const frontEl = el.querySelector("#fcVkFront");
+  const backEl = el.querySelector("#fcVkBack");
+  const progressEl = el.querySelector("#fcVkProgress");
+  const progressFill = el.querySelector("#fcVkProgressFill");
+
+  function order(){
+    if(fcVkShuffled){
+      if(!fcVkOrder) fcVkOrder = vkShuffle([...Array(fcVkPool.length).keys()]);
+      return fcVkOrder;
+    }
+    return null;
+  }
+  function currentItem(){
+    const o = order();
+    return o ? fcVkPool[o[fcVkIndex]] : fcVkPool[fcVkIndex];
+  }
+
+  function renderCard(){
+    const d = currentItem();
+    cardEl.classList.remove("fcjt-flipped");
+    const total = fcVkPool.length;
+    progressEl.textContent = `Kartu ${fcVkIndex+1} / ${total}${fcVkShuffled ? ' · 🔀 Acak' : ''}`;
+    progressFill.style.width = `${((fcVkIndex+1)/total)*100}%`;
+    const plainWord = d.jp.replace(/<[^>]+>/g,'');
+
+    frontEl.innerHTML = `
+      <div class="fcjt-col" style="flex:none;">
+        <span class="fcjt-badge fcjt-badge-ji">${d.formLabel} <small style="font-weight:700;">(${VK_FORM_ID[d.formLabel]||''})</small></span>
+        <div class="fcjt-word" style="font-size:34px;margin-top:14px;">${d.jp}<span class="fcjt-speaker fcjt-speak" data-say="${plainWord}">🔊</span></div>
+        <div class="fcjt-romaji" style="margin-top:6px;">${d.meaning}</div>
+      </div>
+      <div class="fcjt-tap-tip">🔄 Ketuk untuk lihat jawaban</div>
+    `;
+    const correctPlain = d.correct.replace(/<[^>]+>/g,'');
+    backEl.innerHTML = `
+      <div class="fcjt-col" style="flex:none;">
+        <span class="fcjt-badge fcjt-badge-ta">Jawaban</span>
+        <div class="fcjt-word" style="font-size:32px;margin-top:14px;color:#2e6b2e;">${d.correct}<span class="fcjt-speaker fcjt-speak" data-say="${correctPlain}">🔊</span></div>
+        <div class="fcjt-example" style="margin-top:16px;">
+          <div class="fcjt-example-jp">${d.jp}</div>
+          <div class="fcjt-example-id">${d.meaning}</div>
+        </div>
+      </div>
+      <div class="fcjt-tap-tip">🔄 Ketuk untuk kembali</div>
+    `;
+  }
+
+  cardEl.addEventListener("click", (ev)=>{
+    if(ev.target.closest(".fcjt-speak")) return;
+    cardEl.classList.toggle("fcjt-flipped");
+  });
+  el.querySelector("#fcVkStage").addEventListener("click", (ev)=>{
+    const btn = ev.target.closest(".fcjt-speak");
+    if(!btn) return;
+    ev.stopPropagation();
+    speakJapaneseCard(btn.dataset.say, btn);
+  });
+
+  function goTo(newIndex){
+    const total = fcVkPool.length;
+    const doJump = ()=>{
+      fcVkIndex = ((newIndex % total) + total) % total;
+      renderCard();
+    };
+    if(cardEl.classList.contains("fcjt-flipped")){
+      cardEl.classList.remove("fcjt-flipped");
+      setTimeout(doJump, 280);
+    } else {
+      doJump();
+    }
+    playSFX('click');
+  }
+  el.querySelector("#fcVkPrev").addEventListener("click", ()=> goTo(fcVkIndex - 1));
+  el.querySelector("#fcVkNext").addEventListener("click", ()=> goTo(fcVkIndex + 1));
+  el.querySelector("#fcVkShuffleBtn").addEventListener("click", ()=>{
+    fcVkShuffled = !fcVkShuffled;
+    fcVkOrder = null;
+    fcVkIndex = 0;
+    el.querySelector("#fcVkShuffleBtn").classList.toggle("active", fcVkShuffled);
+    playSFX('click');
+    renderCard();
+  });
+
+  const close = ()=>{
+    if("speechSynthesis" in window) window.speechSynthesis.cancel();
+    el.remove();
+  };
+  el.querySelector("#fcVkClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+
+  renderCard();
+}
+
 function openVerbKonjugasiKategori(){
   const el = document.createElement("div");
   el.className = "kh-v2-overlay";

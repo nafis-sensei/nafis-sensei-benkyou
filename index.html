@@ -5879,7 +5879,7 @@ function buildQuestionsForPacket(scope, count, typeMode, packetIndex){
   if(typeMode === 'dokkai'){
     return items.flatMap(passage => makeQuestionsForDokkai(passage, rng));
   }
-  if(typeMode === 'jlpttest'){
+  if(typeMode === 'jlpttest' || typeMode === 'irodori'){
     return items.map(item => makeQuestionForJLPT(item));
   }
   if(typeMode === 'listening'){
@@ -7237,12 +7237,27 @@ function renderResultCardToImage(opts){
   const ctx = canvas.getContext("2d");
   const gradeColor = gradeColorHex(opts.gradeLetter);
 
-  // ===== latar kertas krem hangat, ala kertas catatan petani =====
+  // ===== latar kertas krem hangat, dgn radial glow lembut di tengah =====
   const bg = ctx.createLinearGradient(0,0,W,H);
   bg.addColorStop(0, "#fbf3df");
   bg.addColorStop(1, "#f2e6c4");
   ctx.fillStyle = bg;
   ctx.fillRect(0,0,W,H);
+  const glow = ctx.createRadialGradient(W*0.5,H*0.42,40, W*0.5,H*0.42, W*0.62);
+  glow.addColorStop(0, "rgba(255,250,230,0.55)");
+  glow.addColorStop(1, "rgba(255,250,230,0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(0,0,W,H);
+  // tekstur titik halus ala kertas jerami
+  ctx.save();
+  ctx.globalAlpha = 0.05;
+  ctx.fillStyle = "#6b5033";
+  for(let yy=44; yy<H-44; yy+=17){
+    for(let xx=44; xx<W-44; xx+=17){
+      ctx.beginPath(); ctx.arc(xx, yy, 1.1, 0, Math.PI*2); ctx.fill();
+    }
+  }
+  ctx.restore();
 
   // bingkai kayu tebal + deretan ikon sayur/hewan di sekelilingnya
   drawResultCardBorderIcons(ctx, W, H, 34);
@@ -7257,20 +7272,24 @@ function renderResultCardToImage(opts){
 
   const pad = 66;
 
-  // ===== header: judul dua-baris (ID + JP) ala kop laporan =====
+  // ===== header: "LAPORAN HASIL PANEN" jadi judul utama, gaya kop resmi =====
   ctx.textAlign = "left";
   ctx.fillStyle = "#4a3320";
-  ctx.font = "900 30px sans-serif";
-  ctx.fillText("🥕🌾 Pemeriksaan Pertanian Nafis Sensei 日本語の里", pad, pad+8);
-  ctx.font = "900 22px sans-serif";
+  ctx.font = "900 34px sans-serif";
+  ctx.fillText("🌾 LAPORAN HASIL PANEN", pad, pad+6);
+  // aksen garis kecil di bawah kata "PANEN" biar berasa judul resmi
+  const titleW = ctx.measureText("🌾 LAPORAN HASIL PANEN").width;
+  ctx.strokeStyle = "#c99a5b"; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(pad, pad+16); ctx.lineTo(pad+titleW, pad+16); ctx.stroke();
+  ctx.font = "900 19px sans-serif";
   ctx.fillStyle = "#6b5033";
-  ctx.fillText("ナフィス牧場コーナー", pad+2, pad+38);
+  ctx.fillText("Nafis Sensei 日本語の里 ・ ナフィス牧場コーナー", pad+2, pad+42);
   ctx.font = "bold 15px sans-serif";
   ctx.fillStyle = "#8a744f";
-  const subLabel = "LAPORAN PANEN (" + opts.materiLabel.toUpperCase() + (opts.paketLabel && opts.paketLabel !== '-' ? "  ·  " + opts.paketLabel.toUpperCase() : "") + ")";
-  ctx.fillText(subLabel, pad+2, pad+64);
+  const subLabel = "MATERI: " + opts.materiLabel.toUpperCase() + (opts.paketLabel && opts.paketLabel !== '-' ? "  ·  " + opts.paketLabel.toUpperCase() : "");
+  ctx.fillText(subLabel, pad+2, pad+66);
 
-  // ===== stempel nilai huruf, pojok kanan atas =====
+  // ===== stempel nilai huruf, pojok kanan atas (cincin ganda + titik2 dekoratif) =====
   const stampX = W-pad-72, stampY = pad+30, stampR = 58;
   ctx.save();
   ctx.translate(stampX, stampY);
@@ -7280,6 +7299,13 @@ function renderResultCardToImage(opts){
   ctx.lineWidth = 5; ctx.strokeStyle = "#6b5033"; ctx.stroke();
   ctx.beginPath(); ctx.arc(0,0, stampR-9, 0, Math.PI*2);
   ctx.lineWidth = 2; ctx.strokeStyle = "#6b5033"; ctx.stroke();
+  // deretan titik kecil di antara 2 cincin, ala stempel resmi
+  for(let a=0; a<360; a+=18){
+    const rad = a*Math.PI/180;
+    const rr = stampR-4.5;
+    ctx.beginPath(); ctx.arc(Math.cos(rad)*rr, Math.sin(rad)*rr, 1.4, 0, Math.PI*2);
+    ctx.fillStyle = "#6b5033"; ctx.fill();
+  }
   ctx.fillStyle = "#6b5033";
   ctx.font = "900 60px sans-serif";
   ctx.textAlign = "center"; ctx.textBaseline = "middle";
@@ -7290,11 +7316,11 @@ function renderResultCardToImage(opts){
   ctx.setLineDash([6,6]);
   ctx.strokeStyle = "rgba(107,80,51,0.4)";
   ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(pad, pad+86); ctx.lineTo(W-pad, pad+86); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(pad, pad+90); ctx.lineTo(W-pad, pad+90); ctx.stroke();
   ctx.setLineDash([]);
 
   // ===== kartu identitas siswa (kiri), gaya sobekan kertas dgn maskot =====
-  const noteX = pad, noteY = pad+118, noteW = 300, noteH = 190;
+  const noteX = pad, noteY = pad+120, noteW = 300, noteH = 188;
   ctx.save();
   ctx.fillStyle = "#fffdf6";
   ctx.shadowColor = "rgba(90,65,35,0.25)"; ctx.shadowBlur = 14; ctx.shadowOffsetY = 6;
@@ -7322,6 +7348,10 @@ function renderResultCardToImage(opts){
   const cratesY = noteY, cratesH = noteH;
   const crateW = 210, crateGap = 14;
   const crateX = noteX + noteW + 30;
+  ctx.textAlign = "center";
+  ctx.font = "900 13px sans-serif";
+  ctx.fillStyle = "#8a744f";
+  ctx.fillText("🌟 PEROLEHAN SKOR", crateX+crateW/2, cratesY-8);
   ctx.save();
   const woodGrad = ctx.createLinearGradient(crateX,cratesY,crateX,cratesY+cratesH);
   woodGrad.addColorStop(0, "#c88a4a"); woodGrad.addColorStop(1, "#a9682e");
@@ -7344,6 +7374,10 @@ function renderResultCardToImage(opts){
   // ===== kotak hasil (benar/akurasi), gaya karung kain =====
   const sackX = crateX + crateW + crateGap;
   const sackW = W - pad - sackX;
+  ctx.textAlign = "center";
+  ctx.font = "900 13px sans-serif";
+  ctx.fillStyle = "#8a744f";
+  ctx.fillText("🎯 HASIL PANEN", sackX+sackW/2, cratesY-8);
   ctx.save();
   ctx.fillStyle = "#f4ecd6";
   roundRect(ctx, sackX, cratesY, sackW, cratesH, 12); ctx.fill();
@@ -7358,8 +7392,11 @@ function renderResultCardToImage(opts){
   ctx.font = "900 20px sans-serif";
   ctx.fillText(`✅ Akurasi ${opts.acc}%`, sackX+sackW/2, cratesY+cratesH/2+30);
 
-  // ===== footer dua-bahasa =====
+  // ===== footer dua-bahasa, dipisah ikon jerami kecil =====
   ctx.textAlign = "center";
+  ctx.font = "16px sans-serif";
+  ctx.fillStyle = "#c99a5b";
+  ctx.fillText("🌾  ✦  🌾", W/2, H-pad-22);
   ctx.font = "italic bold 14px sans-serif";
   ctx.fillStyle = "#7b6a52";
   ctx.fillText("Laporan ini dibuat otomatis oleh kurcaci peternakan Nafis. Tolong serahkan pada kepala desa (gurumu).", W/2, H-pad-2);

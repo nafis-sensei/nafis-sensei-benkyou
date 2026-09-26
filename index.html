@@ -699,6 +699,10 @@
   .lbw-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
   .lbw-title { font-weight: 800; font-size: 12.5px; display:flex; align-items:center; gap:6px; color: var(--gold); }
   .lbw-status { font-size: 9.5px; color: var(--sub); }
+  .lbw-scroll { max-height: 190px; overflow-y: auto; padding-right: 2px; }
+  .lbw-scroll::-webkit-scrollbar { width: 5px; }
+  .lbw-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+  .lbw-myrank-pin { border-top: 1px dashed var(--gold); margin-top: 6px; padding-top: 8px; }
   .lbw-row { display:flex; align-items:center; gap:8px; padding:5px 0; font-size:12px; }
   .lbw-row.me { background: rgba(255,215,0,.08); border-radius: 8px; padding:5px 6px; }
   .lbw-rank { flex-shrink:0; width:22px; text-align:center; font-weight:800; }
@@ -4120,54 +4124,59 @@ function vlbRowsHTML(rows, myNis){
     </div>
   `).join("");
 }
-/* Widget leaderboard ringkas yang tampil LANGSUNG di dashboard (top 5 +
-   posisi pemain sendiri kalau di luar top 5), tanpa perlu buka menu apa pun.
+/* Widget leaderboard yang tampil LANGSUNG di dashboard, bisa di-scroll untuk
+   lihat lebih banyak peringkat (bukan cuma No.1), dan pemain mana pun bisa
+   lihat ada di peringkat berapa dirinya sendiri (baris "kamu" selalu
+   ditampilkan, walau di luar daftar yang kelihatan di kotak scroll).
    Listener real-time Firebase dipasang SEKALI SAJA (guard __lbWidgetNode)
    supaya tiap kali dashboard dirender ulang tidak numpuk listener baru. */
+const LBW_VISIBLE_COUNT = 15; // jumlah baris yang tampil di kotak scroll dashboard
 let __lbWidgetNode = null;
-function vlbWidgetRowsHTML(rows, myNis){
-  if(rows.length === 0) return `<div class="lbw-empty">Belum ada data pemain. Yuk main dulu!</div>`;
-  const top = rows.slice(0, 5);
-  let html = top.map((r,i)=>`
-    <div class="lbw-row ${myNis===r.nis ? 'me' : ''}">
+function vlbRowHTML(r, i, myNis, extraCls){
+  return `
+    <div class="lbw-row ${myNis===r.nis ? 'me' : ''} ${extraCls||''}">
       <span class="lbw-rank">${i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)}</span>
       <span class="lbw-avatar">${(()=>{ const a = AVATAR_SHOP.find(x=>x.id===r.avatar) || AVATAR_SHOP[0]; return a.emoji; })()}</span>
-      <span class="lbw-info"><span class="lbw-name">${r.nama}</span><span class="lbw-sub">Lv.${r.level}</span></span>
-      <span class="lbw-xp">${r.xp} XP</span>
-    </div>
-  `).join("");
-  // Kalau pemain yang sedang login tidak masuk top 5, tetap tampilkan posisinya
-  const myIdx = rows.findIndex(r=>r.nis===myNis);
-  if(myNis && myIdx >= 5){
-    const r = rows[myIdx];
-    html += `
-    <div class="lbw-row me" style="border-top:1px dashed var(--line);margin-top:4px;padding-top:8px;">
-      <span class="lbw-rank">${myIdx+1}</span>
-      <span class="lbw-avatar">${(()=>{ const a = AVATAR_SHOP.find(x=>x.id===r.avatar) || AVATAR_SHOP[0]; return a.emoji; })()}</span>
-      <span class="lbw-info"><span class="lbw-name">${r.nama} (kamu)</span><span class="lbw-sub">Lv.${r.level}</span></span>
+      <span class="lbw-info"><span class="lbw-name">${r.nama}${myNis===r.nis ? ' (kamu)' : ''}</span><span class="lbw-sub">Lv.${r.level}</span></span>
       <span class="lbw-xp">${r.xp} XP</span>
     </div>`;
-  }
-  return html;
+}
+function vlbWidgetRowsHTML(rows, myNis){
+  if(rows.length === 0) return `<div class="lbw-empty">Belum ada data pemain. Yuk main dulu!</div>`;
+  return rows.slice(0, LBW_VISIBLE_COUNT).map((r,i)=>vlbRowHTML(r, i, myNis)).join("");
+}
+// Baris "peringkat kamu" yang selalu terlihat (pinned, di luar area scroll)
+// kalau posisi pemain berada di luar daftar yang sudah tampil di kotak scroll.
+function vlbMyRankPinHTML(rows, myNis){
+  if(!myNis) return "";
+  const myIdx = rows.findIndex(r=>r.nis===myNis);
+  if(myIdx < 0 || myIdx < LBW_VISIBLE_COUNT) return "";
+  return `<div class="lbw-myrank-pin">${vlbRowHTML(rows[myIdx], myIdx, myNis)}</div>`;
 }
 function renderLeaderboardWidget(){
   const box = $("leaderboardWidget");
   if(!box) return;
   const isOnline = typeof window.__lbListen === 'function';
   const myNis = student ? student.nis : null;
+  const rows0 = getVillageLeaderboard();
   box.innerHTML = `
     <div class="lbw-head">
       <div class="lbw-title">🏆 Papan Peringkat Desa</div>
       <div class="lbw-status" id="lbwStatus">${isOnline ? '🟢 real-time' : 'lokal'}</div>
     </div>
-    <div id="lbwList">${vlbWidgetRowsHTML(getVillageLeaderboard(), myNis)}</div>
+    <div class="lbw-scroll"><div id="lbwList">${vlbWidgetRowsHTML(rows0, myNis)}</div></div>
+    <div id="lbwMyRank">${vlbMyRankPinHTML(rows0, myNis)}</div>
     <div class="lbw-more" id="lbwMoreBtn">Lihat semua &rsaquo;</div>
   `;
   $("lbwMoreBtn").addEventListener("click", openVillageLeaderboard);
   if(isOnline && !__lbWidgetNode){
     __lbWidgetNode = window.__lbListen((data)=>{
+      const rows = firebaseLeaderboardToRows(data);
+      const nis = student ? student.nis : null;
       const listEl = document.getElementById("lbwList");
-      if(listEl) listEl.innerHTML = vlbWidgetRowsHTML(firebaseLeaderboardToRows(data), student ? student.nis : null);
+      const pinEl = document.getElementById("lbwMyRank");
+      if(listEl) listEl.innerHTML = vlbWidgetRowsHTML(rows, nis);
+      if(pinEl) pinEl.innerHTML = vlbMyRankPinHTML(rows, nis);
     });
   }
 }

@@ -2391,7 +2391,7 @@
 /* Mode Kuis Kotoba — soal visual (emoji besar + 4 pilihan) */
 .kh-v2-quiz-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;border:2px solid #d2703f;background:linear-gradient(135deg,#ff9a5a,#ff6f61);color:#fff;font:900 10px "Inter",sans-serif;cursor:pointer;box-shadow:0 3px 0 #b6502c;margin-left:auto}
 .kh-quiz-shell{max-width:440px}
-.kh-quiz-body{position:relative;z-index:1;padding:26px 20px;text-align:center;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.kh-quiz-body{position:relative;z-index:1;padding:26px 20px;text-align:center;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow-y:auto;max-height:78vh;flex:1;min-height:0}
 .kh-quiz-emoji{font-size:64px;margin-bottom:14px;filter:drop-shadow(0 4px 6px rgba(80,50,20,.2))}
 .kh-quiz-question{font:700 14px "Inter",sans-serif;color:#5b3b23;margin-bottom:16px;line-height:1.5}
 .kh-quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
@@ -6040,6 +6040,14 @@ function renderStart(){
     b.addEventListener("click", ()=>{
       document.querySelectorAll("#typeRow button").forEach(x=>x.classList.remove("active"));
       b.classList.add("active"); setupType = b.dataset.v;
+      // Kotoba Harian, Jidoushi/Tadoushi & Perubahan Kata Kerja tidak punya Mode Ujian
+      // berjenjang (paket/level) — normalkan setupMode DULU di sini, sebelum
+      // renderPacketRow() di bawah sempat menghitung paket dari data yang salah
+      // (mis. masih pakai VOCAB/pool lama) saat pindah jenis kuis dari Mode Ujian.
+      if(setupMode === 'ujian' && (setupType === 'kotobaharian' || setupType === 'jidoushitadoushi' || setupType === 'verbkonjugasi')){
+        setupMode = 'latihan';
+        document.querySelectorAll("#modeRow button").forEach(x=>x.classList.toggle("active", x.dataset.v==='latihan'));
+      }
       renderCountRow(); updateCountHint(); renderPacketRow();
       const vpLink = $("voicePickerLink");
       if(vpLink) vpLink.style.display = (setupType === 'listening') ? '' : 'none';

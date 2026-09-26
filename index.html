@@ -693,6 +693,22 @@
   .garden-plot.growing { animation: gardenGrow 1.6s ease-in-out infinite; }
   @keyframes gardenGrow { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.12); } }
   .missions-card .mc-title { font-weight: 800; font-size: 12.5px; margin-bottom: 8px; display:flex; align-items:center; gap:6px; }
+
+  /* Widget Papan Peringkat Desa — tampil langsung di dashboard, tanpa perlu buka menu */
+  .leaderboard-widget { margin: 10px 14px 0; padding: 12px 14px; background: var(--panel); border: 1px solid var(--gold); border-radius: 14px; }
+  .lbw-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .lbw-title { font-weight: 800; font-size: 12.5px; display:flex; align-items:center; gap:6px; color: var(--gold); }
+  .lbw-status { font-size: 9.5px; color: var(--sub); }
+  .lbw-row { display:flex; align-items:center; gap:8px; padding:5px 0; font-size:12px; }
+  .lbw-row.me { background: rgba(255,215,0,.08); border-radius: 8px; padding:5px 6px; }
+  .lbw-rank { flex-shrink:0; width:22px; text-align:center; font-weight:800; }
+  .lbw-avatar { flex-shrink:0; font-size:16px; }
+  .lbw-info { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .lbw-name { font-weight:700; }
+  .lbw-sub { color: var(--sub); font-size:10px; margin-left:4px; }
+  .lbw-xp { flex-shrink:0; font-weight:800; color: var(--gold); font-size:11.5px; }
+  .lbw-more { text-align:center; margin-top:6px; font-size:10.5px; color: var(--cyan); cursor:pointer; }
+  .lbw-empty { text-align:center; padding:14px 6px; color: var(--sub); font-size:11px; }
   .mission-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; font-size: 12px; }
   .mission-row:last-child { margin-bottom: 0; }
   .mission-row .m-icon { flex-shrink: 0; font-size: 15px; }
@@ -2601,6 +2617,7 @@ rt{color:#7b5b3d;font-weight:800;}
     <div class="panel active" id="panel-dashboard">
       <div class="player-bar" id="playerBar"></div>
       <div class="garden-card" id="gardenCard"></div>
+      <div class="leaderboard-widget" id="leaderboardWidget"></div>
       <div class="missions-card" id="missionsCard"></div>
       <div id="omikujiSlot"></div>
 
@@ -3115,7 +3132,31 @@ function getPlayerProfile(){
   }catch(e){}
   return { xp: 0, coins: 0, theme: "default", ownedThemes: ["default"], avatar: "pelajar", ownedAvatars: ["pelajar"], song: "harvestmoon", ownedSongs: ["harvestmoon"], lastPlayDate: null, streakDays: 0, nama: student ? student.nama : "-", kelas: student ? (student.kelas||"-") : "-" };
 }
-function savePlayerProfile(p){ localStorage.setItem(playerProfileKey(), JSON.stringify(p)); }
+function savePlayerProfile(p){
+  localStorage.setItem(playerProfileKey(), JSON.stringify(p));
+  syncLeaderboardOnline(p);
+}
+/* Kirim profil pemain (XP/koin/level saat ini) ke Firebase Realtime
+   Database supaya Papan Peringkat Desa terlihat SAMA untuk semua
+   pengunjung web, real-time, tanpa perlu refresh. Kalau Firebase
+   belum siap/gagal dimuat (mis. offline), fungsi ini diam saja dan
+   fallback ke leaderboard lokal (localStorage) tetap jalan seperti
+   biasa — tidak pernah membuat aplikasi error. */
+function syncLeaderboardOnline(p){
+  if(!student || !student.nis || student.nis === "guest") return;
+  if(typeof window.__lbSyncProfile !== 'function') return;
+  const info = levelInfoFromXP(p.xp||0);
+  window.__lbSyncProfile(student.nis, {
+    nis: student.nis,
+    nama: p.nama || student.nama || ("Siswa " + student.nis),
+    kelas: p.kelas || student.kelas || "-",
+    xp: p.xp || 0,
+    coins: p.coins || 0,
+    level: info.level,
+    avatar: p.avatar || "pelajar",
+    updatedAt: Date.now()
+  });
+}
 
 /* ============================================================
    GALERI PENCAPAIAN — daftar lencana tetap (bukan cuma toast
@@ -4051,37 +4092,112 @@ function openKotobaKuis(totalQRequested, mode){
 
   renderQuestion();
 }
-function openVillageLeaderboard(){
-  const rows = getVillageLeaderboard();
+/* Ubah objek data Firebase { nis: {...}, nis2: {...} } jadi array baris
+   siap-tampil, terurut dari XP tertinggi — format sama persis dengan
+   getVillageLeaderboard() (lokal) supaya bisa dipakai bergantian oleh
+   fungsi render yang sama. */
+function firebaseLeaderboardToRows(data){
+  const rows = Object.keys(data||{}).map(nis=>{
+    const p = data[nis] || {};
+    return { nis, nama: p.nama || ("Siswa "+nis), kelas: p.kelas || "-", xp: p.xp||0, coins: p.coins||0, level: p.level || levelInfoFromXP(p.xp||0).level, avatar: p.avatar || "pelajar" };
+  });
+  rows.sort((a,b)=> b.xp - a.xp);
+  return rows;
+}
+function vlbRowsHTML(rows, myNis){
+  if(rows.length === 0){
+    return `<div style="text-align:center;padding:30px 10px;color:var(--sub);font-size:12px;">Belum ada data pemain.</div>`;
+  }
+  return rows.map((r,i)=>`
+    <div class="vlb-row ${myNis===r.nis ? 'me' : ''}">
+      <span class="vlb-rank">${i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)}</span>
+      <span class="vlb-avatar">${(()=>{ const a = AVATAR_SHOP.find(x=>x.id===r.avatar) || AVATAR_SHOP[0]; return a.emoji; })()}</span>
+      <span class="vlb-info">
+        <span class="vlb-name">${r.nama}</span>
+        <span class="vlb-sub">NIS ${r.nis} &middot; ${r.kelas} &middot; Lv.${r.level}</span>
+      </span>
+      <span class="vlb-xp">${r.xp} XP</span>
+    </div>
+  `).join("");
+}
+/* Widget leaderboard ringkas yang tampil LANGSUNG di dashboard (top 5 +
+   posisi pemain sendiri kalau di luar top 5), tanpa perlu buka menu apa pun.
+   Listener real-time Firebase dipasang SEKALI SAJA (guard __lbWidgetNode)
+   supaya tiap kali dashboard dirender ulang tidak numpuk listener baru. */
+let __lbWidgetNode = null;
+function vlbWidgetRowsHTML(rows, myNis){
+  if(rows.length === 0) return `<div class="lbw-empty">Belum ada data pemain. Yuk main dulu!</div>`;
+  const top = rows.slice(0, 5);
+  let html = top.map((r,i)=>`
+    <div class="lbw-row ${myNis===r.nis ? 'me' : ''}">
+      <span class="lbw-rank">${i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)}</span>
+      <span class="lbw-avatar">${(()=>{ const a = AVATAR_SHOP.find(x=>x.id===r.avatar) || AVATAR_SHOP[0]; return a.emoji; })()}</span>
+      <span class="lbw-info"><span class="lbw-name">${r.nama}</span><span class="lbw-sub">Lv.${r.level}</span></span>
+      <span class="lbw-xp">${r.xp} XP</span>
+    </div>
+  `).join("");
+  // Kalau pemain yang sedang login tidak masuk top 5, tetap tampilkan posisinya
+  const myIdx = rows.findIndex(r=>r.nis===myNis);
+  if(myNis && myIdx >= 5){
+    const r = rows[myIdx];
+    html += `
+    <div class="lbw-row me" style="border-top:1px dashed var(--line);margin-top:4px;padding-top:8px;">
+      <span class="lbw-rank">${myIdx+1}</span>
+      <span class="lbw-avatar">${(()=>{ const a = AVATAR_SHOP.find(x=>x.id===r.avatar) || AVATAR_SHOP[0]; return a.emoji; })()}</span>
+      <span class="lbw-info"><span class="lbw-name">${r.nama} (kamu)</span><span class="lbw-sub">Lv.${r.level}</span></span>
+      <span class="lbw-xp">${r.xp} XP</span>
+    </div>`;
+  }
+  return html;
+}
+function renderLeaderboardWidget(){
+  const box = $("leaderboardWidget");
+  if(!box) return;
+  const isOnline = typeof window.__lbListen === 'function';
   const myNis = student ? student.nis : null;
+  box.innerHTML = `
+    <div class="lbw-head">
+      <div class="lbw-title">🏆 Papan Peringkat Desa</div>
+      <div class="lbw-status" id="lbwStatus">${isOnline ? '🟢 real-time' : 'lokal'}</div>
+    </div>
+    <div id="lbwList">${vlbWidgetRowsHTML(getVillageLeaderboard(), myNis)}</div>
+    <div class="lbw-more" id="lbwMoreBtn">Lihat semua &rsaquo;</div>
+  `;
+  $("lbwMoreBtn").addEventListener("click", openVillageLeaderboard);
+  if(isOnline && !__lbWidgetNode){
+    __lbWidgetNode = window.__lbListen((data)=>{
+      const listEl = document.getElementById("lbwList");
+      if(listEl) listEl.innerHTML = vlbWidgetRowsHTML(firebaseLeaderboardToRows(data), student ? student.nis : null);
+    });
+  }
+}
+function openVillageLeaderboard(){
+  const myNis = student ? student.nis : null;
+  const isOnline = typeof window.__lbListen === 'function';
   const el = document.createElement("div");
   el.className = "album-overlay";
   el.innerHTML = `
     <div class="album-card" style="max-width:420px;">
       <h3>🏆 Papan Peringkat Desa</h3>
-      <div style="font-size:11px;color:var(--sub);text-align:center;margin:-4px 0 12px;padding:0 4px;">
-        Peringkat siswa yang pernah bermain di perangkat ini, diurutkan dari total XP.
+      <div style="font-size:11px;color:var(--sub);text-align:center;margin:-4px 0 12px;padding:0 4px;" id="vlbStatusLine">
+        ${isOnline ? '🟢 Real-time — terhubung ke semua pemain online' : 'Peringkat siswa di perangkat ini (offline), diurutkan dari total XP.'}
       </div>
-      <div class="vlb-list">
-      ${rows.length === 0 ? `
-        <div style="text-align:center;padding:30px 10px;color:var(--sub);font-size:12px;">Belum ada data siswa di perangkat ini.</div>
-      ` : rows.map((r,i)=>`
-        <div class="vlb-row ${myNis===r.nis ? 'me' : ''}">
-          <span class="vlb-rank">${i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)}</span>
-          <span class="vlb-avatar">${(()=>{ const a = AVATAR_SHOP.find(x=>x.id===r.avatar) || AVATAR_SHOP[0]; return a.emoji; })()}</span>
-          <span class="vlb-info">
-            <span class="vlb-name">${r.nama}</span>
-            <span class="vlb-sub">NIS ${r.nis} &middot; ${r.kelas} &middot; Lv.${r.level}</span>
-          </span>
-          <span class="vlb-xp">${r.xp} XP</span>
-        </div>
-      `).join("")}
-      </div>
+      <div class="vlb-list" id="vlbList">${vlbRowsHTML(getVillageLeaderboard(), myNis)}</div>
       <button class="shop-close" id="vlbCloseBtn">Tutup</button>
     </div>
   `;
   document.body.appendChild(el);
-  const close = ()=> el.remove();
+  let lbNode = null;
+  if(isOnline){
+    lbNode = window.__lbListen((data)=>{
+      const listEl = el.querySelector("#vlbList");
+      if(listEl) listEl.innerHTML = vlbRowsHTML(firebaseLeaderboardToRows(data), myNis);
+    });
+  }
+  const close = ()=>{
+    if(lbNode && typeof window.__lbUnlisten === 'function') window.__lbUnlisten(lbNode);
+    el.remove();
+  };
   el.querySelector("#vlbCloseBtn").addEventListener("click", close);
   el.addEventListener("click", (ev)=>{ if(ev.target === el) close(); });
 }
@@ -4319,6 +4435,7 @@ function renderPlayerBar(){
   $("openLeaderboardBtn").addEventListener("click", openVillageLeaderboard);
   $("pbAvatarWrap").addEventListener("click", ()=>openShop("avatar"));
   renderGardenCard();
+  renderLeaderboardWidget();
   updateAchvBadge();
 }
 
@@ -8900,6 +9017,60 @@ function attachTilt3D(selector, maxDeg){
 attachTilt3D(".dash-menu-btn", 7);
 attachTilt3D(".shop-item", 6);
 
+</script>
+<script type="module">
+  // ============================================================
+  // LEADERBOARD REAL-TIME (Firebase Realtime Database)
+  // Fungsi-fungsi di sini di-expose ke window supaya bisa dipanggil
+  // dari script utama (non-module) di atas — savePlayerProfile()
+  // memanggil window.__lbSyncProfile, dan openVillageLeaderboard()
+  // memanggil window.__lbListen / window.__lbUnlisten.
+  // Semua pemanggilan dari sisi script utama dibungkus typeof-check
+  // supaya tetap aman kalau Firebase gagal dimuat (offline/diblokir).
+  // ============================================================
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+  import { getDatabase, ref, set, onValue, off } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBVPJ-JwJG92Ac1FYpcpAV7y-7vZtcSmuQ",
+    authDomain: "nafis-sensei.firebaseapp.com",
+    databaseURL: "https://nafis-sensei-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "nafis-sensei",
+    storageBucket: "nafis-sensei.firebasestorage.app",
+    messagingSenderId: "175293444295",
+    appId: "1:175293444295:web:86477204cb7913f9aacee2",
+    measurementId: "G-N2MFLZBN6C"
+  };
+
+  let db = null;
+  try {
+    const app = initializeApp(firebaseConfig);
+    db = getDatabase(app);
+  } catch(e){ console.warn("Firebase gagal diinisialisasi, leaderboard online nonaktif:", e); }
+
+  // Kirim/update 1 baris data pemain (di-key per NIS, jadi tiap siswa
+  // cuma punya 1 entri yang ter-update terus, bukan numpuk tiap main).
+  window.__lbSyncProfile = function(nis, data){
+    if(!db || !nis) return;
+    try{ set(ref(db, "leaderboard/" + nis), data); }catch(e){ console.warn("Gagal sinkron leaderboard:", e); }
+  };
+
+  // Pasang listener real-time ke seluruh data leaderboard. callback
+  // dipanggil setiap ada perubahan (baik dari perangkat ini maupun
+  // perangkat lain). Kembalikan referensi node-nya supaya bisa
+  // dilepas (off) saat overlay leaderboard ditutup.
+  window.__lbListen = function(callback){
+    if(!db) return null;
+    const node = ref(db, "leaderboard");
+    onValue(node, (snap)=>{
+      try{ callback(snap.val() || {}); }catch(e){ console.warn(e); }
+    }, (err)=>{ console.warn("Leaderboard listener error:", err); });
+    return node;
+  };
+  window.__lbUnlisten = function(node){
+    if(!db || !node) return;
+    try{ off(node); }catch(e){}
+  };
 </script>
 </body>
 </html>

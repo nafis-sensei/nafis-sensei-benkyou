@@ -713,6 +713,45 @@
   .lbw-xp { flex-shrink:0; font-weight:800; color: var(--gold); font-size:11.5px; }
   .lbw-more { text-align:center; margin-top:6px; font-size:10.5px; color: var(--cyan); cursor:pointer; }
   .lbw-empty { text-align:center; padding:14px 6px; color: var(--sub); font-size:11px; }
+
+  /* ===== DUEL KUIS ===== */
+  .duel-code-big { font: 900 40px "Zen Maru Gothic",sans-serif; letter-spacing:6px; text-align:center; color:#5b3b23; background:#fffdf7; border:3px dashed #d4b382; border-radius:16px; padding:14px 10px; margin:10px 0; }
+  .duel-players-list { display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto; margin:12px 0; }
+  .duel-player-row { display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:12px; background:#fffdf7; border:1px solid #d4b382; font-size:12.5px; }
+  .duel-player-row.host { border-color:#e07b28; background:#fff3e2; }
+  .duel-player-row .dp-avatar { font-size:18px; }
+  .duel-player-row .dp-name { flex:1; font-weight:800; }
+  .duel-player-row .dp-tag { font-size:10px; color:#a1550f; font-weight:800; }
+  .duel-timer-track { width:100%; height:8px; border-radius:99px; background:#e8d9bb; overflow:hidden; margin-bottom:14px; }
+  .duel-timer-fill { height:100%; background:#c96a56; transition:width .1s linear; }
+  .duel-podium { display:flex; align-items:flex-end; justify-content:center; gap:10px; margin:16px 0; }
+  .duel-podium-col { display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .duel-podium-bar { width:64px; border-radius:10px 10px 0 0; background:linear-gradient(180deg,#ffd76a,#e0a94a); display:flex; align-items:flex-start; justify-content:center; padding-top:6px; font-size:22px; }
+  .duel-podium-col.p2 .duel-podium-bar { background:linear-gradient(180deg,#e6e6e6,#b9b9b9); height:70px; }
+  .duel-podium-col.p1 .duel-podium-bar { height:100px; }
+  .duel-podium-col.p3 .duel-podium-bar { background:linear-gradient(180deg,#e3b27a,#c98a4e); height:50px; }
+  .duel-podium-name { font-size:11px; font-weight:800; max-width:70px; text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .duel-podium-score { font-size:10px; color:#a1550f; font-weight:800; }
+  .duel-rank-row { display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:12px; background:#fffdf7; border:1px solid #d4b382; margin-bottom:6px; font-size:12px; }
+  .duel-rank-row.me { border-color:#7ea765; background:#eef7e6; }
+
+  /* ===== LATIHAN KANJI (stroke order) ===== */
+  .kanji-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .kanji-tile { border:2px solid #d4b382; background:#fffdf7; border-radius:14px; padding:10px 4px; text-align:center; cursor:pointer; }
+  .kanji-tile:hover { background:#eef7e6; border-color:#7ea765; }
+  .kanji-tile .kt-char { font:900 30px "Zen Maru Gothic",sans-serif; color:#3f2c1c; }
+  .kanji-tile .kt-arti { font-size:9.5px; color:#8b6c4e; margin-top:2px; }
+  .kanji-stage { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .kanji-canvas-wrap { position:relative; width:260px; height:260px; border:2px solid #d4b382; border-radius:14px; background:#fffdf7; touch-action:none; }
+  .kanji-canvas-wrap canvas { position:absolute; inset:0; width:100%; height:100%; }
+  .kanji-info { text-align:center; }
+  .kanji-info .ki-char { font:900 26px "Zen Maru Gothic",sans-serif; color:#5b3b23; }
+  .kanji-info .ki-sub { font-size:11px; color:#8b6c4e; }
+  .kanji-tools { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .kanji-tools button { border:2px solid #d4b382; border-radius:12px; background:#fffdf7; color:#5b3b23; padding:8px 14px; font:800 11px "Inter",sans-serif; cursor:pointer; }
+  .kanji-tools button:hover { background:#eef7e6; border-color:#7ea765; }
+  .kanji-tools button.primary { background:linear-gradient(135deg,#8c6eff,#6a4fe0); color:#fff; border-color:#5a3fc0; }
+  .kanji-nav { display:flex; align-items:center; justify-content:space-between; width:100%; margin-top:4px; }
   .mission-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; font-size: 12px; }
   .mission-row:last-child { margin-bottom: 0; }
   .mission-row .m-icon { flex-shrink: 0; font-size: 15px; }
@@ -1475,6 +1514,10 @@
   .dash-menu-btn.dash-history .dmb-icon { background: rgba(255,215,0,0.15); box-shadow: 0 0 16px rgba(255,215,0,0.25) inset; }
   .dash-menu-btn.dash-achv { border-color: rgba(255,120,42,0.35); }
   .dash-menu-btn.dash-achv .dmb-icon { background: rgba(255,120,42,0.15); box-shadow: 0 0 16px rgba(255,120,42,0.25) inset; }
+  .dash-menu-btn.dash-duel { border-color: rgba(255,60,60,0.35); }
+  .dash-menu-btn.dash-duel .dmb-icon { background: rgba(255,60,60,0.15); box-shadow: 0 0 16px rgba(255,60,60,0.25) inset; }
+  .dash-menu-btn.dash-kanji { border-color: rgba(140,110,255,0.35); }
+  .dash-menu-btn.dash-kanji .dmb-icon { background: rgba(140,110,255,0.15); box-shadow: 0 0 16px rgba(140,110,255,0.25) inset; }
 
   /* ===== HALAMAN ISI (Game/Pelajaran/Riwayat) — header + tombol Home ===== */
   .page-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
@@ -1629,7 +1672,7 @@
   }
   .dash-menu-btn .dmb-text b { color:#5a422d; }
   .dash-menu-btn .dmb-text small { color:#78674e; }
-  .dash-menu-btn.dash-game, .dash-menu-btn.dash-study, .dash-menu-btn.dash-history, .dash-menu-btn.dash-achv { border-color:#92704b; }
+  .dash-menu-btn.dash-game, .dash-menu-btn.dash-study, .dash-menu-btn.dash-history, .dash-menu-btn.dash-achv, .dash-menu-btn.dash-duel, .dash-menu-btn.dash-kanji { border-color:#92704b; }
 
   .page-header { margin-bottom: 13px; }
   .page-header .back-btn:active { background:#e1d0ab; }
@@ -2641,6 +2684,14 @@ rt{color:#7b5b3d;font-weight:800;}
         <button class="dash-menu-btn dash-achv" id="menuAchvBtn" type="button">
           <span class="dmb-icon">🏅<span class="achv-notif-badge" id="achvNotifBadge" style="display:none;"></span></span>
           <span class="dmb-text"><b>Pencapaian</b><small>Kumpulkan lencana dari setiap pencapaianmu</small></span>
+        </button>
+        <button class="dash-menu-btn dash-duel" id="menuDuelBtn" type="button">
+          <span class="dmb-icon">⚔️</span>
+          <span class="dmb-text"><b>Duel Kuis</b><small>Tantang teman-teman, jawab soal bareng secara langsung</small></span>
+        </button>
+        <button class="dash-menu-btn dash-kanji" id="menuKanjiStrokeBtn" type="button">
+          <span class="dmb-icon">✍️</span>
+          <span class="dmb-text"><b>Latihan Kanji</b><small>Lihat & coba urutan goresan kanji dasar</small></span>
         </button>
       </div>
     </div>
@@ -5323,6 +5374,8 @@ $("menuGameBtn").addEventListener("click", () => showPage('game'));
 $("menuStudyBtn").addEventListener("click", () => showPage('study'));
 $("menuHistoryBtn").addEventListener("click", () => showPage('history'));
 $("menuAchvBtn").addEventListener("click", openAchievementGallery);
+$("menuDuelBtn").addEventListener("click", openDuelHome);
+$("menuKanjiStrokeBtn").addEventListener("click", openKanjiStrokeMenu);
 $("backFromGameBtn").addEventListener("click", goHome);
 $("backFromStudyBtn").addEventListener("click", goHome);
 $("openKotobaHarianBtn").addEventListener("click", openKotobaHarian);
@@ -9026,6 +9079,540 @@ function attachTilt3D(selector, maxDeg){
 attachTilt3D(".dash-menu-btn", 7);
 attachTilt3D(".shop-item", 6);
 
+/* ============================================================
+   DUEL KUIS — ruang multi-pemain real-time (mirip Kahoot), dibangun
+   di atas node Firebase "duels/{kode}" (lihat blok Firebase di
+   akhir file). Soal diambil & diacak dari pool KOTOBA_HARIAN yang
+   sudah ada (sama seperti Mode Kuis Kotoba Sehari-hari), supaya
+   ringan dan tidak perlu data terpisah. HOST yang mengendalikan
+   kapan pindah ke soal berikutnya (berdasarkan timer lokal host),
+   pemain lain cukup mengikuti perubahan currentIndex dari server.
+   ============================================================ */
+let duelState = null;
+function duelGenCode(){ return String(Math.floor(1000 + Math.random()*9000)); }
+function buildDuelQuestions(n){
+  const pool = buildKotobaKuisPool(null);
+  const picks = pickKuisQuestions(pool, n);
+  return picks.map(q=>{
+    const others = pool.filter(w=> w.id !== q.id);
+    const distractors = shuffleArr(others).slice(0,3).map(w=>w.id);
+    const optsRaw = shuffleArr(Array.from(new Set([q.id, ...distractors])));
+    while(optsRaw.length < 4 && others.length) optsRaw.push(others[Math.floor(Math.random()*others.length)].id);
+    return { emoji:q.emoji, jp:q.jp, hira:q.hira||"", opts:optsRaw.slice(0,4), correctIdx: optsRaw.indexOf(q.id) };
+  });
+}
+function duelPlayerRowsHTML(playersObj, hostNis){
+  const list = Object.keys(playersObj||{}).map(nis=>({nis, ...playersObj[nis]}));
+  list.sort((a,b)=> (a.joinedAt||0) - (b.joinedAt||0));
+  return list.map(p=>{
+    const av = (AVATAR_SHOP.find(x=>x.id===p.avatar) || AVATAR_SHOP[0]).emoji;
+    return `<div class="duel-player-row ${p.nis===hostNis?'host':''}">
+      <span class="dp-avatar">${av}</span>
+      <span class="dp-name">${p.nama}</span>
+      ${p.nis===hostNis ? '<span class="dp-tag">HOST</span>' : ''}
+    </div>`;
+  }).join("") || `<div class="lbw-empty">Menunggu pemain gabung...</div>`;
+}
+function openDuelHome(){
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Duel Kuis">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">⚔️</div>
+          <div>
+            <div class="kh-v2-title">Duel Kuis</div>
+            <div class="kh-v2-subtitle">Main bareng teman secara langsung — bisa lebih dari 2 orang!</div>
+          </div>
+          <button class="kh-v2-close" id="duelHomeClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body">
+        <div class="kh-quiz-setup-grid">
+          <button class="kh-quiz-setup-btn" id="duelHostBtn">🏠<small>Buat Ruang</small></button>
+          <button class="kh-quiz-setup-btn" id="duelJoinBtn">🔑<small>Gabung Ruang</small></button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#duelHomeClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+  el.querySelector("#duelHostBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openDuelHostSetup(); });
+  el.querySelector("#duelJoinBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openDuelJoinSetup(); });
+}
+function openDuelHostSetup(){
+  if(typeof window.__duelCreateRoom !== 'function'){
+    showGameToast("⚠️ Duel butuh koneksi internet (Firebase).");
+    return;
+  }
+  let selN = 10, selT = 15;
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Buat Ruang Duel">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">⚔️</div>
+          <div><div class="kh-v2-title">Buat Ruang Duel</div><div class="kh-v2-subtitle">Atur jumlah soal & waktu per soal</div></div>
+          <button class="kh-v2-close" id="duelHostSetupClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body">
+        <div class="kh-quiz-question" style="margin-bottom:8px;">Jumlah soal?</div>
+        <div class="kh-quiz-setup-grid" id="duelNRow">
+          ${[10,15,20].map(n=>`<button class="kh-quiz-setup-btn ${n===10?'active':''}" data-n="${n}">${n}<small>soal</small></button>`).join("")}
+        </div>
+        <div class="kh-quiz-question" style="margin:16px 0 8px;">Waktu per soal?</div>
+        <div class="kh-quiz-setup-grid" id="duelTRow">
+          ${[10,15,20].map(t=>`<button class="kh-quiz-setup-btn ${t===15?'active':''}" data-t="${t}">${t}s</button>`).join("")}
+        </div>
+      </div>
+      <div class="kh-v2-footer"><button class="kh-v2-footer-btn" id="duelCreateBtn">Buat Ruang ▶</button></div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#duelHostSetupClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+  el.querySelectorAll("#duelNRow button").forEach(b=> b.addEventListener("click", ()=>{ selN=parseInt(b.dataset.n,10); el.querySelectorAll("#duelNRow button").forEach(x=>x.classList.toggle("active",x===b)); }));
+  el.querySelectorAll("#duelTRow button").forEach(b=> b.addEventListener("click", ()=>{ selT=parseInt(b.dataset.t,10); el.querySelectorAll("#duelTRow button").forEach(x=>x.classList.toggle("active",x===b)); }));
+  el.querySelector("#duelCreateBtn").addEventListener("click", ()=>{
+    playSFX('click');
+    const profile = getPlayerProfile();
+    const code = duelGenCode();
+    const nis = student ? student.nis : "guest";
+    const roomData = {
+      hostNis: nis, totalQ: selN, timePerQ: selT,
+      status: "lobby", currentIndex: 0, questionStartAt: 0,
+      questions: buildDuelQuestions(selN),
+      players: { [nis]: { nama: student ? student.nama : "Host", avatar: profile.avatar || "pelajar", score: 0, joinedAt: Date.now() } },
+      createdAt: Date.now()
+    };
+    window.__duelCreateRoom(code, roomData);
+    close();
+    openDuelLobby(code, true, roomData);
+  });
+}
+function openDuelJoinSetup(){
+  if(typeof window.__duelGetRoom !== 'function'){
+    showGameToast("⚠️ Duel butuh koneksi internet (Firebase).");
+    return;
+  }
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Gabung Ruang Duel">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">🔑</div>
+          <div><div class="kh-v2-title">Gabung Ruang Duel</div><div class="kh-v2-subtitle">Masukkan kode 4 digit dari host</div></div>
+          <button class="kh-v2-close" id="duelJoinSetupClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body">
+        <input type="text" id="duelCodeInput" maxlength="4" inputmode="numeric" placeholder="0000" class="duel-code-big" style="width:100%;border:2px solid #d4b382;outline:none;">
+        <div class="kh-quiz-feedback" id="duelJoinFeedback"></div>
+      </div>
+      <div class="kh-v2-footer"><button class="kh-v2-footer-btn" id="duelJoinSubmitBtn">Gabung ▶</button></div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#duelJoinSetupClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+  el.querySelector("#duelJoinSubmitBtn").addEventListener("click", async ()=>{
+    const code = el.querySelector("#duelCodeInput").value.trim();
+    const fb = el.querySelector("#duelJoinFeedback");
+    if(!/^\d{4}$/.test(code)){ fb.textContent = "Kode harus 4 angka."; return; }
+    fb.textContent = "Mencari ruang...";
+    const room = await window.__duelGetRoom(code);
+    if(!room){ fb.textContent = "❌ Kode tidak ditemukan."; return; }
+    if(room.status !== "lobby"){ fb.textContent = "⚠️ Duel ini sudah dimulai/selesai."; return; }
+    const profile = getPlayerProfile();
+    const nis = student ? student.nis : ("guest-" + Date.now());
+    window.__duelJoinPlayer(code, nis, { nama: student ? student.nama : "Pemain", avatar: profile.avatar || "pelajar", score: 0, joinedAt: Date.now() });
+    playSFX('click');
+    close();
+    openDuelLobby(code, false, room);
+  });
+}
+function openDuelLobby(code, isHost, initialRoom){
+  const myNis = student ? student.nis : "guest";
+  duelState = { code, isHost, myNis, qIndex: 0, answered:false, advanced:false, timerInterval:null, node:null, closed:false };
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Lobi Duel">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">⚔️</div>
+          <div><div class="kh-v2-title">Lobi Duel</div><div class="kh-v2-subtitle">Bagikan kode ini ke teman-teman</div></div>
+          <button class="kh-v2-close" id="duelLobbyClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" id="duelLobbyBody" style="display:block;">
+        <div class="duel-code-big">${code}</div>
+        <div class="duel-players-list" id="duelPlayersList">${duelPlayerRowsHTML(initialRoom.players, initialRoom.hostNis)}</div>
+        ${isHost ? `<button class="kh-v2-footer-btn" id="duelStartBtn" style="width:100%;">▶ Mulai Duel</button>` : `<div class="kh-quiz-question">Menunggu host memulai...</div>`}
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> duelCleanupAndClose(el);
+  el.querySelector("#duelLobbyClose").addEventListener("click", close);
+  if(isHost){
+    el.querySelector("#duelStartBtn").addEventListener("click", ()=>{
+      playSFX('click');
+      window.__duelUpdateRoom(code, { status:"playing", currentIndex:0, questionStartAt: Date.now() });
+    });
+  }
+  duelState.el = el;
+  duelState.node = window.__duelListen(code, (room)=>{
+    if(!room || duelState.closed) return;
+    if(room.status === "lobby"){
+      const listEl = document.getElementById("duelPlayersList");
+      if(listEl) listEl.innerHTML = duelPlayerRowsHTML(room.players, room.hostNis);
+    } else if(room.status === "playing"){
+      duelState.room = room;
+      if(duelState.qIndex !== room.currentIndex || !duelState.playing){
+        duelState.qIndex = room.currentIndex;
+        duelState.answered = false;
+        duelState.advanced = false;
+        duelState.playing = true;
+        duelRenderQuestion(room);
+      }
+    } else if(room.status === "finished"){
+      duelRenderFinish(room);
+    }
+  });
+}
+function duelRenderQuestion(room){
+  const el = duelState.el;
+  const q = room.questions[room.currentIndex];
+  const body = el.querySelector(".kh-quiz-body") || el.querySelector("#duelLobbyBody");
+  body.innerHTML = `
+    <div class="duel-timer-track"><div class="duel-timer-fill" id="duelTimerFill" style="width:100%;"></div></div>
+    <div class="kh-quiz-subtitle" style="text-align:center;font-size:11px;color:#8b6c4e;margin-bottom:6px;">Soal ${room.currentIndex+1} / ${room.totalQ}</div>
+    <div class="kh-quiz-emoji">${q.emoji}</div>
+    <div class="kh-quiz-jp-big" style="text-align:center;">${q.jp}</div>
+    <div class="kh-quiz-jp-hira" style="text-align:center;">${q.hira}</div>
+    <div class="kh-quiz-question">Artinya dalam Bahasa Indonesia?</div>
+    <div class="kh-quiz-opts" id="duelOpts">
+      ${q.opts.map((o,i)=>`<button class="kh-quiz-opt" data-idx="${i}">${o}</button>`).join("")}
+    </div>
+    <div class="kh-quiz-feedback" id="duelFeedback"></div>
+  `;
+  el.querySelectorAll("#duelOpts button").forEach(btn=>{
+    btn.addEventListener("click", ()=> duelAnswer(parseInt(btn.dataset.idx,10)));
+  });
+  if(duelState.timerInterval) clearInterval(duelState.timerInterval);
+  const fill = el.querySelector("#duelTimerFill");
+  duelState.timerInterval = setInterval(()=>{
+    const elapsed = Date.now() - room.questionStartAt;
+    const remaining = room.timePerQ*1000 - elapsed;
+    const pct = Math.max(0, (remaining/(room.timePerQ*1000))*100);
+    if(fill) fill.style.width = pct + "%";
+    if(remaining <= 0){
+      clearInterval(duelState.timerInterval);
+      if(!duelState.answered) duelLockAnswer(null);
+      if(duelState.isHost && !duelState.advanced) duelHostAdvance(room);
+    }
+  }, 100);
+}
+function duelAnswer(idx){
+  if(duelState.answered) return;
+  duelState.answered = true;
+  const room = duelState.room;
+  const q = room.questions[room.currentIndex];
+  const el = duelState.el;
+  const correct = idx === q.correctIdx;
+  const ms = Date.now() - room.questionStartAt;
+  el.querySelectorAll("#duelOpts button").forEach((b,i)=>{
+    if(i === q.correctIdx) b.classList.add("correct");
+    else if(i === idx) b.classList.add("wrong");
+  });
+  const gained = correct ? Math.max(10, 100 - Math.floor(ms/100)) : 0;
+  const fb = el.querySelector("#duelFeedback");
+  if(fb) fb.innerHTML = correct ? `✅ Benar! +${gained} poin` : `❌ Jawaban benar: ${q.opts[q.correctIdx]}`;
+  playSFX(correct ? 'correct' : 'wrong');
+  window.__duelSubmitAnswer(duelState.code, room.currentIndex, duelState.myNis, { choiceIdx: idx, correct, ms });
+  const myScoreNow = (room.players[duelState.myNis] && room.players[duelState.myNis].score) || 0;
+  window.__duelUpdateRoom(duelState.code, { ["players/"+duelState.myNis+"/score"]: myScoreNow + gained });
+}
+function duelLockAnswer(idx){
+  duelState.answered = true;
+  const room = duelState.room;
+  const el = duelState.el;
+  const q = room.questions[room.currentIndex];
+  const fb = el.querySelector("#duelFeedback");
+  if(fb) fb.innerHTML = `⏰ Waktu habis! Jawaban benar: ${q.opts[q.correctIdx]}`;
+  el.querySelectorAll("#duelOpts button").forEach((b,i)=>{ if(i===q.correctIdx) b.classList.add("correct"); });
+}
+function duelHostAdvance(room){
+  duelState.advanced = true;
+  const nextIndex = room.currentIndex + 1;
+  if(nextIndex >= room.totalQ){
+    window.__duelUpdateRoom(duelState.code, { status: "finished" });
+  } else {
+    setTimeout(()=>{
+      window.__duelUpdateRoom(duelState.code, { currentIndex: nextIndex, questionStartAt: Date.now() });
+    }, 1200);
+  }
+}
+function duelRenderFinish(room){
+  if(duelState.timerInterval) clearInterval(duelState.timerInterval);
+  const el = duelState.el;
+  if(!el || duelState.finished) return;
+  duelState.finished = true;
+  const list = Object.keys(room.players||{}).map(nis=>({nis, ...room.players[nis]}));
+  list.sort((a,b)=> (b.score||0) - (a.score||0));
+  const top3 = list.slice(0,3);
+  const rest = list.slice(3);
+  const order = [1,0,2]; // tampilkan podium: 2nd - 1st - 3rd
+  const podiumHTML = order.filter(i=>top3[i]).map(i=>{
+    const p = top3[i]; const av = (AVATAR_SHOP.find(x=>x.id===p.avatar)||AVATAR_SHOP[0]).emoji;
+    const cls = i===0?'p1':(i===1?'p2':'p3');
+    const medal = i===0?'🥇':(i===1?'🥈':'🥉');
+    return `<div class="duel-podium-col ${cls}">
+      <div class="duel-podium-name">${av} ${p.nama}</div>
+      <div class="duel-podium-bar">${medal}</div>
+      <div class="duel-podium-score">${p.score||0} pts</div>
+    </div>`;
+  }).join("");
+  const restHTML = rest.map((p,i)=>`
+    <div class="duel-rank-row ${p.nis===duelState.myNis?'me':''}">
+      <span style="width:20px;text-align:center;font-weight:800;">${i+4}</span>
+      <span>${(AVATAR_SHOP.find(x=>x.id===p.avatar)||AVATAR_SHOP[0]).emoji}</span>
+      <span style="flex:1;">${p.nama}</span>
+      <span style="font-weight:800;color:var(--gold, #e0a94a);">${p.score||0} pts</span>
+    </div>`).join("");
+  const body = el.querySelector(".kh-quiz-body") || el.querySelector("#duelLobbyBody");
+  body.innerHTML = `
+    <div class="kh-quiz-question" style="text-align:center;">🎉 Duel Selesai!</div>
+    <div class="duel-podium">${podiumHTML}</div>
+    ${restHTML}
+    <button class="kh-v2-footer-btn" id="duelFinishCloseBtn" style="width:100%;margin-top:14px;">Selesai ✕</button>
+  `;
+  el.querySelector("#duelFinishCloseBtn").addEventListener("click", ()=> duelCleanupAndClose(el));
+  spawnConfetti(window.innerWidth/2, window.innerHeight/2, 50);
+  const myEntry = list.find(p=>p.nis===duelState.myNis);
+  if(myEntry){
+    const isWinner = list[0] && list[0].nis === duelState.myNis && (list[0].score||0) > 0;
+    awardXPCoins(Math.round((myEntry.score||0)/5) + (isWinner?30:0), isWinner?20:5);
+  }
+  if(duelState.isHost && typeof window.__duelRemoveRoom === 'function'){
+    setTimeout(()=> window.__duelRemoveRoom(duelState.code), 60000);
+  }
+}
+function duelCleanupAndClose(el){
+  if(duelState){
+    duelState.closed = true;
+    if(duelState.timerInterval) clearInterval(duelState.timerInterval);
+    if(duelState.node && typeof window.__duelUnlisten === 'function') window.__duelUnlisten(duelState.node);
+  }
+  duelState = null;
+  if(el) el.remove();
+}
+
+/* ============================================================
+   LATIHAN KANJI — animasi urutan goresan (stroke order) untuk 15
+   kanji dasar N5, plus kanvas untuk coba menulis sendiri. Ini
+   REFERENSI VISUAL & tempat berlatih, BUKAN pengenalan tulisan
+   tangan (goresan yang digambar siswa tidak dinilai benar/salah),
+   supaya tidak salah klaim soal akurasi penilaian.
+   ============================================================ */
+const KANJI_STROKE_DATA = [
+  { kanji:"一", arti:"satu", baca:"ICHI / ひと(つ)", strokes:[[{x:20,y:100},{x:180,y:100}]] },
+  { kanji:"二", arti:"dua", baca:"NI / ふた(つ)", strokes:[[{x:40,y:70},{x:160,y:70}],[{x:20,y:130},{x:180,y:130}]] },
+  { kanji:"三", arti:"tiga", baca:"SAN / みっつ", strokes:[[{x:40,y:50},{x:160,y:50}],[{x:30,y:100},{x:170,y:100}],[{x:20,y:150},{x:180,y:150}]] },
+  { kanji:"人", arti:"orang", baca:"JIN, NIN / ひと", strokes:[[{x:100,y:30},{x:40,y:170}],[{x:100,y:85},{x:165,y:170}]] },
+  { kanji:"大", arti:"besar", baca:"DAI, TAI / おおきい", strokes:[[{x:30,y:60},{x:170,y:60}],[{x:100,y:60},{x:30,y:170}],[{x:100,y:90},{x:170,y:170}]] },
+  { kanji:"小", arti:"kecil", baca:"SHOU / ちいさい", strokes:[[{x:100,y:40},{x:100,y:110}],[{x:70,y:80},{x:40,y:150}],[{x:130,y:80},{x:160,y:150}]] },
+  { kanji:"山", arti:"gunung", baca:"SAN / やま", strokes:[[{x:100,y:40},{x:100,y:160}],[{x:45,y:80},{x:45,y:160}],[{x:155,y:80},{x:155,y:160}]] },
+  { kanji:"川", arti:"sungai", baca:"SEN / かわ", strokes:[[{x:50,y:50},{x:42,y:150}],[{x:100,y:40},{x:100,y:160}],[{x:150,y:50},{x:158,y:150}]] },
+  { kanji:"口", arti:"mulut", baca:"KOU / くち", strokes:[[{x:50,y:60},{x:50,y:150}],[{x:50,y:60},{x:150,y:60},{x:150,y:150}],[{x:50,y:150},{x:150,y:150}]] },
+  { kanji:"日", arti:"hari / matahari", baca:"NICHI, JITSU / ひ", strokes:[[{x:50,y:50},{x:50,y:170}],[{x:50,y:50},{x:150,y:50},{x:150,y:170}],[{x:50,y:110},{x:150,y:110}],[{x:50,y:170},{x:150,y:170}]] },
+  { kanji:"月", arti:"bulan", baca:"GETSU, GATSU / つき", strokes:[[{x:55,y:45},{x:50,y:175}],[{x:55,y:45},{x:145,y:55},{x:140,y:175}],[{x:60,y:100},{x:130,y:105}],[{x:60,y:140},{x:130,y:145}]] },
+  { kanji:"木", arti:"pohon / kayu", baca:"MOKU, BOKU / き", strokes:[[{x:40,y:70},{x:160,y:70}],[{x:100,y:30},{x:100,y:170}],[{x:100,y:100},{x:40,y:170}],[{x:100,y:110},{x:160,y:175}]] },
+  { kanji:"火", arti:"api", baca:"KA / ひ", strokes:[[{x:90,y:50},{x:75,y:90}],[{x:110,y:50},{x:125,y:90}],[{x:100,y:60},{x:30,y:170}],[{x:105,y:40},{x:170,y:170}]] },
+  { kanji:"水", arti:"air", baca:"SUI / みず", strokes:[[{x:100,y:40},{x:100,y:110}],[{x:90,y:70},{x:40,y:110}],[{x:110,y:70},{x:140,y:90}],[{x:100,y:90},{x:170,y:170}]] },
+  { kanji:"土", arti:"tanah", baca:"DO, TO / つち", strokes:[[{x:50,y:80},{x:150,y:80}],[{x:100,y:40},{x:100,y:160}],[{x:30,y:160},{x:170,y:160}]] }
+];
+let kanjiPracticeIdx = 0;
+function openKanjiStrokeMenu(){
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Latihan Kanji">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">✍️</div>
+          <div><div class="kh-v2-title">Latihan Kanji</div><div class="kh-v2-subtitle">Lihat urutan goresan, lalu coba tulis sendiri</div></div>
+          <button class="kh-v2-close" id="kanjiMenuClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" style="display:block;">
+        <div class="kanji-grid">
+          ${KANJI_STROKE_DATA.map((k,i)=>`<div class="kanji-tile" data-i="${i}"><div class="kt-char">${k.kanji}</div><div class="kt-arti">${k.arti}</div></div>`).join("")}
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#kanjiMenuClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target===el) close(); });
+  el.querySelectorAll(".kanji-tile").forEach(t=>{
+    t.addEventListener("click", ()=>{ playSFX('click'); close(); kanjiPracticeIdx = parseInt(t.dataset.i,10); openKanjiStrokePractice(); });
+  });
+}
+function openKanjiStrokePractice(){
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Latihan Goresan Kanji">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">✍️</div>
+          <div><div class="kh-v2-title">Latihan Goresan Kanji</div><div class="kh-v2-subtitle" id="kanjiProgress"></div></div>
+          <button class="kh-v2-close" id="kanjiPracticeClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" style="display:block;">
+        <div class="kanji-stage">
+          <div class="kanji-info"><div class="ki-char" id="kanjiInfoChar"></div><div class="ki-sub" id="kanjiInfoSub"></div></div>
+          <div class="kanji-canvas-wrap">
+            <canvas id="kanjiGuideCanvas" width="260" height="260"></canvas>
+            <canvas id="kanjiDrawCanvas" width="260" height="260"></canvas>
+          </div>
+          <div class="kanji-tools">
+            <button id="kanjiAnimBtn" class="primary">▶ Animasi Urutan</button>
+            <button id="kanjiClearBtn">🧹 Hapus Coretan</button>
+          </div>
+          <div class="kanji-nav">
+            <button id="kanjiPrevBtn">◀ Sebelumnya</button>
+            <button id="kanjiNextBtn">Lanjut ▶</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+
+  const guideCanvas = el.querySelector("#kanjiGuideCanvas");
+  const drawCanvas = el.querySelector("#kanjiDrawCanvas");
+  const gctx = guideCanvas.getContext("2d");
+  const dctx = drawCanvas.getContext("2d");
+  let kanjiAnimTimer = null;
+
+  const close = ()=>{ if(kanjiAnimTimer) clearTimeout(kanjiAnimTimer); el.remove(); };
+  el.querySelector("#kanjiPracticeClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target===el) close(); });
+
+  function drawGridGuide(ctx){
+    ctx.save();
+    ctx.strokeStyle = "#e8d9bb"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(130,0); ctx.lineTo(130,260); ctx.moveTo(0,130); ctx.lineTo(260,130); ctx.stroke();
+    ctx.restore();
+  }
+  function drawStrokesStatic(ctx, strokes, color){
+    ctx.save();
+    ctx.strokeStyle = color; ctx.lineWidth = 10; ctx.lineCap = "round"; ctx.lineJoin = "round";
+    strokes.forEach(pts=>{
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, pts[0].y);
+      for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i].x, pts[i].y);
+      ctx.stroke();
+    });
+    ctx.restore();
+  }
+  function renderKanjiStep(){
+    const data = KANJI_STROKE_DATA[kanjiPracticeIdx];
+    el.querySelector("#kanjiProgress").textContent = `Kanji ${kanjiPracticeIdx+1} / ${KANJI_STROKE_DATA.length}`;
+    el.querySelector("#kanjiInfoChar").textContent = data.kanji;
+    el.querySelector("#kanjiInfoSub").textContent = `${data.arti} — ${data.baca}`;
+    gctx.clearRect(0,0,260,260);
+    drawGridGuide(gctx);
+    drawStrokesStatic(gctx, data.strokes, "#d8c19a");
+    dctx.clearRect(0,0,260,260);
+  }
+  renderKanjiStep();
+
+  function animateStrokes(){
+    if(kanjiAnimTimer) clearTimeout(kanjiAnimTimer);
+    const data = KANJI_STROKE_DATA[kanjiPracticeIdx];
+    dctx.clearRect(0,0,260,260);
+    let si = 0;
+    function stepStroke(){
+      if(si >= data.strokes.length) return;
+      const pts = data.strokes[si];
+      const totalSteps = 16;
+      let t = 0;
+      function frame(){
+        t++;
+        const frac = t/totalSteps;
+        const segCount = pts.length - 1;
+        const segFloat = frac * segCount;
+        const segIdx = Math.min(Math.floor(segFloat), segCount-1);
+        const segFrac = segFloat - segIdx;
+        dctx.save();
+        dctx.strokeStyle = "#e07b28"; dctx.lineWidth = 10; dctx.lineCap = "round"; dctx.lineJoin = "round";
+        dctx.beginPath();
+        dctx.moveTo(pts[0].x, pts[0].y);
+        for(let i=1;i<=segIdx;i++) dctx.lineTo(pts[i].x, pts[i].y);
+        if(pts[segIdx+1]){
+          const x = pts[segIdx].x + (pts[segIdx+1].x-pts[segIdx].x)*segFrac;
+          const y = pts[segIdx].y + (pts[segIdx+1].y-pts[segIdx].y)*segFrac;
+          dctx.lineTo(x,y);
+        }
+        dctx.stroke();
+        dctx.restore();
+        if(t < totalSteps) kanjiAnimTimer = setTimeout(frame, 30);
+        else { si++; kanjiAnimTimer = setTimeout(stepStroke, 250); }
+      }
+      frame();
+    }
+    stepStroke();
+  }
+  el.querySelector("#kanjiAnimBtn").addEventListener("click", ()=>{ playSFX('click'); animateStrokes(); });
+  el.querySelector("#kanjiClearBtn").addEventListener("click", ()=>{ if(kanjiAnimTimer) clearTimeout(kanjiAnimTimer); dctx.clearRect(0,0,260,260); playSFX('click'); });
+
+  // Coba menulis sendiri (freehand, tidak dinilai) di lapisan kanvas atas
+  let drawingNow = false;
+  function getPos(ev){
+    const r = drawCanvas.getBoundingClientRect();
+    const cx = (ev.touches ? ev.touches[0].clientX : ev.clientX) - r.left;
+    const cy = (ev.touches ? ev.touches[0].clientY : ev.clientY) - r.top;
+    const scaleX = 260 / (r.width || 260);
+    const scaleY = 260 / (r.height || 260);
+    return { x: cx*scaleX, y: cy*scaleY };
+  }
+  drawCanvas.addEventListener("pointerdown", (ev)=>{
+    if(kanjiAnimTimer){ clearTimeout(kanjiAnimTimer); kanjiAnimTimer=null; }
+    drawingNow = true;
+    const p = getPos(ev);
+    dctx.beginPath(); dctx.moveTo(p.x, p.y);
+    dctx.strokeStyle = "#3f2c1c"; dctx.lineWidth = 10; dctx.lineCap="round"; dctx.lineJoin="round";
+  });
+  drawCanvas.addEventListener("pointermove", (ev)=>{
+    if(!drawingNow) return;
+    const p = getPos(ev);
+    dctx.lineTo(p.x, p.y); dctx.stroke();
+    if(ev.preventDefault) ev.preventDefault();
+  });
+  window.addEventListener("pointerup", ()=>{ drawingNow = false; });
+
+  el.querySelector("#kanjiPrevBtn").addEventListener("click", ()=>{
+    kanjiPracticeIdx = (kanjiPracticeIdx - 1 + KANJI_STROKE_DATA.length) % KANJI_STROKE_DATA.length;
+    if(kanjiAnimTimer) clearTimeout(kanjiAnimTimer);
+    renderKanjiStep();
+    playSFX('click');
+  });
+  el.querySelector("#kanjiNextBtn").addEventListener("click", ()=>{
+    kanjiPracticeIdx = (kanjiPracticeIdx + 1) % KANJI_STROKE_DATA.length;
+    if(kanjiAnimTimer) clearTimeout(kanjiAnimTimer);
+    renderKanjiStep();
+    playSFX('click');
+  });
+}
+
 </script>
 <script type="module">
   // ============================================================
@@ -9038,7 +9625,7 @@ attachTilt3D(".shop-item", 6);
   // supaya tetap aman kalau Firebase gagal dimuat (offline/diblokir).
   // ============================================================
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-  import { getDatabase, ref, set, onValue, off } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
+  import { getDatabase, ref, set, get, update, remove, onValue, off } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBVPJ-JwJG92Ac1FYpcpAV7y-7vZtcSmuQ",
@@ -9079,6 +9666,49 @@ attachTilt3D(".shop-item", 6);
   window.__lbUnlisten = function(node){
     if(!db || !node) return;
     try{ off(node); }catch(e){}
+  };
+
+  // ============================================================
+  // DUEL KUIS REAL-TIME (ruang multi-pemain, disimpan di "duels/{kode}")
+  // Semua fungsi di bawah juga di-expose ke window dan dibungkus
+  // typeof-check di sisi script utama, sama seperti leaderboard di atas.
+  // ============================================================
+  window.__duelCreateRoom = function(code, data){
+    if(!db) return;
+    try{ set(ref(db, "duels/" + code), data); }catch(e){ console.warn("Gagal buat ruang duel:", e); }
+  };
+  // Cek 1x apakah kode ruang ada (dipakai saat "Gabung Ruang"). Balikin Promise.
+  window.__duelGetRoom = function(code){
+    if(!db) return Promise.resolve(null);
+    return get(ref(db, "duels/" + code)).then(snap=> snap.exists() ? snap.val() : null).catch(()=> null);
+  };
+  window.__duelJoinPlayer = function(code, nis, data){
+    if(!db) return;
+    try{ set(ref(db, "duels/" + code + "/players/" + nis), data); }catch(e){ console.warn(e); }
+  };
+  window.__duelUpdateRoom = function(code, patch){
+    if(!db) return;
+    try{ update(ref(db, "duels/" + code), patch); }catch(e){ console.warn(e); }
+  };
+  window.__duelSubmitAnswer = function(code, qIndex, nis, data){
+    if(!db) return;
+    try{ set(ref(db, "duels/" + code + "/answers/" + qIndex + "/" + nis), data); }catch(e){ console.warn(e); }
+  };
+  window.__duelListen = function(code, callback){
+    if(!db) return null;
+    const node = ref(db, "duels/" + code);
+    onValue(node, (snap)=>{
+      try{ callback(snap.exists() ? snap.val() : null); }catch(e){ console.warn(e); }
+    }, (err)=>{ console.warn("Duel listener error:", err); });
+    return node;
+  };
+  window.__duelUnlisten = function(node){
+    if(!db || !node) return;
+    try{ off(node); }catch(e){}
+  };
+  window.__duelRemoveRoom = function(code){
+    if(!db) return;
+    try{ remove(ref(db, "duels/" + code)); }catch(e){}
   };
 </script>
 </body>

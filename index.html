@@ -4018,9 +4018,10 @@ function openKotobaKuis(totalQRequested, mode){
   document.body.appendChild(el);
   const body = el.querySelector("#khQuizBody");
   const progress = el.querySelector("#khQuizProgress");
-  const close = ()=>{ if("speechSynthesis" in window) window.speechSynthesis.cancel(); el.remove(); };
+  const close = ()=>{ if("speechSynthesis" in window) window.speechSynthesis.cancel(); anticheatDisarm(); el.remove(); };
   el.querySelector("#khQuizClose").addEventListener("click", close);
   el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+  anticheatArm(()=> renderResult());
 
   function renderQuestion(){
     locked = false;
@@ -4083,6 +4084,7 @@ function openKotobaKuis(totalQRequested, mode){
   }
 
   function renderResult(){
+    anticheatDisarm();
     const pct = Math.round((correctCount/totalQ)*100);
     // formula XP/koin disamakan dengan kuis utama: correctCount*3 +
     // acc/10 utk XP, correctCount*2 utk koin.
@@ -6479,6 +6481,40 @@ function renderPacketRow(){
   });
 }
 
+/* ============================================================
+   ANTI-CURANG — mendeteksi siswa pindah tab/minimize/tutup window
+   (event "visibilitychange" — ini juga terpicu saat tab DITUTUP,
+   sesaat sebelum benar-benar hilang) atau mencoba menyalin (copy)
+   teks SELAMA sesi kuis aktif. Begitu terdeteksi, sesi yang sedang
+   berjalan otomatis diakhiri paksa lewat callback yang didaftarkan
+   masing-masing mesin kuis — nilai dihitung APA ADANYA dari progres
+   saat itu (bukan digugurkan/dianggap nol). Nonaktif secara default;
+   setiap mesin kuis WAJIB anticheatArm() saat sesi mulai dan
+   anticheatDisarm() saat sesi berakhir wajar/ditutup manual, supaya
+   tidak salah terpicu saat sedang tidak ada kuis aktif sama sekali.
+   ============================================================ */
+let anticheatArmed = false;
+let anticheatCallback = null;
+function anticheatArm(onViolation){
+  anticheatArmed = true;
+  anticheatCallback = onViolation;
+}
+function anticheatDisarm(){
+  anticheatArmed = false;
+  anticheatCallback = null;
+}
+function anticheatTrigger(reason){
+  if(!anticheatArmed) return;
+  const cb = anticheatCallback;
+  anticheatDisarm(); // matikan dulu — jaga2 supaya tidak terpicu berkali-kali/tumpang tindih
+  const pesan = reason === 'copy' ? "🚫 Sesi diakhiri — terdeteksi menyalin teks." : "🚫 Sesi diakhiri — terdeteksi pindah tab/menutup jendela.";
+  showGameToast(pesan);
+  if(cb){ try{ cb(); }catch(e){ console.warn("Anti-curang: error saat mengakhiri sesi:", e); } }
+}
+document.addEventListener('visibilitychange', ()=>{ if(document.hidden) anticheatTrigger('tab_switch'); });
+window.addEventListener('blur', ()=> anticheatTrigger('window_blur'));
+document.addEventListener('copy', ()=> anticheatTrigger('copy'));
+
 let gState = null;
 function startGame(){
   playSFX('start');
@@ -6514,6 +6550,9 @@ function startGame(){
   };
 
   if(isTimeAttack) startSessionCountdown();
+  anticheatArm(()=>{
+    if(gState){ clearInterval(gState.timer); clearInterval(gState.sessionTimer); renderResult(); }
+  });
   renderQuestion();
 }
 
@@ -7307,6 +7346,7 @@ function gradeFor(pct){
 }
 
 function renderResult(){
+  anticheatDisarm();
   document.body.classList.remove('quiz-active'); // tampilkan lagi header brand & nama-NIS
   if(gState.sessionTimer) clearInterval(gState.sessionTimer); // jaga2 kalau renderResult terpanggil lebih dari sekali
   setBgmTheme('latihan');
@@ -7939,11 +7979,12 @@ function openJidoushiTadoushiQuiz(totalQRequested){
   document.body.appendChild(el);
   const body = el.querySelector("#jtQuizBody");
   const progress = el.querySelector("#jtProgress");
-  const close = ()=>{ if(timerInterval) clearInterval(timerInterval); el.remove(); };
+  const close = ()=>{ if(timerInterval) clearInterval(timerInterval); anticheatDisarm(); el.remove(); };
   el.querySelector("#jtQuizClose").addEventListener("click", close);
   el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
 
   function stopTimer(){ if(timerInterval){ clearInterval(timerInterval); timerInterval=null; } }
+  anticheatArm(()=>{ stopTimer(); renderResult(); });
 
   function renderQuestion(){
     locked = false;
@@ -8008,6 +8049,7 @@ function openJidoushiTadoushiQuiz(totalQRequested){
 
   function renderResult(){
     stopTimer();
+    anticheatDisarm();
     const pct = Math.round((correctCount/totalQ)*100);
     // formula XP/koin disamakan dengan kuis utama (lihat renderResult
     // di mesin kuis PATTERNS/VOCAB): correctCount*3 + acc/10 utk XP,
@@ -8372,10 +8414,11 @@ function openVerbKonjugasiQuiz(katKey, totalQRequested){
   document.body.appendChild(el);
   const body = el.querySelector("#vkQuizBody");
   const progress = el.querySelector("#vkProgress");
-  const close = ()=>{ if(timerInterval) clearInterval(timerInterval); el.remove(); };
+  const close = ()=>{ if(timerInterval) clearInterval(timerInterval); anticheatDisarm(); el.remove(); };
   el.querySelector("#vkQuizClose").addEventListener("click", close);
   el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
   function stopTimer(){ if(timerInterval){ clearInterval(timerInterval); timerInterval=null; } }
+  anticheatArm(()=>{ stopTimer(); renderResult(); });
 
   function renderQuestion(){
     locked = false;
@@ -8438,6 +8481,7 @@ function openVerbKonjugasiQuiz(katKey, totalQRequested){
 
   function renderResult(){
     stopTimer();
+    anticheatDisarm();
     const pct = Math.round((correctCount/totalQ)*100);
     const earnedXP = correctCount * 3 + Math.round(pct/10);
     const earnedCoins = correctCount * 2;
@@ -9221,7 +9265,7 @@ function openDuelHostSetup(){
       </div>
       <div class="kh-quiz-body">
         ${setupType === 'dokkai' ? `
-          <div class="kh-quiz-subtitle" style="margin-bottom:10px;">📖 Waktu baca Dokkai otomatis menyesuaikan standar JLPT per level (soal pertama dapat porsi lebih besar untuk membaca) — pengaturan waktu di bawah ini diabaikan untuk Dokkai.</div>
+          <div class="kh-quiz-subtitle" style="text-align:left;font-size:11px;color:#8b6c4e;margin-bottom:10px;line-height:1.5;">📖 Waktu baca Dokkai otomatis menyesuaikan standar JLPT per level (soal pertama dapat porsi lebih besar untuk membaca) — pengaturan waktu di bawah ini diabaikan untuk Dokkai.</div>
         ` : ``}
         <div class="kh-quiz-question" style="margin-bottom:8px;">Waktu per soal?</div>
         <div class="kh-quiz-setup-grid" id="duelTRow">
@@ -9300,6 +9344,10 @@ function openDuelJoinSetup(){
   });
 }
 function openDuelLobby(code, isHost, initialRoom){
+  // Jaga-jaga: kalau ada sesi duel sebelumnya yang belum tertutup rapi
+  // (listener/timer lama masih nyala), bersihkan dulu supaya tidak
+  // numpuk / bentrok dengan sesi baru ini.
+  if(duelState){ duelCleanupAndClose(duelState.el); }
   const myNis = student ? student.nis : "guest";
   duelState = { code, isHost, myNis, qIndex: 0, answered:false, advanced:false, timerInterval:null, node:null, closed:false };
   const el = document.createElement("div");
@@ -9388,6 +9436,10 @@ function duelRenderQuestion(room){
     const sBtn = el.querySelector("#duelSpeakBtn");
     if(sBtn) sBtn.addEventListener("click", ()=> speakJapanese(q.speakText.replace(/<[^>]+>/g,''), 'N5'));
   }
+  // Anti-curang: pindah tab/tutup window atau copy teks selama soal duel
+  // aktif -> sesi PEMAIN INI langsung ditutup (skor yg sudah didapat
+  // tetap tersimpan di room, tidak mengganggu pemain lain yang lanjut).
+  anticheatArm(()=>{ if(duelState) duelCleanupAndClose(duelState.el); });
   if(duelState.timerInterval) clearInterval(duelState.timerInterval);
   const fill = el.querySelector("#duelTimerFill");
   // Dokkai butuh waktu baca lebih lama (standar JLPT resmi per level,
@@ -9447,16 +9499,19 @@ function duelLockAnswer(idx){
 }
 function duelHostAdvance(room){
   duelState.advanced = true;
+  const code = duelState.code; // simpan sekarang, jaga-jaga kalau duelState ditutup/null sebelum setTimeout di bawah sempat jalan
   const nextIndex = room.currentIndex + 1;
   if(nextIndex >= room.totalQ){
-    window.__duelUpdateRoom(duelState.code, { status: "finished" });
+    window.__duelUpdateRoom(code, { status: "finished" });
   } else {
     setTimeout(()=>{
-      window.__duelUpdateRoom(duelState.code, { currentIndex: nextIndex, questionStartAt: Date.now() });
+      if(!duelState || duelState.closed || duelState.code !== code) return; // sesi sudah ditutup/ganti, jangan lanjut
+      window.__duelUpdateRoom(code, { currentIndex: nextIndex, questionStartAt: Date.now() });
     }, 1200);
   }
 }
 function duelRenderFinish(room){
+  anticheatDisarm();
   if(duelState.timerInterval) clearInterval(duelState.timerInterval);
   const el = duelState.el;
   if(!el || duelState.finished) return;
@@ -9502,6 +9557,7 @@ function duelRenderFinish(room){
   }
 }
 function duelCleanupAndClose(el){
+  anticheatDisarm();
   if(duelState){
     duelState.closed = true;
     if(duelState.timerInterval) clearInterval(duelState.timerInterval);

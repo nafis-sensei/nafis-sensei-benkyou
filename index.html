@@ -735,23 +735,6 @@
   .duel-rank-row { display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:12px; background:#fffdf7; border:1px solid #d4b382; margin-bottom:6px; font-size:12px; }
   .duel-rank-row.me { border-color:#7ea765; background:#eef7e6; }
 
-  /* ===== LATIHAN KANJI (stroke order) ===== */
-  .kanji-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
-  .kanji-tile { border:2px solid #d4b382; background:#fffdf7; border-radius:14px; padding:10px 4px; text-align:center; cursor:pointer; }
-  .kanji-tile:hover { background:#eef7e6; border-color:#7ea765; }
-  .kanji-tile .kt-char { font:900 30px "Zen Maru Gothic",sans-serif; color:#3f2c1c; }
-  .kanji-tile .kt-arti { font-size:9.5px; color:#8b6c4e; margin-top:2px; }
-  .kanji-stage { display:flex; flex-direction:column; align-items:center; gap:10px; }
-  .kanji-canvas-wrap { position:relative; width:260px; height:260px; border:2px solid #d4b382; border-radius:14px; background:#fffdf7; touch-action:none; }
-  .kanji-canvas-wrap canvas { position:absolute; inset:0; width:100%; height:100%; }
-  .kanji-info { text-align:center; }
-  .kanji-info .ki-char { font:900 26px "Zen Maru Gothic",sans-serif; color:#5b3b23; }
-  .kanji-info .ki-sub { font-size:11px; color:#8b6c4e; }
-  .kanji-tools { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
-  .kanji-tools button { border:2px solid #d4b382; border-radius:12px; background:#fffdf7; color:#5b3b23; padding:8px 14px; font:800 11px "Inter",sans-serif; cursor:pointer; }
-  .kanji-tools button:hover { background:#eef7e6; border-color:#7ea765; }
-  .kanji-tools button.primary { background:linear-gradient(135deg,#8c6eff,#6a4fe0); color:#fff; border-color:#5a3fc0; }
-  .kanji-nav { display:flex; align-items:center; justify-content:space-between; width:100%; margin-top:4px; }
   .mission-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; font-size: 12px; }
   .mission-row:last-child { margin-bottom: 0; }
   .mission-row .m-icon { flex-shrink: 0; font-size: 15px; }
@@ -1514,10 +1497,6 @@
   .dash-menu-btn.dash-history .dmb-icon { background: rgba(255,215,0,0.15); box-shadow: 0 0 16px rgba(255,215,0,0.25) inset; }
   .dash-menu-btn.dash-achv { border-color: rgba(255,120,42,0.35); }
   .dash-menu-btn.dash-achv .dmb-icon { background: rgba(255,120,42,0.15); box-shadow: 0 0 16px rgba(255,120,42,0.25) inset; }
-  .dash-menu-btn.dash-duel { border-color: rgba(255,60,60,0.35); }
-  .dash-menu-btn.dash-duel .dmb-icon { background: rgba(255,60,60,0.15); box-shadow: 0 0 16px rgba(255,60,60,0.25) inset; }
-  .dash-menu-btn.dash-kanji { border-color: rgba(140,110,255,0.35); }
-  .dash-menu-btn.dash-kanji .dmb-icon { background: rgba(140,110,255,0.15); box-shadow: 0 0 16px rgba(140,110,255,0.25) inset; }
 
   /* ===== HALAMAN ISI (Game/Pelajaran/Riwayat) — header + tombol Home ===== */
   .page-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
@@ -1672,7 +1651,7 @@
   }
   .dash-menu-btn .dmb-text b { color:#5a422d; }
   .dash-menu-btn .dmb-text small { color:#78674e; }
-  .dash-menu-btn.dash-game, .dash-menu-btn.dash-study, .dash-menu-btn.dash-history, .dash-menu-btn.dash-achv, .dash-menu-btn.dash-duel, .dash-menu-btn.dash-kanji { border-color:#92704b; }
+  .dash-menu-btn.dash-game, .dash-menu-btn.dash-study, .dash-menu-btn.dash-history, .dash-menu-btn.dash-achv { border-color:#92704b; }
 
   .page-header { margin-bottom: 13px; }
   .page-header .back-btn:active { background:#e1d0ab; }
@@ -2684,14 +2663,6 @@ rt{color:#7b5b3d;font-weight:800;}
         <button class="dash-menu-btn dash-achv" id="menuAchvBtn" type="button">
           <span class="dmb-icon">🏅<span class="achv-notif-badge" id="achvNotifBadge" style="display:none;"></span></span>
           <span class="dmb-text"><b>Pencapaian</b><small>Kumpulkan lencana dari setiap pencapaianmu</small></span>
-        </button>
-        <button class="dash-menu-btn dash-duel" id="menuDuelBtn" type="button">
-          <span class="dmb-icon">⚔️</span>
-          <span class="dmb-text"><b>Duel Kuis</b><small>Tantang teman-teman, jawab soal bareng secara langsung</small></span>
-        </button>
-        <button class="dash-menu-btn dash-kanji" id="menuKanjiStrokeBtn" type="button">
-          <span class="dmb-icon">✍️</span>
-          <span class="dmb-text"><b>Latihan Kanji</b><small>Lihat & coba urutan goresan kanji dasar</small></span>
         </button>
       </div>
     </div>
@@ -5374,8 +5345,6 @@ $("menuGameBtn").addEventListener("click", () => showPage('game'));
 $("menuStudyBtn").addEventListener("click", () => showPage('study'));
 $("menuHistoryBtn").addEventListener("click", () => showPage('history'));
 $("menuAchvBtn").addEventListener("click", openAchievementGallery);
-$("menuDuelBtn").addEventListener("click", openDuelHome);
-$("menuKanjiStrokeBtn").addEventListener("click", openKanjiStrokeMenu);
 $("backFromGameBtn").addEventListener("click", goHome);
 $("backFromStudyBtn").addEventListener("click", goHome);
 $("openKotobaHarianBtn").addEventListener("click", openKotobaHarian);
@@ -5777,6 +5746,7 @@ let setupScope = "all";
 let setupCount = "50";
 let setupType = "kotoba";
 let setupMode = "latihan"; // "latihan" (acak bebas) | "ujian" (paket soal tetap)
+let duelModeActive = false; // true kalau siswa pilih "Duel" di kotak CARA MAIN
 let setupPacketIndex = 0;
 
 function irodoriResultLabel(){
@@ -6129,6 +6099,7 @@ function buildQuestionsForPacket(scope, count, typeMode, packetIndex){
 
 function renderStart(){
   document.body.classList.remove('quiz-active'); // tampilkan lagi header brand & nama-NIS
+  duelModeActive = false; // layar setup selalu mulai dari "Solo" (tombolnya juga default ke solo di HTML)
   setBgmTheme('latihan'); // kembali ke musik dashboard/latihan biasa
   startBGM(); // pastikan musik latar menyala lagi begitu kembali ke layar setup/dashboard
   restoreBGMVolume();
@@ -6146,6 +6117,13 @@ function renderStart(){
             <button data-v="memory"><span class="opt-icon">🎴</span><span class="opt-label">Cocok Kartu<small>Memory</small></span></button>
             <button data-v="puzzle"><span class="opt-icon">🧠</span><span class="opt-label">Teka-teki<small>Susun Huruf</small></span></button>
             <button data-v="trivia"><span class="opt-icon">🎲</span><span class="opt-label">Trivia Jepang<small>Budaya & Bahasa</small></span></button>
+          </div>
+        </div>
+        <div class="setup-box" id="duelModeBox">
+          <div class="lbl">👥 CARA MAIN</div>
+          <div class="opt-row" id="duelModeRow" style="grid-template-columns:repeat(2,1fr);">
+            <button data-v="solo" class="active"><span class="opt-icon">🧍</span><span class="opt-label">Solo</span></button>
+            <button data-v="duel"><span class="opt-icon">⚔️</span><span class="opt-label">Duel<small>bareng teman</small></span></button>
           </div>
         </div>
         <div class="setup-box" id="typeBox">
@@ -6213,6 +6191,16 @@ function renderStart(){
       document.querySelectorAll("#modeRow button").forEach(x=>x.classList.remove("active"));
       b.classList.add("active"); setupMode = b.dataset.v;
       updateCountHint(); renderPacketRow(); toggleSetupBoxesForMode();
+    });
+  });
+  document.querySelectorAll("#duelModeRow button").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      document.querySelectorAll("#duelModeRow button").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      duelModeActive = (b.dataset.v === "duel");
+      const sb = $("startBtn");
+      if(sb) sb.textContent = duelModeActive ? "⚔️ Lanjut ke Duel" : "▶ Mulai Kuis";
+      playSFX('click');
     });
   });
   document.querySelectorAll("#typeRow button").forEach(b=>{
@@ -6332,6 +6320,9 @@ function renderStart(){
   });
 
   $("startBtn").addEventListener("click", ()=>{
+    if(duelModeActive && (setupMode === 'latihan' || setupMode === 'ujian')){
+      playSFX('click'); openDuelHome(); return;
+    }
     if(setupType === 'kotobaharian'){ playSFX('click'); openKotobaKuisSetup(); return; }
     if(setupType === 'jidoushitadoushi'){ playSFX('click'); openJidoushiTadoushiQuiz(parseInt(setupCount,10)); return; }
     if(setupType === 'verbkonjugasi'){ playSFX('click'); openVerbKonjugasiQuiz(setupScope, parseInt(setupCount,10)); return; }
@@ -6358,6 +6349,18 @@ function renderStart(){
 function toggleSetupBoxesForMode(){
   const countBox = $("countBox");
   if(!countBox) return;
+  // Mode Duel cuma masuk akal untuk Latihan Bebas & Mode Ujian (soal
+  // pilihan-ganda biasa) — mode lain (Serbu Waktu/Memory/Puzzle/Trivia)
+  // punya alur/skor sendiri yang tidak cocok disinkronkan real-time.
+  const duelBox = $("duelModeBox");
+  const duelSupported = (setupMode === 'latihan' || setupMode === 'ujian');
+  if(duelBox) duelBox.style.display = duelSupported ? '' : 'none';
+  if(!duelSupported && duelModeActive){
+    duelModeActive = false;
+    document.querySelectorAll("#duelModeRow button").forEach(x=>x.classList.toggle("active", x.dataset.v==='solo'));
+    const sb = $("startBtn");
+    if(sb) sb.textContent = "▶ Mulai Kuis";
+  }
   if(setupMode === 'memory'){
     countBox.style.display = "none";
     $("packetBox") && ($("packetBox").style.display = "none");
@@ -9090,15 +9093,72 @@ attachTilt3D(".shop-item", 6);
    ============================================================ */
 let duelState = null;
 function duelGenCode(){ return String(Math.floor(1000 + Math.random()*9000)); }
-function buildDuelQuestions(n){
-  const pool = buildKotobaKuisPool(null);
-  const picks = pickKuisQuestions(pool, n);
-  return picks.map(q=>{
-    const others = pool.filter(w=> w.id !== q.id);
-    const distractors = shuffleArr(others).slice(0,3).map(w=>w.id);
-    const optsRaw = shuffleArr(Array.from(new Set([q.id, ...distractors])));
-    while(optsRaw.length < 4 && others.length) optsRaw.push(others[Math.floor(Math.random()*others.length)].id);
-    return { emoji:q.emoji, jp:q.jp, hira:q.hira||"", opts:optsRaw.slice(0,4), correctIdx: optsRaw.indexOf(q.id) };
+/* Builder GENERIK soal Duel — memakai persis pengaturan (jenis kuis,
+   cakupan, jumlah soal, mode Latihan/Ujian) yang sedang dipilih di
+   layar setup Mode Game, jadi soal duel identik dgn yang akan didapat
+   kalau main solo dgn pengaturan yang sama. Hasilnya selalu dinormalkan
+   ke bentuk {html, opts:[string,...], correctIdx, speakText?} supaya
+   mesin render duel bisa menampilkan SEMUA jenis kuis dgn cara yang sama. */
+function buildDuelQuestionsFromSetup(){
+  if(setupType === 'kotobaharian'){
+    const n = parseInt(setupCount,10) || 10;
+    const pool = buildKotobaKuisPool(null);
+    const picks = pickKuisQuestions(pool, n);
+    return picks.map(q=>{
+      const others = pool.filter(w=> w.id !== q.id);
+      const distractors = shuffleArr(others).slice(0,3).map(w=>w.id);
+      const optsRaw = shuffleArr(Array.from(new Set([q.id, ...distractors])));
+      while(optsRaw.length < 4 && others.length) optsRaw.push(others[Math.floor(Math.random()*others.length)].id);
+      const opts = optsRaw.slice(0,4);
+      return {
+        html: `<div class="kh-quiz-emoji">${q.emoji}</div><div class="kh-quiz-jp-big">${q.jp}</div><div class="kh-quiz-jp-hira">${q.hira||''}</div><div class="kh-quiz-question">Artinya dalam Bahasa Indonesia?</div>`,
+        opts, correctIdx: opts.indexOf(q.id)
+      };
+    });
+  }
+  if(setupType === 'jidoushitadoushi'){
+    const n = parseInt(setupCount,10) || 25;
+    const picks = pickKuisQuestions(JIDOUSHI_TADOUSHI_SOAL, n);
+    return picks.map(q=>({
+      html: `<div class="kh-quiz-question jt-sentence">${q.jp}</div><div style="font-size:11px;color:#8b6c4e;margin-top:4px;">${q.meaning||''}</div>`,
+      opts: q.opts.slice(), correctIdx: q.opts.indexOf(q.correct)
+    }));
+  }
+  if(setupType === 'verbkonjugasi'){
+    const n = parseInt(setupCount,10) || 25;
+    const kat = VERB_KONJUGASI_DATA[setupScope] || VERB_KONJUGASI_DATA.kategori1;
+    let pool = [];
+    kat.sections.forEach(sec=> sec.items.forEach(it=> pool.push({...it, formLabel: sec.label})));
+    const picks = pickKuisQuestions(pool, n);
+    return picks.map(q=>({
+      html: `<div class="vk-form-tag">${q.formLabel} <span class="vk-form-tag-id">(${VK_FORM_ID[q.formLabel] || ''})</span></div><div class="kh-quiz-question">${q.jp}</div>`,
+      opts: q.opts.slice(), correctIdx: q.opts.indexOf(q.correct)
+    }));
+  }
+  // Kelompok mesin utama: Kosakata & Kanji, Pola Kalimat, Dokkai, Tes
+  // Kosakata JLPT, Tryout JFT, Irodori, Dengar & Tebak — semuanya sudah
+  // menghasilkan {qText, options, correctAns} yang seragam lewat
+  // buildQuestions()/buildQuestionsForPacket(), tinggal dinormalkan.
+  let raw = setupMode === 'ujian'
+    ? buildQuestionsForPacket(setupScope, setupCount, setupType, setupPacketIndex)
+    : buildQuestions(setupScope, setupCount, setupType);
+  // Buang varian "susun_kalimat" (bukan pilihan-ganda, tidak cocok utk duel real-time)
+  raw = raw.filter(q => q.options && q.options.length > 0);
+  return raw.map(q=>{
+    let html = q.qText;
+    if(q.type === 'dokkai_mc'){
+      html = `<div style="font-size:11px;font-weight:800;color:#8b6c4e;margin-bottom:4px;">${q.passage.title}</div><div style="font-size:12px;line-height:1.5;background:#fffdf7;border:1px solid #d4b382;border-radius:10px;padding:8px;margin-bottom:10px;max-height:140px;overflow-y:auto;">${q.passage.passage}</div>${q.qText}`;
+    }
+    const opts = q.options.slice();
+    const correctIdx = opts.indexOf(q.correctAns);
+    return {
+      html, opts, correctIdx: correctIdx>=0 ? correctIdx : 0,
+      speakText: (q.type==='listening_mc' && q.correct) ? q.correct.jp : null,
+      // Dokkai butuh waktu baca (standar resmi JLPT per level), jauh lebih
+      // lama dari "waktu per soal" duel biasa (10-20 detik) — dihitung
+      // per-soal lewat dokkaiQTime() yang sudah dipakai juga di mode solo.
+      timeSec: (q.type==='dokkai_mc') ? dokkaiQTime(q) : null
+    };
   });
 }
 function duelPlayerRowsHTML(playersObj, hostNis){
@@ -9147,7 +9207,7 @@ function openDuelHostSetup(){
     showGameToast("⚠️ Duel butuh koneksi internet (Firebase).");
     return;
   }
-  let selN = 10, selT = 15;
+  let selT = 15;
   const el = document.createElement("div");
   el.className = "kh-v2-overlay";
   el.innerHTML = `
@@ -9155,16 +9215,15 @@ function openDuelHostSetup(){
       <div class="kh-v2-head">
         <div class="kh-v2-title-row">
           <div class="kh-v2-logo">⚔️</div>
-          <div><div class="kh-v2-title">Buat Ruang Duel</div><div class="kh-v2-subtitle">Atur jumlah soal & waktu per soal</div></div>
+          <div><div class="kh-v2-title">Buat Ruang Duel</div><div class="kh-v2-subtitle">Pakai jenis kuis & jumlah soal yang sudah dipilih tadi</div></div>
           <button class="kh-v2-close" id="duelHostSetupClose" aria-label="Tutup">×</button>
         </div>
       </div>
       <div class="kh-quiz-body">
-        <div class="kh-quiz-question" style="margin-bottom:8px;">Jumlah soal?</div>
-        <div class="kh-quiz-setup-grid" id="duelNRow">
-          ${[10,15,20].map(n=>`<button class="kh-quiz-setup-btn ${n===10?'active':''}" data-n="${n}">${n}<small>soal</small></button>`).join("")}
-        </div>
-        <div class="kh-quiz-question" style="margin:16px 0 8px;">Waktu per soal?</div>
+        ${setupType === 'dokkai' ? `
+          <div class="kh-quiz-subtitle" style="margin-bottom:10px;">📖 Waktu baca Dokkai otomatis menyesuaikan standar JLPT per level (soal pertama dapat porsi lebih besar untuk membaca) — pengaturan waktu di bawah ini diabaikan untuk Dokkai.</div>
+        ` : ``}
+        <div class="kh-quiz-question" style="margin-bottom:8px;">Waktu per soal?</div>
         <div class="kh-quiz-setup-grid" id="duelTRow">
           ${[10,15,20].map(t=>`<button class="kh-quiz-setup-btn ${t===15?'active':''}" data-t="${t}">${t}s</button>`).join("")}
         </div>
@@ -9175,17 +9234,21 @@ function openDuelHostSetup(){
   const close = ()=> el.remove();
   el.querySelector("#duelHostSetupClose").addEventListener("click", close);
   el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
-  el.querySelectorAll("#duelNRow button").forEach(b=> b.addEventListener("click", ()=>{ selN=parseInt(b.dataset.n,10); el.querySelectorAll("#duelNRow button").forEach(x=>x.classList.toggle("active",x===b)); }));
   el.querySelectorAll("#duelTRow button").forEach(b=> b.addEventListener("click", ()=>{ selT=parseInt(b.dataset.t,10); el.querySelectorAll("#duelTRow button").forEach(x=>x.classList.toggle("active",x===b)); }));
   el.querySelector("#duelCreateBtn").addEventListener("click", ()=>{
+    const questions = buildDuelQuestionsFromSetup();
+    if(!questions.length){
+      showGameToast("😅 Belum ada soal pilihan-ganda untuk pengaturan ini.");
+      return;
+    }
     playSFX('click');
     const profile = getPlayerProfile();
     const code = duelGenCode();
     const nis = student ? student.nis : "guest";
     const roomData = {
-      hostNis: nis, totalQ: selN, timePerQ: selT,
+      hostNis: nis, totalQ: questions.length, timePerQ: selT,
       status: "lobby", currentIndex: 0, questionStartAt: 0,
-      questions: buildDuelQuestions(selN),
+      questions,
       players: { [nis]: { nama: student ? student.nama : "Host", avatar: profile.avatar || "pelajar", score: 0, joinedAt: Date.now() } },
       createdAt: Date.now()
     };
@@ -9279,23 +9342,40 @@ function openDuelLobby(code, isHost, initialRoom){
         duelState.advanced = false;
         duelState.playing = true;
         duelRenderQuestion(room);
+      } else {
+        // Bukan pindah soal baru — cuma update biasa (mis. ada pemain lain
+        // yang baru saja menjawab). Cek apakah SEMUA pemain sudah menjawab
+        // soal saat ini; kalau ya, host tidak perlu menunggu timer habis.
+        duelMaybeAdvance(room);
       }
     } else if(room.status === "finished"){
       duelRenderFinish(room);
     }
   });
 }
+function duelMaybeAdvance(room){
+  // Kalau SEMUA pemain yang tergabung sudah menjawab soal saat ini, host
+  // tidak perlu menunggu sampai timer benar-benar habis — langsung lanjut
+  // ke soal berikutnya (dgn jeda singkat supaya sempat lihat feedback).
+  if(!duelState.isHost || duelState.advanced) return;
+  const answersForQ = (room.answers && room.answers[room.currentIndex]) || {};
+  const totalPlayers = Object.keys(room.players || {}).length;
+  const answeredCount = Object.keys(answersForQ).length;
+  if(totalPlayers > 0 && answeredCount >= totalPlayers){
+    if(duelState.timerInterval) clearInterval(duelState.timerInterval);
+    duelHostAdvance(room);
+  }
+}
 function duelRenderQuestion(room){
   const el = duelState.el;
   const q = room.questions[room.currentIndex];
   const body = el.querySelector(".kh-quiz-body") || el.querySelector("#duelLobbyBody");
+  const speakBtnHtml = q.speakText ? `<button class="kh-quiz-setup-btn" id="duelSpeakBtn" style="margin-bottom:10px;">🔊 Dengarkan</button>` : "";
   body.innerHTML = `
     <div class="duel-timer-track"><div class="duel-timer-fill" id="duelTimerFill" style="width:100%;"></div></div>
     <div class="kh-quiz-subtitle" style="text-align:center;font-size:11px;color:#8b6c4e;margin-bottom:6px;">Soal ${room.currentIndex+1} / ${room.totalQ}</div>
-    <div class="kh-quiz-emoji">${q.emoji}</div>
-    <div class="kh-quiz-jp-big" style="text-align:center;">${q.jp}</div>
-    <div class="kh-quiz-jp-hira" style="text-align:center;">${q.hira}</div>
-    <div class="kh-quiz-question">Artinya dalam Bahasa Indonesia?</div>
+    ${speakBtnHtml}
+    ${q.html}
     <div class="kh-quiz-opts" id="duelOpts">
       ${q.opts.map((o,i)=>`<button class="kh-quiz-opt" data-idx="${i}">${o}</button>`).join("")}
     </div>
@@ -9304,12 +9384,20 @@ function duelRenderQuestion(room){
   el.querySelectorAll("#duelOpts button").forEach(btn=>{
     btn.addEventListener("click", ()=> duelAnswer(parseInt(btn.dataset.idx,10)));
   });
+  if(q.speakText){
+    const sBtn = el.querySelector("#duelSpeakBtn");
+    if(sBtn) sBtn.addEventListener("click", ()=> speakJapanese(q.speakText.replace(/<[^>]+>/g,''), 'N5'));
+  }
   if(duelState.timerInterval) clearInterval(duelState.timerInterval);
   const fill = el.querySelector("#duelTimerFill");
+  // Dokkai butuh waktu baca lebih lama (standar JLPT resmi per level,
+  // lihat dokkaiQTime) — dipakai per-soal lewat q.timeSec kalau ada.
+  // Jenis lain tetap pakai "waktu per soal" yang dipilih host (10/15/20s).
+  const qTimeSec = q.timeSec || room.timePerQ;
   duelState.timerInterval = setInterval(()=>{
     const elapsed = Date.now() - room.questionStartAt;
-    const remaining = room.timePerQ*1000 - elapsed;
-    const pct = Math.max(0, (remaining/(room.timePerQ*1000))*100);
+    const remaining = qTimeSec*1000 - elapsed;
+    const pct = Math.max(0, (remaining/(qTimeSec*1000))*100);
     if(fill) fill.style.width = pct + "%";
     if(remaining <= 0){
       clearInterval(duelState.timerInterval);
@@ -9337,6 +9425,16 @@ function duelAnswer(idx){
   window.__duelSubmitAnswer(duelState.code, room.currentIndex, duelState.myNis, { choiceIdx: idx, correct, ms });
   const myScoreNow = (room.players[duelState.myNis] && room.players[duelState.myNis].score) || 0;
   window.__duelUpdateRoom(duelState.code, { ["players/"+duelState.myNis+"/score"]: myScoreNow + gained });
+  // Cek langsung (tanpa nunggu round-trip Firebase) — kalau jawaban ini
+  // melengkapi semua pemain (paling umum: cuma 1 pemain lagi menguji
+  // sendiri), host bisa langsung lanjut, tidak perlu tunggu timer habis.
+  if(duelState.isHost){
+    const tempRoom = JSON.parse(JSON.stringify(room));
+    if(!tempRoom.answers) tempRoom.answers = {};
+    if(!tempRoom.answers[room.currentIndex]) tempRoom.answers[room.currentIndex] = {};
+    tempRoom.answers[room.currentIndex][duelState.myNis] = { choiceIdx: idx, correct, ms };
+    duelMaybeAdvance(tempRoom);
+  }
 }
 function duelLockAnswer(idx){
   duelState.answered = true;
@@ -9411,206 +9509,6 @@ function duelCleanupAndClose(el){
   }
   duelState = null;
   if(el) el.remove();
-}
-
-/* ============================================================
-   LATIHAN KANJI — animasi urutan goresan (stroke order) untuk 15
-   kanji dasar N5, plus kanvas untuk coba menulis sendiri. Ini
-   REFERENSI VISUAL & tempat berlatih, BUKAN pengenalan tulisan
-   tangan (goresan yang digambar siswa tidak dinilai benar/salah),
-   supaya tidak salah klaim soal akurasi penilaian.
-   ============================================================ */
-const KANJI_STROKE_DATA = [
-  { kanji:"一", arti:"satu", baca:"ICHI / ひと(つ)", strokes:[[{x:20,y:100},{x:180,y:100}]] },
-  { kanji:"二", arti:"dua", baca:"NI / ふた(つ)", strokes:[[{x:40,y:70},{x:160,y:70}],[{x:20,y:130},{x:180,y:130}]] },
-  { kanji:"三", arti:"tiga", baca:"SAN / みっつ", strokes:[[{x:40,y:50},{x:160,y:50}],[{x:30,y:100},{x:170,y:100}],[{x:20,y:150},{x:180,y:150}]] },
-  { kanji:"人", arti:"orang", baca:"JIN, NIN / ひと", strokes:[[{x:100,y:30},{x:40,y:170}],[{x:100,y:85},{x:165,y:170}]] },
-  { kanji:"大", arti:"besar", baca:"DAI, TAI / おおきい", strokes:[[{x:30,y:60},{x:170,y:60}],[{x:100,y:60},{x:30,y:170}],[{x:100,y:90},{x:170,y:170}]] },
-  { kanji:"小", arti:"kecil", baca:"SHOU / ちいさい", strokes:[[{x:100,y:40},{x:100,y:110}],[{x:70,y:80},{x:40,y:150}],[{x:130,y:80},{x:160,y:150}]] },
-  { kanji:"山", arti:"gunung", baca:"SAN / やま", strokes:[[{x:100,y:40},{x:100,y:160}],[{x:45,y:80},{x:45,y:160}],[{x:155,y:80},{x:155,y:160}]] },
-  { kanji:"川", arti:"sungai", baca:"SEN / かわ", strokes:[[{x:50,y:50},{x:42,y:150}],[{x:100,y:40},{x:100,y:160}],[{x:150,y:50},{x:158,y:150}]] },
-  { kanji:"口", arti:"mulut", baca:"KOU / くち", strokes:[[{x:50,y:60},{x:50,y:150}],[{x:50,y:60},{x:150,y:60},{x:150,y:150}],[{x:50,y:150},{x:150,y:150}]] },
-  { kanji:"日", arti:"hari / matahari", baca:"NICHI, JITSU / ひ", strokes:[[{x:50,y:50},{x:50,y:170}],[{x:50,y:50},{x:150,y:50},{x:150,y:170}],[{x:50,y:110},{x:150,y:110}],[{x:50,y:170},{x:150,y:170}]] },
-  { kanji:"月", arti:"bulan", baca:"GETSU, GATSU / つき", strokes:[[{x:55,y:45},{x:50,y:175}],[{x:55,y:45},{x:145,y:55},{x:140,y:175}],[{x:60,y:100},{x:130,y:105}],[{x:60,y:140},{x:130,y:145}]] },
-  { kanji:"木", arti:"pohon / kayu", baca:"MOKU, BOKU / き", strokes:[[{x:40,y:70},{x:160,y:70}],[{x:100,y:30},{x:100,y:170}],[{x:100,y:100},{x:40,y:170}],[{x:100,y:110},{x:160,y:175}]] },
-  { kanji:"火", arti:"api", baca:"KA / ひ", strokes:[[{x:90,y:50},{x:75,y:90}],[{x:110,y:50},{x:125,y:90}],[{x:100,y:60},{x:30,y:170}],[{x:105,y:40},{x:170,y:170}]] },
-  { kanji:"水", arti:"air", baca:"SUI / みず", strokes:[[{x:100,y:40},{x:100,y:110}],[{x:90,y:70},{x:40,y:110}],[{x:110,y:70},{x:140,y:90}],[{x:100,y:90},{x:170,y:170}]] },
-  { kanji:"土", arti:"tanah", baca:"DO, TO / つち", strokes:[[{x:50,y:80},{x:150,y:80}],[{x:100,y:40},{x:100,y:160}],[{x:30,y:160},{x:170,y:160}]] }
-];
-let kanjiPracticeIdx = 0;
-function openKanjiStrokeMenu(){
-  const el = document.createElement("div");
-  el.className = "kh-v2-overlay";
-  el.innerHTML = `
-    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Latihan Kanji">
-      <div class="kh-v2-head">
-        <div class="kh-v2-title-row">
-          <div class="kh-v2-logo">✍️</div>
-          <div><div class="kh-v2-title">Latihan Kanji</div><div class="kh-v2-subtitle">Lihat urutan goresan, lalu coba tulis sendiri</div></div>
-          <button class="kh-v2-close" id="kanjiMenuClose" aria-label="Tutup">×</button>
-        </div>
-      </div>
-      <div class="kh-quiz-body" style="display:block;">
-        <div class="kanji-grid">
-          ${KANJI_STROKE_DATA.map((k,i)=>`<div class="kanji-tile" data-i="${i}"><div class="kt-char">${k.kanji}</div><div class="kt-arti">${k.arti}</div></div>`).join("")}
-        </div>
-      </div>
-    </div>`;
-  document.body.appendChild(el);
-  const close = ()=> el.remove();
-  el.querySelector("#kanjiMenuClose").addEventListener("click", close);
-  el.addEventListener("click", ev=>{ if(ev.target===el) close(); });
-  el.querySelectorAll(".kanji-tile").forEach(t=>{
-    t.addEventListener("click", ()=>{ playSFX('click'); close(); kanjiPracticeIdx = parseInt(t.dataset.i,10); openKanjiStrokePractice(); });
-  });
-}
-function openKanjiStrokePractice(){
-  const el = document.createElement("div");
-  el.className = "kh-v2-overlay";
-  el.innerHTML = `
-    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Latihan Goresan Kanji">
-      <div class="kh-v2-head">
-        <div class="kh-v2-title-row">
-          <div class="kh-v2-logo">✍️</div>
-          <div><div class="kh-v2-title">Latihan Goresan Kanji</div><div class="kh-v2-subtitle" id="kanjiProgress"></div></div>
-          <button class="kh-v2-close" id="kanjiPracticeClose" aria-label="Tutup">×</button>
-        </div>
-      </div>
-      <div class="kh-quiz-body" style="display:block;">
-        <div class="kanji-stage">
-          <div class="kanji-info"><div class="ki-char" id="kanjiInfoChar"></div><div class="ki-sub" id="kanjiInfoSub"></div></div>
-          <div class="kanji-canvas-wrap">
-            <canvas id="kanjiGuideCanvas" width="260" height="260"></canvas>
-            <canvas id="kanjiDrawCanvas" width="260" height="260"></canvas>
-          </div>
-          <div class="kanji-tools">
-            <button id="kanjiAnimBtn" class="primary">▶ Animasi Urutan</button>
-            <button id="kanjiClearBtn">🧹 Hapus Coretan</button>
-          </div>
-          <div class="kanji-nav">
-            <button id="kanjiPrevBtn">◀ Sebelumnya</button>
-            <button id="kanjiNextBtn">Lanjut ▶</button>
-          </div>
-        </div>
-      </div>
-    </div>`;
-  document.body.appendChild(el);
-
-  const guideCanvas = el.querySelector("#kanjiGuideCanvas");
-  const drawCanvas = el.querySelector("#kanjiDrawCanvas");
-  const gctx = guideCanvas.getContext("2d");
-  const dctx = drawCanvas.getContext("2d");
-  let kanjiAnimTimer = null;
-
-  const close = ()=>{ if(kanjiAnimTimer) clearTimeout(kanjiAnimTimer); el.remove(); };
-  el.querySelector("#kanjiPracticeClose").addEventListener("click", close);
-  el.addEventListener("click", ev=>{ if(ev.target===el) close(); });
-
-  function drawGridGuide(ctx){
-    ctx.save();
-    ctx.strokeStyle = "#e8d9bb"; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(130,0); ctx.lineTo(130,260); ctx.moveTo(0,130); ctx.lineTo(260,130); ctx.stroke();
-    ctx.restore();
-  }
-  function drawStrokesStatic(ctx, strokes, color){
-    ctx.save();
-    ctx.strokeStyle = color; ctx.lineWidth = 10; ctx.lineCap = "round"; ctx.lineJoin = "round";
-    strokes.forEach(pts=>{
-      ctx.beginPath();
-      ctx.moveTo(pts[0].x, pts[0].y);
-      for(let i=1;i<pts.length;i++) ctx.lineTo(pts[i].x, pts[i].y);
-      ctx.stroke();
-    });
-    ctx.restore();
-  }
-  function renderKanjiStep(){
-    const data = KANJI_STROKE_DATA[kanjiPracticeIdx];
-    el.querySelector("#kanjiProgress").textContent = `Kanji ${kanjiPracticeIdx+1} / ${KANJI_STROKE_DATA.length}`;
-    el.querySelector("#kanjiInfoChar").textContent = data.kanji;
-    el.querySelector("#kanjiInfoSub").textContent = `${data.arti} — ${data.baca}`;
-    gctx.clearRect(0,0,260,260);
-    drawGridGuide(gctx);
-    drawStrokesStatic(gctx, data.strokes, "#d8c19a");
-    dctx.clearRect(0,0,260,260);
-  }
-  renderKanjiStep();
-
-  function animateStrokes(){
-    if(kanjiAnimTimer) clearTimeout(kanjiAnimTimer);
-    const data = KANJI_STROKE_DATA[kanjiPracticeIdx];
-    dctx.clearRect(0,0,260,260);
-    let si = 0;
-    function stepStroke(){
-      if(si >= data.strokes.length) return;
-      const pts = data.strokes[si];
-      const totalSteps = 16;
-      let t = 0;
-      function frame(){
-        t++;
-        const frac = t/totalSteps;
-        const segCount = pts.length - 1;
-        const segFloat = frac * segCount;
-        const segIdx = Math.min(Math.floor(segFloat), segCount-1);
-        const segFrac = segFloat - segIdx;
-        dctx.save();
-        dctx.strokeStyle = "#e07b28"; dctx.lineWidth = 10; dctx.lineCap = "round"; dctx.lineJoin = "round";
-        dctx.beginPath();
-        dctx.moveTo(pts[0].x, pts[0].y);
-        for(let i=1;i<=segIdx;i++) dctx.lineTo(pts[i].x, pts[i].y);
-        if(pts[segIdx+1]){
-          const x = pts[segIdx].x + (pts[segIdx+1].x-pts[segIdx].x)*segFrac;
-          const y = pts[segIdx].y + (pts[segIdx+1].y-pts[segIdx].y)*segFrac;
-          dctx.lineTo(x,y);
-        }
-        dctx.stroke();
-        dctx.restore();
-        if(t < totalSteps) kanjiAnimTimer = setTimeout(frame, 30);
-        else { si++; kanjiAnimTimer = setTimeout(stepStroke, 250); }
-      }
-      frame();
-    }
-    stepStroke();
-  }
-  el.querySelector("#kanjiAnimBtn").addEventListener("click", ()=>{ playSFX('click'); animateStrokes(); });
-  el.querySelector("#kanjiClearBtn").addEventListener("click", ()=>{ if(kanjiAnimTimer) clearTimeout(kanjiAnimTimer); dctx.clearRect(0,0,260,260); playSFX('click'); });
-
-  // Coba menulis sendiri (freehand, tidak dinilai) di lapisan kanvas atas
-  let drawingNow = false;
-  function getPos(ev){
-    const r = drawCanvas.getBoundingClientRect();
-    const cx = (ev.touches ? ev.touches[0].clientX : ev.clientX) - r.left;
-    const cy = (ev.touches ? ev.touches[0].clientY : ev.clientY) - r.top;
-    const scaleX = 260 / (r.width || 260);
-    const scaleY = 260 / (r.height || 260);
-    return { x: cx*scaleX, y: cy*scaleY };
-  }
-  drawCanvas.addEventListener("pointerdown", (ev)=>{
-    if(kanjiAnimTimer){ clearTimeout(kanjiAnimTimer); kanjiAnimTimer=null; }
-    drawingNow = true;
-    const p = getPos(ev);
-    dctx.beginPath(); dctx.moveTo(p.x, p.y);
-    dctx.strokeStyle = "#3f2c1c"; dctx.lineWidth = 10; dctx.lineCap="round"; dctx.lineJoin="round";
-  });
-  drawCanvas.addEventListener("pointermove", (ev)=>{
-    if(!drawingNow) return;
-    const p = getPos(ev);
-    dctx.lineTo(p.x, p.y); dctx.stroke();
-    if(ev.preventDefault) ev.preventDefault();
-  });
-  window.addEventListener("pointerup", ()=>{ drawingNow = false; });
-
-  el.querySelector("#kanjiPrevBtn").addEventListener("click", ()=>{
-    kanjiPracticeIdx = (kanjiPracticeIdx - 1 + KANJI_STROKE_DATA.length) % KANJI_STROKE_DATA.length;
-    if(kanjiAnimTimer) clearTimeout(kanjiAnimTimer);
-    renderKanjiStep();
-    playSFX('click');
-  });
-  el.querySelector("#kanjiNextBtn").addEventListener("click", ()=>{
-    kanjiPracticeIdx = (kanjiPracticeIdx + 1) % KANJI_STROKE_DATA.length;
-    if(kanjiAnimTimer) clearTimeout(kanjiAnimTimer);
-    renderKanjiStep();
-    playSFX('click');
-  });
 }
 
 </script>

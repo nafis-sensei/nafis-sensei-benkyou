@@ -765,6 +765,8 @@
   .mpp-stats { display:flex; flex-direction:column; gap:4px; }
   .mpp-stat { font-size:12px; color:#8b6c4e; }
   .mpp-stat b { color:#5b3b23; }
+  .mensetsu-word-speak, .mensetsu-ex-speak { flex-shrink:0; border:1px solid #d4b382; background:#fffdf6; border-radius:8px; width:26px; height:26px; font-size:12px; cursor:pointer; }
+  .mensetsu-word-speak:hover, .mensetsu-ex-speak:hover { background:#eef7e6; border-color:#7ea765; }
 
   .mission-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; font-size: 12px; }
   .mission-row:last-child { margin-bottom: 0; }
@@ -9346,185 +9348,225 @@ const MENSETSU_DATA = {
 };
 const MENSETSU_WORDS = [
   // --- Dasar ---
-  ["自己紹介","じこしょうかい","perkenalan diri","Dasar"],
-  ["面接","めんせつ","wawancara","Dasar"],
-  ["面接官","めんせつかん","pewawancara","Dasar"],
-  ["緊張","きんちょう","gugup/tegang","Dasar"],
-  ["落ち着く","おちつく","menenangkan diri","Dasar"],
+  ["自己紹介","じこしょうかい","perkenalan diri","Dasar","では、自己紹介をお願いします。","Kalau begitu, silakan perkenalkan diri."],
+  ["面接","めんせつ","wawancara","Dasar","明日、面接があります。","Besok ada wawancara."],
+  ["面接官","めんせつかん","pewawancara","Dasar","面接官の質問に丁寧に答えました。","Saya menjawab pertanyaan pewawancara dengan sopan."],
+  ["緊張","きんちょう","gugup/tegang","Dasar","面接のとき、少し緊張しました。","Saat wawancara, saya sedikit gugup."],
+  ["落ち着く","おちつく","menenangkan diri","Dasar","深呼吸をして、落ち着きましょう。","Tarik napas dalam-dalam, mari tenang."],
   // --- Pekerjaan ---
-  ["応募","おうぼ","melamar","Pekerjaan"],
-  ["応募者","おうぼしゃ","pelamar","Pekerjaan"],
-  ["志望動機","しぼうどうき","alasan melamar","Pekerjaan"],
-  ["経験","けいけん","pengalaman","Pekerjaan"],
-  ["職歴","しょくれき","riwayat pekerjaan","Pekerjaan"],
-  ["仕事内容","しごとないよう","isi pekerjaan","Pekerjaan"],
-  ["工場","こうじょう","pabrik","Pekerjaan"],
-  ["会社","かいしゃ","perusahaan","Pekerjaan"],
-  ["技術","ぎじゅつ","teknologi/keterampilan teknis","Pekerjaan"],
-  ["技能","ぎのう","keterampilan","Pekerjaan"],
-  ["業務","ぎょうむ","tugas kerja","Pekerjaan"],
-  ["現場","げんば","lapangan/lokasi kerja","Pekerjaan"],
-  ["先輩","せんぱい","senior","Pekerjaan"],
-  ["上司","じょうし","atasan","Pekerjaan"],
-  ["同僚","どうりょう","rekan kerja","Pekerjaan"],
-  ["指導","しどう","bimbingan","Pekerjaan"],
-  ["作業","さぎょう","pekerjaan/kegiatan kerja","Pekerjaan"],
-  ["安全","あんぜん","keselamatan","Pekerjaan"],
-  ["品質","ひんしつ","kualitas","Pekerjaan"],
-  ["ミス","ミス","kesalahan","Pekerjaan"],
-  ["改善する","かいぜんする","memperbaiki/meningkatkan","Pekerjaan"],
-  ["働く","はたらく","bekerja","Pekerjaan"],
-  ["報告・連絡・相談","ほうこく・れんらく・そうだん","lapor, komunikasi, konsultasi","Pekerjaan"],
-  // --- Kelebihan (長所) — diperluas ---
-  ["長所","ちょうしょ","kelebihan","Kelebihan"],
-  ["性格","せいかく","kepribadian","Kelebihan"],
-  ["責任感","せきにんかん","rasa tanggung jawab","Kelebihan"],
-  ["まじめ","まじめ","serius/bersungguh-sungguh","Kelebihan"],
-  ["協調性","きょうちょうせい","kemampuan bekerja sama","Kelebihan"],
-  ["積極的","せっきょくてき","proaktif/aktif","Kelebihan"],
-  ["前向き","まえむき","berpikiran positif","Kelebihan"],
-  ["明るい","あかるい","ceria","Kelebihan"],
-  ["素直","すなお","jujur/penurut","Kelebihan"],
-  ["粘り強い","ねばりづよい","gigih/pantang menyerah","Kelebihan"],
-  ["我慢強い","がまんづよい","tahan banting/sabar","Kelebihan"],
-  ["向上心","こうじょうしん","semangat untuk berkembang","Kelebihan"],
-  ["集中力","しゅうちゅうりょく","daya konsentrasi","Kelebihan"],
-  ["リーダーシップ","リーダーシップ","jiwa kepemimpinan","Kelebihan"],
-  ["コミュニケーション能力","コミュニケーションのうりょく","kemampuan berkomunikasi","Kelebihan"],
-  ["諦めない","あきらめない","tidak mudah menyerah","Kelebihan"],
-  ["柔軟性","じゅうなんせい","fleksibilitas","Kelebihan"],
-  ["几帳面","きちょうめん","rapi/cermat","Kelebihan"],
-  ["行動力","こうどうりょく","kemampuan bertindak cepat","Kelebihan"],
-  ["好奇心","こうきしん","rasa ingin tahu","Kelebihan"],
-  ["誠実","せいじつ","jujur/tulus","Kelebihan"],
-  // --- Kekurangan (短所) — diperluas ---
-  ["短所","たんしょ","kekurangan","Kekurangan"],
-  ["緊張しやすい","きんちょうしやすい","mudah gugup","Kekurangan"],
-  ["心配性","しんぱいしょう","mudah khawatir","Kekurangan"],
-  ["せっかち","せっかち","tidak sabaran","Kekurangan"],
-  ["頑固","がんこ","keras kepala","Kekurangan"],
-  ["人見知り","ひとみしり","pemalu ke orang baru","Kekurangan"],
-  ["優柔不断","ゆうじゅうふだん","plin-plan/sulit memutuskan","Kekurangan"],
-  ["完璧主義","かんぺきしゅぎ","perfeksionis","Kekurangan"],
-  ["遠慮しがち","えんりょしがち","cenderung sungkan","Kekurangan"],
-  ["お人好し","おひとよし","terlalu baik hati","Kekurangan"],
-  ["マイペース","マイペース","jalan dengan ritme sendiri","Kekurangan"],
-  ["飽きっぽい","あきっぽい","mudah bosan","Kekurangan"],
-  ["話すのが苦手","はなすのがにがて","kurang pandai bicara","Kekurangan"],
-  ["断れない","ことわれない","sulit menolak","Kekurangan"],
+  ["応募","おうぼ","melamar","Pekerjaan","この会社に応募しました。","Saya melamar ke perusahaan ini."],
+  ["応募者","おうぼしゃ","pelamar","Pekerjaan","応募者はたくさんいます。","Ada banyak pelamar."],
+  ["志望動機","しぼうどうき","alasan melamar","Pekerjaan","志望動機を教えてください。","Tolong beritahu alasan melamar Anda."],
+  ["経験","けいけん","pengalaman","Pekerjaan","工場で働いた経験があります。","Saya punya pengalaman bekerja di pabrik."],
+  ["職歴","しょくれき","riwayat pekerjaan","Pekerjaan","私の職歴について説明します。","Saya akan menjelaskan riwayat pekerjaan saya."],
+  ["仕事内容","しごとないよう","isi pekerjaan","Pekerjaan","仕事内容を確認してください。","Silakan periksa isi pekerjaannya."],
+  ["工場","こうじょう","pabrik","Pekerjaan","私は工場で働きたいです。","Saya ingin bekerja di pabrik."],
+  ["会社","かいしゃ","perusahaan","Pekerjaan","この会社で働きたいです。","Saya ingin bekerja di perusahaan ini."],
+  ["技術","ぎじゅつ","teknologi/keterampilan teknis","Pekerjaan","日本の技術を学びたいです。","Saya ingin mempelajari teknologi Jepang."],
+  ["技能","ぎのう","keterampilan","Pekerjaan","新しい技能を身につけたいです。","Saya ingin menguasai keterampilan baru."],
+  ["業務","ぎょうむ","tugas kerja","Pekerjaan","毎日の業務を頑張ります。","Saya akan berusaha keras dalam tugas kerja setiap hari."],
+  ["現場","げんば","lapangan/lokasi kerja","Pekerjaan","現場での作業は大変です。","Pekerjaan di lapangan itu berat."],
+  ["先輩","せんぱい","senior","Pekerjaan","先輩に教えてもらいました。","Saya diajari oleh senior."],
+  ["上司","じょうし","atasan","Pekerjaan","上司の指示に従います。","Saya mematuhi instruksi atasan."],
+  ["同僚","どうりょう","rekan kerja","Pekerjaan","同僚と協力して働きます。","Saya bekerja sama dengan rekan kerja."],
+  ["指導","しどう","bimbingan","Pekerjaan","先輩からの指導を受けます。","Saya menerima bimbingan dari senior."],
+  ["作業","さぎょう","pekerjaan/kegiatan kerja","Pekerjaan","安全に作業をします。","Saya bekerja dengan aman."],
+  ["安全","あんぜん","keselamatan","Pekerjaan","安全を第一に考えます。","Saya mengutamakan keselamatan."],
+  ["品質","ひんしつ","kualitas","Pekerjaan","品質を大切にしています。","Saya sangat memperhatikan kualitas."],
+  ["ミス","ミス","kesalahan","Pekerjaan","ミスをしないように気をつけます。","Saya berhati-hati agar tidak membuat kesalahan."],
+  ["改善する","かいぜんする","memperbaiki/meningkatkan","Pekerjaan","問題を改善するように努力します。","Saya berusaha memperbaiki masalah."],
+  ["働く","はたらく","bekerja","Pekerjaan","まじめに働きます。","Saya akan bekerja dengan sungguh-sungguh."],
+  ["報告・連絡・相談","ほうこく・れんらく・そうだん","lapor, komunikasi, konsultasi","Pekerjaan","報告・連絡・相談を大切にしています。","Saya mementingkan lapor, komunikasi, dan konsultasi."],
+  // --- Kelebihan ---
+  ["長所","ちょうしょ","kelebihan","Kelebihan","私の長所はまじめなところです。","Kelebihan saya adalah sifat yang serius."],
+  ["性格","せいかく","kepribadian","Kelebihan","私の性格は明るいです。","Kepribadian saya ceria."],
+  ["責任感","せきにんかん","rasa tanggung jawab","Kelebihan","責任感を持って仕事をします。","Saya bekerja dengan rasa tanggung jawab."],
+  ["まじめ","まじめ","serius/bersungguh-sungguh","Kelebihan","私はまじめに仕事をします。","Saya bekerja dengan sungguh-sungguh."],
+  ["協調性","きょうちょうせい","kemampuan bekerja sama","Kelebihan","協調性がある方だと思います。","Saya rasa saya orang yang mampu bekerja sama."],
+  ["積極的","せっきょくてき","proaktif/aktif","Kelebihan","積極的に質問します。","Saya bertanya secara aktif."],
+  ["前向き","まえむき","berpikiran positif","Kelebihan","いつも前向きに考えます。","Saya selalu berpikir positif."],
+  ["明るい","あかるい","ceria","Kelebihan","私は明るい性格です。","Saya berkepribadian ceria."],
+  ["素直","すなお","jujur/penurut","Kelebihan","素直に指示を聞きます。","Saya mendengarkan instruksi dengan penurut."],
+  ["粘り強い","ねばりづよい","gigih/pantang menyerah","Kelebihan","粘り強く頑張ります。","Saya berusaha dengan gigih."],
+  ["我慢強い","がまんづよい","tahan banting/sabar","Kelebihan","我慢強い性格です。","Saya berkepribadian tahan banting."],
+  ["向上心","こうじょうしん","semangat untuk berkembang","Kelebihan","向上心を持って勉強します。","Saya belajar dengan semangat untuk berkembang."],
+  ["集中力","しゅうちゅうりょく","daya konsentrasi","Kelebihan","集中力には自信があります。","Saya percaya diri dengan daya konsentrasi saya."],
+  ["リーダーシップ","リーダーシップ","jiwa kepemimpinan","Kelebihan","リーダーシップを発揮したいです。","Saya ingin menunjukkan jiwa kepemimpinan."],
+  ["コミュニケーション能力","コミュニケーションのうりょく","kemampuan berkomunikasi","Kelebihan","コミュニケーション能力を高めたいです。","Saya ingin meningkatkan kemampuan komunikasi."],
+  ["諦めない","あきらめない","tidak mudah menyerah","Kelebihan","最後まで諦めません。","Saya tidak akan menyerah sampai akhir."],
+  ["柔軟性","じゅうなんせい","fleksibilitas","Kelebihan","柔軟性を持って対応します。","Saya menanggapi dengan fleksibel."],
+  ["几帳面","きちょうめん","rapi/cermat","Kelebihan","几帳面な性格です。","Saya berkepribadian rapi/cermat."],
+  ["行動力","こうどうりょく","kemampuan bertindak cepat","Kelebihan","行動力がある方だと思います。","Saya rasa saya orang yang cepat bertindak."],
+  ["好奇心","こうきしん","rasa ingin tahu","Kelebihan","好奇心が強いです。","Rasa ingin tahu saya kuat."],
+  ["誠実","せいじつ","jujur/tulus","Kelebihan","誠実に対応します。","Saya menanggapi dengan jujur."],
+  // --- Kekurangan ---
+  ["短所","たんしょ","kekurangan","Kekurangan","私の短所は緊張しやすいところです。","Kekurangan saya adalah mudah gugup."],
+  ["緊張しやすい","きんちょうしやすい","mudah gugup","Kekurangan","私は緊張しやすいです。","Saya mudah gugup."],
+  ["心配性","しんぱいしょう","mudah khawatir","Kekurangan","少し心配性です。","Saya sedikit mudah khawatir."],
+  ["せっかち","せっかち","tidak sabaran","Kekurangan","少しせっかちなところがあります。","Saya agak tidak sabaran."],
+  ["頑固","がんこ","keras kepala","Kekurangan","少し頑固なところがあります。","Saya agak keras kepala."],
+  ["人見知り","ひとみしり","pemalu ke orang baru","Kekurangan","少し人見知りです。","Saya agak pemalu ke orang baru."],
+  ["優柔不断","ゆうじゅうふだん","plin-plan/sulit memutuskan","Kekurangan","たまに優柔不断になります。","Kadang saya jadi plin-plan."],
+  ["完璧主義","かんぺきしゅぎ","perfeksionis","Kekurangan","完璧主義なところがあります。","Saya agak perfeksionis."],
+  ["遠慮しがち","えんりょしがち","cenderung sungkan","Kekurangan","遠慮しがちな性格です。","Saya berkepribadian cenderung sungkan."],
+  ["お人好し","おひとよし","terlalu baik hati","Kekurangan","お人好しだとよく言われます。","Saya sering dibilang terlalu baik hati."],
+  ["マイペース","マイペース","jalan dengan ritme sendiri","Kekurangan","マイペースに仕事を進めます。","Saya mengerjakan pekerjaan dengan ritme sendiri."],
+  ["飽きっぽい","あきっぽい","mudah bosan","Kekurangan","少し飽きっぽい性格です。","Saya sedikit berkepribadian mudah bosan."],
+  ["話すのが苦手","はなすのがにがて","kurang pandai bicara","Kekurangan","人前で話すのが苦手です。","Saya kurang pandai bicara di depan orang."],
+  ["断れない","ことわれない","sulit menolak","Kekurangan","頼まれると断れないです。","Kalau diminta, saya sulit menolak."],
   // --- Kesehatan ---
-  ["体力","たいりょく","kekuatan fisik","Kesehatan"],
-  ["健康","けんこう","kesehatan","Kesehatan"],
-  ["体調","たいちょう","kondisi tubuh","Kesehatan"],
-  ["病気","びょうき","sakit/penyakit","Kesehatan"],
-  ["元気","げんき","sehat/bersemangat","Kesehatan"],
+  ["体力","たいりょく","kekuatan fisik","Kesehatan","体力には自信があります。","Saya percaya diri dengan kekuatan fisik saya."],
+  ["健康","けんこう","kesehatan","Kesehatan","健康に気をつけています。","Saya menjaga kesehatan."],
+  ["体調","たいちょう","kondisi tubuh","Kesehatan","体調はいいです。","Kondisi tubuh saya baik."],
+  ["病気","びょうき","sakit/penyakit","Kesehatan","病気になったことはありません。","Saya belum pernah sakit."],
+  ["元気","げんき","sehat/bersemangat","Kesehatan","いつも元気です。","Saya selalu sehat/bersemangat."],
   // --- Disiplin ---
-  ["規則","きそく","peraturan","Disiplin"],
-  ["守る","まもる","menaati/menjaga","Disiplin"],
-  ["時間を守る","じかんをまもる","tepat waktu","Disiplin"],
-  ["遅刻","ちこく","terlambat","Disiplin"],
-  ["ルール","ルール","aturan","Disiplin"],
-  ["指示","しじ","instruksi","Disiplin"],
-  ["従う","したがう","mematuhi","Disiplin"],
+  ["規則","きそく","peraturan","Disiplin","会社の規則を守ります。","Saya menaati peraturan perusahaan."],
+  ["守る","まもる","menaati/menjaga","Disiplin","ルールを守ります。","Saya menaati aturan."],
+  ["時間を守る","じかんをまもる","tepat waktu","Disiplin","いつも時間を守ります。","Saya selalu tepat waktu."],
+  ["遅刻","ちこく","terlambat","Disiplin","遅刻をしたことがありません。","Saya belum pernah terlambat."],
+  ["ルール","ルール","aturan","Disiplin","寮のルールを守ります。","Saya menaati aturan asrama."],
+  ["指示","しじ","instruksi","Disiplin","上司の指示を聞きます。","Saya mendengarkan instruksi atasan."],
+  ["従う","したがう","mematuhi","Disiplin","ルールに従います。","Saya mematuhi aturan."],
   // --- Kehidupan ---
-  ["寮生活","りょうせいかつ","kehidupan asrama","Kehidupan"],
-  ["共同生活","きょうどうせいかつ","hidup bersama","Kehidupan"],
+  ["寮生活","りょうせいかつ","kehidupan asrama","Kehidupan","寮生活は大丈夫です。","Kehidupan asrama tidak masalah bagi saya."],
+  ["共同生活","きょうどうせいかつ","hidup bersama","Kehidupan","共同生活に慣れています。","Saya terbiasa dengan hidup bersama."],
   // --- Keluarga ---
-  ["家族","かぞく","keluarga","Keluarga"],
-  ["両親","りょうしん","orang tua","Keluarga"],
-  ["兄弟","きょうだい","saudara kandung","Keluarga"],
-  ["子供","こども","anak","Keluarga"],
-  ["結婚","けっこん","menikah","Keluarga"],
+  ["家族","かぞく","keluarga","Keluarga","家族は五人です。","Keluarga saya berjumlah lima orang."],
+  ["両親","りょうしん","orang tua","Keluarga","両親はインドネシアにいます。","Orang tua saya ada di Indonesia."],
+  ["兄弟","きょうだい","saudara kandung","Keluarga","兄弟が二人います。","Saya punya dua saudara kandung."],
+  ["子供","こども","anak","Keluarga","子供はいません。","Saya belum punya anak."],
+  ["結婚","けっこん","menikah","Keluarga","まだ結婚していません。","Saya belum menikah."],
   // --- Bahasa ---
-  ["日本語能力","にほんごのうりょく","kemampuan bahasa Jepang","Bahasa"],
-  ["勉強する","べんきょうする","belajar","Bahasa"],
-  ["覚える","おぼえる","mengingat/mempelajari","Bahasa"],
-  ["学ぶ","まなぶ","mempelajari","Bahasa"],
-  ["話せる","はなせる","bisa berbicara","Bahasa"],
-  ["聞き取る","ききとる","menyimak/menangkap ucapan","Bahasa"],
-  ["上達する","じょうたつする","semakin mahir","Bahasa"],
-  ["練習する","れんしゅうする","berlatih","Bahasa"],
-  ["分からない","わからない","tidak mengerti","Bahasa"],
-  ["質問","しつもん","pertanyaan","Bahasa"],
-  ["答える","こたえる","menjawab","Bahasa"],
+  ["日本語能力","にほんごのうりょく","kemampuan bahasa Jepang","Bahasa","日本語能力を高めたいです。","Saya ingin meningkatkan kemampuan bahasa Jepang."],
+  ["勉強する","べんきょうする","belajar","Bahasa","毎日日本語を勉強します。","Saya belajar bahasa Jepang setiap hari."],
+  ["覚える","おぼえる","mengingat/mempelajari","Bahasa","単語をたくさん覚えました。","Saya sudah menghafal banyak kosakata."],
+  ["学ぶ","まなぶ","mempelajari","Bahasa","日本の文化を学びたいです。","Saya ingin mempelajari budaya Jepang."],
+  ["話せる","はなせる","bisa berbicara","Bahasa","少し日本語が話せます。","Saya bisa berbicara bahasa Jepang sedikit."],
+  ["聞き取る","ききとる","menyimak/menangkap ucapan","Bahasa","日本語を聞き取るのが難しいです。","Menyimak bahasa Jepang itu sulit."],
+  ["上達する","じょうたつする","semakin mahir","Bahasa","日本語が上達しました。","Bahasa Jepang saya semakin mahir."],
+  ["練習する","れんしゅうする","berlatih","Bahasa","毎日発音を練習します。","Saya berlatih pelafalan setiap hari."],
+  ["分からない","わからない","tidak mengerti","Bahasa","この言葉の意味が分かりません。","Saya tidak mengerti arti kata ini."],
+  ["質問","しつもん","pertanyaan","Bahasa","質問してもいいですか。","Bolehkah saya bertanya?"],
+  ["答える","こたえる","menjawab","Bahasa","質問に丁寧に答えます。","Saya menjawab pertanyaan dengan sopan."],
   // --- Masa depan ---
-  ["将来","しょうらい","masa depan","Masa depan"],
-  ["目標","もくひょう","target","Masa depan"],
-  ["帰国","きこく","pulang ke negara asal","Masa depan"],
-  ["役立つ","やくだつ","berguna/bermanfaat","Masa depan"],
-  ["夢","ゆめ","impian/cita-cita","Masa depan"],
-  ["挑戦する","ちょうせんする","menantang diri/mencoba","Masa depan"],
-  ["成長する","せいちょうする","bertumbuh","Masa depan"],
+  ["将来","しょうらい","masa depan","Masa depan","将来のことを考えています。","Saya sedang memikirkan masa depan."],
+  ["目標","もくひょう","target","Masa depan","高い目標を持っています。","Saya punya target yang tinggi."],
+  ["帰国","きこく","pulang ke negara asal","Masa depan","実習が終わったら帰国します。","Setelah magang selesai, saya akan pulang ke negara asal."],
+  ["役立つ","やくだつ","berguna/bermanfaat","Masa depan","この経験は将来役立ちます。","Pengalaman ini akan berguna di masa depan."],
+  ["夢","ゆめ","impian/cita-cita","Masa depan","私の夢はエンジニアになることです。","Impian saya adalah menjadi insinyur."],
+  ["挑戦する","ちょうせんする","menantang diri/mencoba","Masa depan","新しいことに挑戦したいです。","Saya ingin mencoba hal baru."],
+  ["成長する","せいちょうする","bertumbuh","Masa depan","もっと成長したいです。","Saya ingin lebih bertumbuh."],
   // --- Sikap ---
-  ["頑張る","がんばる","berusaha/bersungguh-sungguh","Sikap"],
-  ["努力する","どりょくする","berusaha","Sikap"],
-  ["慣れる","なれる","terbiasa/beradaptasi","Sikap"],
-  ["大切","たいせつ","penting","Sikap"],
-  ["気をつける","きをつける","berhati-hati","Sikap"],
-  ["素早い","すばやい","gesit/cepat","Sikap"],
-  ["丁寧に","ていねいに","dengan teliti/sopan","Sikap"],
-  ["一生懸命","いっしょうけんめい","dengan sekuat tenaga","Sikap"],
-  // --- TG & Magang (istilah khusus) ---
-  ["特定技能","とくていぎのう","Specified Skilled Worker","TG"],
-  ["技能実習","ぎのうじっしゅう","technical intern training","Magang"],
-  ["実習","じっしゅう","pelatihan/magang","Magang"],
+  ["頑張る","がんばる","berusaha/bersungguh-sungguh","Sikap","仕事を頑張ります。","Saya akan berusaha keras dalam pekerjaan."],
+  ["努力する","どりょくする","berusaha","Sikap","毎日努力しています。","Saya berusaha setiap hari."],
+  ["慣れる","なれる","terbiasa/beradaptasi","Sikap","新しい仕事に慣れました。","Saya sudah terbiasa dengan pekerjaan baru."],
+  ["大切","たいせつ","penting","Sikap","時間を大切にします。","Saya menghargai waktu."],
+  ["気をつける","きをつける","berhati-hati","Sikap","安全に気をつけます。","Saya berhati-hati soal keselamatan."],
+  ["素早い","すばやい","gesit/cepat","Sikap","素早く行動します。","Saya bertindak dengan gesit."],
+  ["丁寧に","ていねいに","dengan teliti/sopan","Sikap","丁寧に説明します。","Saya menjelaskan dengan teliti."],
+  ["一生懸命","いっしょうけんめい","dengan sekuat tenaga","Sikap","一生懸命頑張ります。","Saya akan berusaha sekuat tenaga."],
+  // --- TG ---
+  ["特定技能","とくていぎのう","Specified Skilled Worker","TG","特定技能で日本へ行きたいです。","Saya ingin pergi ke Jepang dengan status Tokutei Ginou."],
+  // --- Magang ---
+  ["技能実習","ぎのうじっしゅう","technical intern training","Magang","技能実習生として応募しました。","Saya melamar sebagai peserta magang teknis."],
+  ["実習","じっしゅう","pelatihan/magang","Magang","三年間実習をします。","Saya akan magang selama tiga tahun."],
   // --- Ungkapan ---
-  ["よろしくお願いいたします","よろしくおねがいいたします","mohon kerja samanya","Ungkapan"],
-  ["ありがとうございます","ありがとうございます","terima kasih","Ungkapan"],
-  ["失礼いたします","しつれいいたします","permisi","Ungkapan"],
-  ["お世話になっております","おせわになっております","terima kasih atas bantuannya","Ungkapan"],
-  ["お疲れ様です","おつかれさまです","terima kasih atas kerja kerasnya","Ungkapan"],
-  ["すみません","すみません","maaf/permisi","Ungkapan"],
-  ["はい、分かりました","はい、わかりました","baik, saya mengerti","Ungkapan"],
-  ["頑張ります","がんばります","saya akan berusaha","Ungkapan"],
-  // --- Alasan (alasan melamar & tujuan pergi ke Jepang) — diperluas ---
-  ["動機","どうき","motivasi","Alasan"],
-  ["きっかけ","きっかけ","pemicu/awal mula","Alasan"],
-  ["興味","きょうみ","minat","Alasan"],
-  ["憧れ","あこがれ","kekaguman/idaman","Alasan"],
-  ["魅力","みりょく","daya tarik","Alasan"],
-  ["夢を叶える","ゆめをかなえる","mewujudkan impian","Alasan"],
-  ["チャンス","チャンス","kesempatan","Alasan"],
-  ["選んだ理由","えらんだりゆう","alasan memilih","Alasan"],
-  ["貢献する","こうけんする","berkontribusi","Alasan"],
-  ["役に立ちたい","やくにたちたい","ingin berguna","Alasan"],
-  ["恩返し","おんがえし","membalas budi","Alasan"],
-  ["収入","しゅうにゅう","penghasilan","Alasan"],
-  ["給料","きゅうりょう","gaji","Alasan"],
-  ["生活を支える","せいかつをささえる","menopang kehidupan","Alasan"],
-  ["家族のため","かぞくのため","demi keluarga","Alasan"],
-  ["将来のため","しょうらいのため","demi masa depan","Alasan"],
-  ["スキルアップ","スキルアップ","meningkatkan keterampilan","Alasan"],
-  ["キャリアアップ","キャリアアップ","meningkatkan karier","Alasan"],
-  ["実践的な経験","じっせんてきなけいけん","pengalaman praktis","Alasan"],
-  ["現場で学ぶ","げんばでまなぶ","belajar langsung di lapangan","Alasan"],
-  ["安定した仕事","あんていしたしごと","pekerjaan yang stabil","Alasan"],
-  ["高い技術力","たかいぎじゅつりょく","kemampuan teknis tinggi","Alasan"],
-  ["技術大国","ぎじゅつたいこく","negara maju teknologi","Alasan"],
-  ["先進国","せんしんこく","negara maju","Alasan"],
-  ["日本文化","にほんぶんか","budaya Jepang","Alasan"],
-  ["おもてなし","おもてなし","keramahan/pelayanan tulus","Alasan"],
-  ["時間厳守","じかんげんしゅ","sangat tepat waktu","Alasan"],
-  ["規律正しい","きりつただしい","disiplin/tertib","Alasan"],
-  ["品質管理","ひんしつかんり","manajemen kualitas","Alasan"]
+  ["よろしくお願いいたします","よろしくおねがいいたします","mohon kerja samanya","Ungkapan","よろしくお願いいたします。","Mohon kerja samanya."],
+  ["ありがとうございます","ありがとうございます","terima kasih","Ungkapan","貴重な機会をありがとうございます。","Terima kasih atas kesempatan berharga ini."],
+  ["失礼いたします","しつれいいたします","permisi","Ungkapan","それでは失礼いたします。","Kalau begitu, saya permisi."],
+  ["お世話になっております","おせわになっております","terima kasih atas bantuannya","Ungkapan","いつもお世話になっております。","Terima kasih selalu atas bantuannya."],
+  ["お疲れ様です","おつかれさまです","terima kasih atas kerja kerasnya","Ungkapan","皆さん、お疲れ様です。","Semuanya, terima kasih atas kerja kerasnya."],
+  ["すみません","すみません","maaf/permisi","Ungkapan","少し遅れて、すみません。","Maaf, saya sedikit terlambat."],
+  ["はい、分かりました","はい、わかりました","baik, saya mengerti","Ungkapan","はい、分かりました。","Baik, saya mengerti."],
+  ["頑張ります","がんばります","saya akan berusaha","Ungkapan","精一杯頑張ります。","Saya akan berusaha semaksimal mungkin."],
+  // --- Alasan ---
+  ["動機","どうき","motivasi","Alasan","応募の動機を話します。","Saya akan menceritakan motivasi melamar."],
+  ["きっかけ","きっかけ","pemicu/awal mula","Alasan","日本語を学ぶきっかけは何ですか。","Apa awal mula Anda belajar bahasa Jepang?"],
+  ["興味","きょうみ","minat","Alasan","日本の文化に興味があります。","Saya tertarik pada budaya Jepang."],
+  ["憧れ","あこがれ","kekaguman/idaman","Alasan","日本での仕事に憧れています。","Saya mengagumi pekerjaan di Jepang."],
+  ["魅力","みりょく","daya tarik","Alasan","日本の技術に魅力を感じます。","Saya merasakan daya tarik teknologi Jepang."],
+  ["夢を叶える","ゆめをかなえる","mewujudkan impian","Alasan","日本で夢を叶えたいです。","Saya ingin mewujudkan impian di Jepang."],
+  ["チャンス","チャンス","kesempatan","Alasan","このチャンスを大切にします。","Saya akan menjaga kesempatan ini baik-baik."],
+  ["選んだ理由","えらんだりゆう","alasan memilih","Alasan","この会社を選んだ理由を説明します。","Saya akan menjelaskan alasan memilih perusahaan ini."],
+  ["貢献する","こうけんする","berkontribusi","Alasan","会社に貢献したいです。","Saya ingin berkontribusi pada perusahaan."],
+  ["役に立ちたい","やくにたちたい","ingin berguna","Alasan","皆さんの役に立ちたいです。","Saya ingin berguna bagi semua orang."],
+  ["恩返し","おんがえし","membalas budi","Alasan","お世話になった方に恩返ししたいです。","Saya ingin membalas budi kepada orang yang membantu saya."],
+  ["収入","しゅうにゅう","penghasilan","Alasan","家族のために収入を得たいです。","Saya ingin mendapatkan penghasilan demi keluarga."],
+  ["給料","きゅうりょう","gaji","Alasan","給料をためて家族に送ります。","Saya menabung gaji dan mengirimkannya ke keluarga."],
+  ["生活を支える","せいかつをささえる","menopang kehidupan","Alasan","家族の生活を支えたいです。","Saya ingin menopang kehidupan keluarga."],
+  ["家族のため","かぞくのため","demi keluarga","Alasan","家族のために頑張ります。","Saya akan berusaha demi keluarga."],
+  ["将来のため","しょうらいのため","demi masa depan","Alasan","将来のために技術を学びます。","Saya mempelajari teknologi demi masa depan."],
+  ["スキルアップ","スキルアップ","meningkatkan keterampilan","Alasan","スキルアップのために日本へ行きます。","Saya pergi ke Jepang untuk meningkatkan keterampilan."],
+  ["キャリアアップ","キャリアアップ","meningkatkan karier","Alasan","キャリアアップを目指しています。","Saya bertujuan meningkatkan karier."],
+  ["実践的な経験","じっせんてきなけいけん","pengalaman praktis","Alasan","実践的な経験を積みたいです。","Saya ingin mengumpulkan pengalaman praktis."],
+  ["現場で学ぶ","げんばでまなぶ","belajar langsung di lapangan","Alasan","現場で学ぶことが大切だと思います。","Saya rasa belajar langsung di lapangan itu penting."],
+  ["安定した仕事","あんていしたしごと","pekerjaan yang stabil","Alasan","安定した仕事に就きたいです。","Saya ingin mendapat pekerjaan yang stabil."],
+  ["高い技術力","たかいぎじゅつりょく","kemampuan teknis tinggi","Alasan","日本は高い技術力を持っています。","Jepang memiliki kemampuan teknis yang tinggi."],
+  ["技術大国","ぎじゅつたいこく","negara maju teknologi","Alasan","日本は技術大国です。","Jepang adalah negara maju teknologi."],
+  ["先進国","せんしんこく","negara maju","Alasan","日本は先進国です。","Jepang adalah negara maju."],
+  ["日本文化","にほんぶんか","budaya Jepang","Alasan","日本文化が大好きです。","Saya sangat suka budaya Jepang."],
+  ["おもてなし","おもてなし","keramahan/pelayanan tulus","Alasan","日本のおもてなしの心を学びたいです。","Saya ingin mempelajari jiwa keramahan Jepang."],
+  ["時間厳守","じかんげんしゅ","sangat tepat waktu","Alasan","日本人は時間厳守です。","Orang Jepang sangat tepat waktu."],
+  ["規律正しい","きりつただしい","disiplin/tertib","Alasan","規律正しい生活を送りたいです。","Saya ingin menjalani hidup yang disiplin."],
+  ["品質管理","ひんしつかんり","manajemen kualitas","Alasan","品質管理を徹底したいです。","Saya ingin menerapkan manajemen kualitas secara menyeluruh."]
 ];
 
-let mensetsuRecorder = null, mensetsuChunks = [], mensetsuRecordingUrl = null;
+let mensetsuRecorder = null, mensetsuChunks = [], mensetsuRecordingUrl = null, mensetsuRecordMime = 'audio/webm';
+let mensetsuSpeechRec = null, mensetsuLastTranscript = "";
+function mensetsuPickMimeType(){
+  const candidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus', 'audio/aac'];
+  if(typeof MediaRecorder === 'undefined' || !MediaRecorder.isTypeSupported) return '';
+  for(const c of candidates){ if(MediaRecorder.isTypeSupported(c)) return c; }
+  return '';
+}
 async function mensetsuToggleRecord(btn, hintEl){
   if(mensetsuRecorder && mensetsuRecorder.state === 'recording'){ mensetsuRecorder.stop(); return; }
+  if(typeof MediaRecorder === 'undefined'){
+    showGameToast("⚠️ Browser ini belum mendukung rekam suara (MediaRecorder). Coba pakai Google Chrome.");
+    return;
+  }
   try{
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     mensetsuChunks = [];
-    mensetsuRecorder = new MediaRecorder(stream);
-    mensetsuRecorder.addEventListener('dataavailable', e=> mensetsuChunks.push(e.data));
+    mensetsuLastTranscript = "";
+    // Pilih format yang didukung DULU, baru buat recorder dgn format itu —
+    // supaya Blob hasil rekaman nanti diberi label MIME yang BENAR-BENAR
+    // sesuai isinya. Ini penting: kalau label MIME salah (mis. dipaksa
+    // "audio/webm" padahal browser merekam format lain), audio-nya akan
+    // gagal diputar ulang tanpa pesan error yang jelas (persis gejala
+    // "suara tidak ada" yang sering dilaporkan di browser/HP tertentu).
+    const mime = mensetsuPickMimeType();
+    mensetsuRecordMime = mime || 'audio/webm';
+    mensetsuRecorder = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
+    mensetsuRecorder.addEventListener('dataavailable', e=>{ if(e.data && e.data.size > 0) mensetsuChunks.push(e.data); });
     mensetsuRecorder.addEventListener('stop', ()=>{
       stream.getTracks().forEach(t=>t.stop());
-      mensetsuRecordingUrl = URL.createObjectURL(new Blob(mensetsuChunks, { type:'audio/webm' }));
+      if(mensetsuRecordingUrl) URL.revokeObjectURL(mensetsuRecordingUrl);
+      const actualMime = mensetsuRecorder.mimeType || mensetsuRecordMime;
+      mensetsuRecordingUrl = mensetsuChunks.length ? URL.createObjectURL(new Blob(mensetsuChunks, { type: actualMime })) : null;
       mensetsuRecordRecording();
       btn.textContent = "🎙️ Rekam Lagi";
-      if(hintEl) hintEl.textContent = "✅ Rekaman tersimpan — tekan ▶️ Putar Rekaman untuk dengar ulang.";
+      if(hintEl) hintEl.textContent = mensetsuRecordingUrl ? "✅ Rekaman tersimpan — tekan ▶️ Putar Rekaman untuk dengar ulang." : "⚠️ Rekaman kosong, coba rekam lagi.";
     });
     mensetsuRecorder.start();
+    // Bareng dgn rekam audio, jalankan juga SpeechRecognition (kalau
+    // didukung browser) untuk menangkap ucapan jadi teks — dipakai utk
+    // menilai pelafalan (bandingkan dgn contoh jawaban), sama seperti
+    // Latihan Pelafalan. Kalau tidak didukung, skor pelafalan nanti
+    // ditampilkan jujur sbg "belum bisa dinilai" di ringkasan akhir.
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if(SR){
+      try{
+        mensetsuSpeechRec = new SR();
+        mensetsuSpeechRec.lang = 'ja-JP';
+        mensetsuSpeechRec.maxAlternatives = 1;
+        mensetsuSpeechRec.interimResults = false;
+        mensetsuSpeechRec.addEventListener('result', (ev)=>{ mensetsuLastTranscript = ev.results[0][0].transcript; });
+        mensetsuSpeechRec.addEventListener('error', ()=>{});
+        mensetsuSpeechRec.start();
+      }catch(e){ mensetsuSpeechRec = null; }
+    }
     btn.textContent = "⏹️ Stop Rekam";
     if(hintEl) hintEl.textContent = "🔴 Sedang merekam...";
   }catch(e){
@@ -9532,11 +9574,15 @@ async function mensetsuToggleRecord(btn, hintEl){
   }
 }
 function mensetsuPlayRecording(){
-  if(mensetsuRecordingUrl) new Audio(mensetsuRecordingUrl).play();
-  else showGameToast("🎙️ Belum ada rekaman. Rekam dulu ya.");
+  if(!mensetsuRecordingUrl){ showGameToast("🎙️ Belum ada rekaman. Rekam dulu ya."); return; }
+  const audio = new Audio(mensetsuRecordingUrl);
+  audio.play().catch(()=>{
+    showGameToast("⚠️ Rekaman gagal diputar di browser ini. Coba rekam ulang atau pakai Google Chrome.");
+  });
 }
 function mensetsuStopRecorderIfActive(){
   if(mensetsuRecorder && mensetsuRecorder.state === 'recording'){ try{ mensetsuRecorder.stop(); }catch(e){} }
+  if(mensetsuSpeechRec){ try{ mensetsuSpeechRec.stop(); }catch(e){} mensetsuSpeechRec = null; }
 }
 /* ============================================================
    PROGRES MENSETSU — disimpan per siswa (localStorage), supaya
@@ -9627,7 +9673,6 @@ function openMensetsuHome(){
         </div>
       </div>
       <div class="kh-quiz-body" style="display:block;">
-        ${mensetsuProgressPanelHTML()}
         <div class="kh-quiz-setup-grid" style="grid-template-columns:1fr 1fr;">
           <button class="kh-quiz-setup-btn" id="mensetsuTGBtn">🧑‍🏭<small>Latihan TG</small></button>
           <button class="kh-quiz-setup-btn" id="mensetsuMagangBtn">👨‍🔧<small>Latihan Magang</small></button>
@@ -9741,11 +9786,17 @@ function mensetsuKeywordsIn(text){
   });
   return result;
 }
-function mensetsuCorrectionHTML(userText, modelText){
+// Hitung hasil koreksi murni (dipakai baik utk tampilan inline "Koreksi
+// Jawaban" maupun utk direkap di ringkasan akhir simulasi).
+function mensetsuComputeCorrection(userText, modelText){
   const modelKeywords = mensetsuKeywordsIn(modelText);
   const used = modelKeywords.filter(w=> userText.includes(w[0]));
   const missing = modelKeywords.filter(w=> !userText.includes(w[0]));
   const sim = Math.round(levenshteinSimilarity(userText, modelText) * 100);
+  return { modelKeywords, used, missing, sim };
+}
+function mensetsuCorrectionHTML(userText, modelText){
+  const { modelKeywords, used, missing, sim } = mensetsuComputeCorrection(userText, modelText);
   let verdict, color;
   if(modelKeywords.length && used.length === modelKeywords.length){ verdict = "🌟 Mantap! Semua kata kunci penting sudah kamu pakai."; color = "#7ea765"; }
   else if(used.length > 0){ verdict = "👍 Sudah ada kata kunci yang tepat, coba lengkapi lagi."; color = "#e0a94a"; }
@@ -9761,9 +9812,56 @@ function mensetsuCorrectionHTML(userText, modelText){
     <div style="font-size:10px;color:#8b6c4e;">Catatan: ini pembanding kata kunci & kemiripan teks, bukan pemeriksa tata bahasa Jepang yang sesungguhnya. Jawaban yang beda kata tapi tetap benar secara makna juga wajar.</div>
   `;
 }
+// Ringkasan/penilaian akhir simulasi — digabung dari semua pertanyaan yg
+// sudah dijawab dlm 1 sesi: ketepatan jawaban (teks), pelafalan (suara,
+// kalau browser mendukung SpeechRecognition), saran kata kunci yg sering
+// terlewat, dan panel bintang per kategori (dipindah ke sini sesuai
+// permintaan — bukan lagi di menu utama Mensetsu).
+function mensetsuRenderSimSummary(results, container){
+  const withText = results.filter(r=> r.sim !== null);
+  const avgSim = withText.length ? Math.round(withText.reduce((a,r)=>a+r.sim,0)/withText.length) : null;
+  const totalUsed = results.reduce((a,r)=>a+r.usedCount,0);
+  const totalKeywords = results.reduce((a,r)=>a+r.totalKeywords,0);
+  const withPron = results.filter(r=> r.pronScore !== null);
+  const avgPron = withPron.length ? Math.round(withPron.reduce((a,r)=>a+r.pronScore,0)/withPron.length) : null;
+  const missingAll = new Map();
+  results.forEach(r=> r.missingWords.forEach(w=>{ if(!missingAll.has(w[0])) missingAll.set(w[0], w); }));
+  const saranList = [...missingAll.values()].slice(0, 8);
+
+  const ketepatanHTML = avgSim === null
+    ? `<div style="color:#8b6c4e;font-size:12px;">Belum ada jawaban yang ditulis untuk dinilai.</div>`
+    : `<div>Rata-rata kemiripan dengan contoh jawaban: <b>${avgSim}%</b></div><div style="margin-top:4px;">Kata kunci yang berhasil dipakai: <b>${totalUsed} / ${totalKeywords}</b></div>`;
+
+  const pelafalanHTML = avgPron === null
+    ? `<div style="color:#8b6c4e;font-size:12px;">Belum ada data pelafalan — rekam jawabanmu saat simulasi (perlu browser yang mendukung pengenalan suara, mis. Google Chrome) supaya bisa dinilai.</div>`
+    : `<div>Rata-rata kemiripan pelafalan dengan contoh: <b>${avgPron}%</b></div>`;
+
+  const saranHTML = saranList.length
+    ? saranList.map(w=>`<span style="display:inline-block;background:#fdeadb;border:1px solid #e0a94a;border-radius:8px;padding:2px 8px;margin:2px;font-size:11px;">${w[0]} <span style="opacity:.7;">(${w[2]})</span></span>`).join("")
+    : `<div style="font-size:12px;">Sudah bagus, tidak ada kata kunci penting yang terlewat 🎉</div>`;
+
+  container.innerHTML = `
+    <div class="kh-quiz-question" style="text-align:center;">📊 Penilaian & Catatan Akhir</div>
+    <div style="background:#fffdf6;border:2px solid #d4b382;border-radius:14px;padding:14px;margin:12px 0;font-size:13px;">
+      <div style="font-weight:800;margin-bottom:8px;">✅ Ketepatan Jawaban</div>
+      ${ketepatanHTML}
+    </div>
+    <div style="background:#fffdf6;border:2px solid #d4b382;border-radius:14px;padding:14px;margin:12px 0;font-size:13px;">
+      <div style="font-weight:800;margin-bottom:8px;">🗣️ Pelafalan</div>
+      ${pelafalanHTML}
+    </div>
+    <div style="background:#fff3e2;border:2px solid #e0a94a;border-radius:14px;padding:14px;margin:12px 0;font-size:13px;">
+      <div style="font-weight:800;margin-bottom:8px;">💡 Saran Kata Kunci</div>
+      ${saranHTML}
+    </div>
+    ${mensetsuProgressPanelHTML()}
+    <button class="kh-v2-footer-btn" id="mensetsuSimSummaryClose" style="width:100%;margin-top:10px;">Selesai ✓</button>
+  `;
+}
 function openMensetsuSimulation(type){
   const questions = MENSETSU_DATA[type];
   let qi = 0;
+  let sessionResults = [];
   const el = document.createElement("div");
   el.className = "kh-v2-overlay";
   el.innerHTML = `
@@ -9830,10 +9928,31 @@ function openMensetsuSimulation(type){
       playSFX('click');
     });
     body.querySelector("#mensetsuSimNextBtn").addEventListener("click", ()=>{
-      mensetsuRecordPractice(questions[qi].cat);
+      mensetsuRecordPractice(q.cat);
+      const userText = body.querySelector("#mensetsuMyAnswer").value.trim();
+      const { modelKeywords, used, missing, sim } = mensetsuComputeCorrection(userText, q.a);
+      // Skor pelafalan: bandingkan teks hasil pengenalan suara (kalau ada
+      // rekaman & browser mendukung) dengan jawaban yang ditulis siswa
+      // sendiri (atau contoh jawaban kalau siswa tidak menulis apa pun).
+      let pronScore = null;
+      if(mensetsuLastTranscript){
+        const target = userText || q.a;
+        pronScore = Math.round(levenshteinSimilarity(mensetsuLastTranscript, target) * 100);
+      }
+      sessionResults.push({
+        cat: q.cat,
+        sim: userText ? sim : null,
+        usedCount: used.length,
+        totalKeywords: modelKeywords.length,
+        missingWords: missing,
+        pronScore
+      });
       if(isLast){
-        showGameToast("🎉 Simulasi selesai! Ulangi pertanyaan yang paling sulit ya.");
-        close();
+        mensetsuStopRecorderIfActive();
+        mensetsuRenderSimSummary(sessionResults, body);
+        el.querySelector("#mensetsuSimProgress").textContent = "Selesai";
+        body.querySelector("#mensetsuSimSummaryClose").addEventListener("click", close);
+        playSFX('correct');
       } else {
         qi++; render(); playSFX('click');
       }
@@ -9858,7 +9977,7 @@ function openMensetsuBank(){
       <div class="kh-quiz-body" style="display:block;">
         <input id="mensetsuBankSearch" placeholder="Cari kanji, hiragana, atau arti..." style="width:100%;padding:10px 12px;border-radius:12px;border:2px solid #d3b98a;margin-bottom:10px;background:#fffdf8;color:inherit;">
         <div id="mensetsuBankCats" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;"></div>
-        <div id="mensetsuBankGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-height:340px;overflow-y:auto;"></div>
+        <div id="mensetsuBankGrid" style="display:grid;grid-template-columns:1fr;gap:8px;max-height:400px;overflow-y:auto;"></div>
       </div>
     </div>`;
   document.body.appendChild(el);
@@ -9879,14 +9998,26 @@ function openMensetsuBank(){
     const list = MENSETSU_WORDS.filter(w=> (activeCat==='Semua' || w[3]===activeCat) && w.slice(0,3).join(' ').toLowerCase().includes(s));
     const grid = el.querySelector("#mensetsuBankGrid");
     grid.innerHTML = list.length ? list.map(w=>`
-      <div class="kanji-tile" data-jp="${w[0].replace(/"/g,'&quot;')}" style="text-align:left;padding:10px;cursor:pointer;">
-        <div style="font-weight:900;font-size:16px;">${w[0]}</div>
-        <div style="font-size:10.5px;color:#8b6c4e;">${w[1]}</div>
+      <div class="kanji-tile" style="text-align:left;padding:10px;cursor:default;">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;">
+          <div>
+            <span style="font-weight:900;font-size:16px;">${w[0]}</span>
+            <span style="font-size:10.5px;color:#8b6c4e;margin-left:6px;">${w[1]}</span>
+          </div>
+          <button class="mensetsu-word-speak" data-jp="${w[0].replace(/"/g,'&quot;')}" title="Dengar kata">🔊</button>
+        </div>
         <div style="font-size:11px;margin-top:2px;">${w[2]} <span style="opacity:.6;">· ${w[3]}</span></div>
+        <div style="margin-top:6px;padding-top:6px;border-top:1px dashed #d3b98a;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+          <div>
+            <div style="font-size:12.5px;font-weight:700;">${w[4]}</div>
+            <div style="font-size:10.5px;color:#8b6c4e;margin-top:2px;">${w[5]}</div>
+          </div>
+          <button class="mensetsu-ex-speak" data-jp="${w[4].replace(/"/g,'&quot;')}" title="Dengar contoh kalimat">🔊</button>
+        </div>
       </div>
     `).join("") : `<div class="lbw-empty" style="grid-column:1/-1;">Tidak ada kata yang cocok.</div>`;
-    grid.querySelectorAll("[data-jp]").forEach(card=>{
-      card.addEventListener("click", ()=> speakJapanese(card.dataset.jp, 'N5'));
+    grid.querySelectorAll(".mensetsu-word-speak, .mensetsu-ex-speak").forEach(btn=>{
+      btn.addEventListener("click", ()=> speakJapanese(btn.dataset.jp, 'N5'));
     });
   }
   el.querySelector("#mensetsuBankSearch").addEventListener("input", renderGrid);

@@ -735,6 +735,37 @@
   .duel-rank-row { display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:12px; background:#fffdf7; border:1px solid #d4b382; margin-bottom:6px; font-size:12px; }
   .duel-rank-row.me { border-color:#7ea765; background:#eef7e6; }
 
+  /* ===== LATIHAN PELAFALAN ===== */
+  .pronun-stage { display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center; }
+  .pronun-emoji { font-size:56px; line-height:1; }
+  .pronun-jp { font:900 30px "Zen Maru Gothic",sans-serif; color:#3f2c1c; }
+  .pronun-hira { font-size:14px; color:#8b6c4e; }
+  .pronun-id { font-size:12px; color:#5b3b23; margin-top:2px; }
+  .pronun-mic-btn { width:84px; height:84px; border-radius:50%; border:none; background:linear-gradient(135deg,#ff8a8a,#e0524f); color:#fff; font-size:32px; cursor:pointer; box-shadow:0 6px 0 #a83a37; transition:transform .1s; }
+  .pronun-mic-btn:active { transform:translateY(4px); box-shadow:0 2px 0 #a83a37; }
+  .pronun-mic-btn.listening { background:linear-gradient(135deg,#7ea765,#5c8a48); box-shadow:0 6px 0 #3f6b2c; animation:pronunPulse 1s infinite; }
+  @keyframes pronunPulse { 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
+  .pronun-hint { font-size:11px; color:#8b6c4e; }
+  .pronun-feedback { min-height:60px; width:100%; }
+  .pronun-heard { font-size:13px; color:#5b3b23; margin-bottom:6px; }
+  .pronun-sim-track { width:100%; height:10px; border-radius:99px; background:#e8d9bb; overflow:hidden; margin:6px 0; }
+  .pronun-sim-fill { height:100%; border-radius:99px; transition:width .4s ease; }
+  .pronun-verdict { font-size:13px; font-weight:800; }
+  .pronun-nav { display:flex; align-items:center; justify-content:space-between; width:100%; margin-top:6px; }
+  .pronun-nav button, .pronun-listen-btn { border:2px solid #d4b382; border-radius:12px; background:#fffdf7; color:#5b3b23; padding:8px 14px; font:800 11px "Inter",sans-serif; cursor:pointer; }
+  .pronun-nav button:hover, .pronun-listen-btn:hover { background:#eef7e6; border-color:#7ea765; }
+  .pronun-unsupported { font-size:12px; color:#a1550f; background:#fff3e2; border:1px solid #e0a94a; border-radius:10px; padding:10px; text-align:left; line-height:1.5; }
+
+  /* ===== PROGRES MENSETSU ===== */
+  .mensetsu-progress-panel { background:#fffdf6; border:2px solid #d4b382; border-radius:14px; padding:12px 14px; margin-bottom:14px; }
+  .mensetsu-progress-row { display:flex; align-items:center; justify-content:space-between; padding:4px 0; font-size:12.5px; }
+  .mensetsu-progress-row .mpr-label { color:#5b3b23; font-weight:700; }
+  .mensetsu-progress-row .mpr-stars { letter-spacing:1px; font-size:13px; }
+  .mpp-divider { height:1px; background:#e0c99a; margin:8px 0; }
+  .mpp-stats { display:flex; flex-direction:column; gap:4px; }
+  .mpp-stat { font-size:12px; color:#8b6c4e; }
+  .mpp-stat b { color:#5b3b23; }
+
   .mission-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; font-size: 12px; }
   .mission-row:last-child { margin-bottom: 0; }
   .mission-row .m-icon { flex-shrink: 0; font-size: 15px; }
@@ -1497,6 +1528,10 @@
   .dash-menu-btn.dash-history .dmb-icon { background: rgba(255,215,0,0.15); box-shadow: 0 0 16px rgba(255,215,0,0.25) inset; }
   .dash-menu-btn.dash-achv { border-color: rgba(255,120,42,0.35); }
   .dash-menu-btn.dash-achv .dmb-icon { background: rgba(255,120,42,0.15); box-shadow: 0 0 16px rgba(255,120,42,0.25) inset; }
+  .dash-menu-btn.dash-pronun { border-color: rgba(199,90,160,0.35); }
+  .dash-menu-btn.dash-pronun .dmb-icon { background: rgba(199,90,160,0.15); box-shadow: 0 0 16px rgba(199,90,160,0.25) inset; }
+  .dash-menu-btn.dash-mensetsu { border-color: rgba(120,155,98,0.4); }
+  .dash-menu-btn.dash-mensetsu .dmb-icon { background: rgba(120,155,98,0.18); box-shadow: 0 0 16px rgba(120,155,98,0.28) inset; }
 
   /* ===== HALAMAN ISI (Game/Pelajaran/Riwayat) — header + tombol Home ===== */
   .page-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
@@ -1651,7 +1686,7 @@
   }
   .dash-menu-btn .dmb-text b { color:#5a422d; }
   .dash-menu-btn .dmb-text small { color:#78674e; }
-  .dash-menu-btn.dash-game, .dash-menu-btn.dash-study, .dash-menu-btn.dash-history, .dash-menu-btn.dash-achv { border-color:#92704b; }
+  .dash-menu-btn.dash-game, .dash-menu-btn.dash-study, .dash-menu-btn.dash-history, .dash-menu-btn.dash-achv, .dash-menu-btn.dash-pronun, .dash-menu-btn.dash-mensetsu { border-color:#92704b; }
 
   .page-header { margin-bottom: 13px; }
   .page-header .back-btn:active { background:#e1d0ab; }
@@ -2663,6 +2698,14 @@ rt{color:#7b5b3d;font-weight:800;}
         <button class="dash-menu-btn dash-achv" id="menuAchvBtn" type="button">
           <span class="dmb-icon">🏅<span class="achv-notif-badge" id="achvNotifBadge" style="display:none;"></span></span>
           <span class="dmb-text"><b>Pencapaian</b><small>Kumpulkan lencana dari setiap pencapaianmu</small></span>
+        </button>
+        <button class="dash-menu-btn dash-pronun" id="menuPronunBtn" type="button">
+          <span class="dmb-icon">🎙️</span>
+          <span class="dmb-text"><b>Latihan Pelafalan</b><small>Dengar contoh, lalu coba ucapkan sendiri</small></span>
+        </button>
+        <button class="dash-menu-btn dash-mensetsu" id="menuMensetsuBtn" type="button">
+          <span class="dmb-icon">🎤</span>
+          <span class="dmb-text"><b>Mensetsu Training</b><small>Latihan wawancara kerja TG & Magang</small></span>
         </button>
       </div>
     </div>
@@ -5347,6 +5390,8 @@ $("menuGameBtn").addEventListener("click", () => showPage('game'));
 $("menuStudyBtn").addEventListener("click", () => showPage('study'));
 $("menuHistoryBtn").addEventListener("click", () => showPage('history'));
 $("menuAchvBtn").addEventListener("click", openAchievementGallery);
+$("menuPronunBtn").addEventListener("click", openPronunciationPractice);
+$("menuMensetsuBtn").addEventListener("click", openMensetsuHome);
 $("backFromGameBtn").addEventListener("click", goHome);
 $("backFromStudyBtn").addEventListener("click", goHome);
 $("openKotobaHarianBtn").addEventListener("click", openKotobaHarian);
@@ -9125,6 +9170,728 @@ function attachTilt3D(selector, maxDeg){
 }
 attachTilt3D(".dash-menu-btn", 7);
 attachTilt3D(".shop-item", 6);
+
+/* ============================================================
+   LATIHAN PELAFALAN — pakai Web Speech API bawaan browser, GRATIS
+   sepenuhnya (tidak ada API key/langganan): SpeechSynthesis untuk
+   dengar contoh (sudah dipakai di speakJapanese), dan
+   SpeechRecognition untuk menangkap ucapan siswa lalu dibandingkan
+   dengan kata target. Ini alat BANTU LATIHAN, bukan penilai ujian —
+   akurasi pengenalan suara bergantung mikrofon & mesin bawaan
+   browser (paling baik di Chrome; Safari/Firefox belum mendukung
+   SpeechRecognition sama sekali, makanya selalu dicek dulu & selalu
+   ada jalan keluar yang jujur kalau tidak didukung).
+   ============================================================ */
+let pronunPool = null;
+let pronunIdx = 0;
+let pronunRecognition = null;
+function levenshteinSimilarity(a, b){
+  a = (a||"").trim(); b = (b||"").trim();
+  if(!a || !b) return 0;
+  if(a === b) return 1;
+  const m = a.length, n = b.length;
+  const dp = Array.from({length:m+1}, (_,i)=> [i].concat(new Array(n).fill(0)));
+  for(let j=0;j<=n;j++) dp[0][j] = j;
+  for(let i=1;i<=m;i++){
+    for(let j=1;j<=n;j++){
+      dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1] : 1 + Math.min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]);
+    }
+  }
+  const dist = dp[m][n];
+  return Math.max(0, 1 - dist / Math.max(m, n));
+}
+function openPronunciationPractice(){
+  if(!pronunPool || !pronunPool.length){
+    pronunPool = shuffleArr(buildKotobaKuisPool(null));
+    pronunIdx = 0;
+  }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const supported = !!SR && ('speechSynthesis' in window);
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Latihan Pelafalan">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">🎙️</div>
+          <div><div class="kh-v2-title">Latihan Pelafalan</div><div class="kh-v2-subtitle" id="pronunProgress"></div></div>
+          <button class="kh-v2-close" id="pronunClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" style="display:block;">
+        ${supported ? `` : `<div class="pronun-unsupported">⚠️ Browser ini belum mendukung pengenalan suara (SpeechRecognition). Fitur dengar contoh tetap bisa dipakai, tapi belum bisa menilai ucapanmu. Coba buka pakai <b>Google Chrome</b> di HP/laptop untuk pengalaman penuh.</div>`}
+        <div class="pronun-stage">
+          <div class="pronun-emoji" id="pronunEmoji"></div>
+          <div class="pronun-jp" id="pronunJp"></div>
+          <div class="pronun-hira" id="pronunHira"></div>
+          <div class="pronun-id" id="pronunId"></div>
+          <button class="pronun-listen-btn" id="pronunListenBtn">🔊 Dengar Contoh</button>
+          ${supported ? `<button class="pronun-mic-btn" id="pronunMicBtn">🎙️</button><div class="pronun-hint" id="pronunHint">Tekan mikrofon, lalu ucapkan katanya</div>` : ``}
+          <div class="pronun-feedback" id="pronunFeedback"></div>
+          <div class="pronun-nav">
+            <button id="pronunPrevBtn">◀ Sebelumnya</button>
+            <button id="pronunNextBtn">Lanjut ▶</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=>{
+    if(pronunRecognition){ try{ pronunRecognition.stop(); }catch(e){} pronunRecognition = null; }
+    if('speechSynthesis' in window) window.speechSynthesis.cancel();
+    el.remove();
+  };
+  el.querySelector("#pronunClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+
+  function renderWord(){
+    const q = pronunPool[pronunIdx];
+    el.querySelector("#pronunProgress").textContent = `Kata ${pronunIdx+1} / ${pronunPool.length}`;
+    el.querySelector("#pronunEmoji").textContent = q.emoji;
+    el.querySelector("#pronunJp").textContent = q.jp;
+    el.querySelector("#pronunHira").textContent = q.hira || "";
+    el.querySelector("#pronunId").textContent = q.id;
+    el.querySelector("#pronunFeedback").innerHTML = "";
+  }
+  renderWord();
+
+  el.querySelector("#pronunListenBtn").addEventListener("click", ()=>{
+    const q = pronunPool[pronunIdx];
+    speakJapanese(q.jp, 'N5');
+  });
+  el.querySelector("#pronunPrevBtn").addEventListener("click", ()=>{
+    pronunIdx = (pronunIdx - 1 + pronunPool.length) % pronunPool.length;
+    renderWord(); playSFX('click');
+  });
+  el.querySelector("#pronunNextBtn").addEventListener("click", ()=>{
+    pronunIdx = (pronunIdx + 1) % pronunPool.length;
+    renderWord(); playSFX('click');
+  });
+
+  if(supported){
+    const micBtn = el.querySelector("#pronunMicBtn");
+    const hint = el.querySelector("#pronunHint");
+    micBtn.addEventListener("click", ()=>{
+      if(pronunRecognition){ try{ pronunRecognition.stop(); }catch(e){} pronunRecognition = null; micBtn.classList.remove("listening"); return; }
+      const q = pronunPool[pronunIdx];
+      const rec = new SR();
+      pronunRecognition = rec;
+      rec.lang = 'ja-JP';
+      rec.maxAlternatives = 1;
+      rec.interimResults = false;
+      micBtn.classList.add("listening");
+      hint.textContent = "🔴 Mendengarkan... ucapkan sekarang";
+      rec.addEventListener("result", (ev)=>{
+        const heard = ev.results[0][0].transcript;
+        const simJp = levenshteinSimilarity(heard, q.jp);
+        const simHira = levenshteinSimilarity(heard, q.hira || "");
+        const sim = Math.max(simJp, simHira);
+        const pct = Math.round(sim*100);
+        let verdict, color;
+        if(pct >= 75){ verdict = "🌟 Bagus sekali, mirip banget!"; color = "#7ea765"; }
+        else if(pct >= 45){ verdict = "👍 Lumayan, coba dengarkan lagi & ulangi"; color = "#e0a94a"; }
+        else { verdict = "🔁 Masih beda jauh, dengarkan contohnya dulu ya"; color = "#c96a56"; }
+        el.querySelector("#pronunFeedback").innerHTML = `
+          <div class="pronun-heard">Suara yang tertangkap: <b>${heard}</b></div>
+          <div class="pronun-sim-track"><div class="pronun-sim-fill" style="width:${pct}%;background:${color};"></div></div>
+          <div class="pronun-verdict" style="color:${color};">${verdict} (${pct}% mirip)</div>
+        `;
+      });
+      rec.addEventListener("error", (ev)=>{
+        let msg = "😅 Ada gangguan, coba lagi.";
+        if(ev.error === 'no-speech') msg = "🔇 Tidak ada suara terdengar, coba lagi.";
+        else if(ev.error === 'not-allowed' || ev.error === 'service-not-allowed') msg = "🚫 Akses mikrofon ditolak — izinkan dulu di pengaturan browser.";
+        el.querySelector("#pronunFeedback").innerHTML = `<div class="pronun-verdict" style="color:#c96a56;">${msg}</div>`;
+      });
+      rec.addEventListener("end", ()=>{
+        micBtn.classList.remove("listening");
+        hint.textContent = "Tekan mikrofon, lalu ucapkan katanya";
+        pronunRecognition = null;
+      });
+      try{ rec.start(); }catch(e){ micBtn.classList.remove("listening"); }
+    });
+  }
+}
+
+/* ============================================================
+   MENSETSU TRAINING — latihan wawancara kerja untuk kandidat
+   特定技能 (TG) & 技能実習 (Magang), diadaptasi dari modul terpisah
+   milik pengguna. Bank kotoba-nya SENGAJA diperluas jauh lebih
+   banyak (terutama kategori Kelebihan/長所 & Kekurangan/短所, plus
+   istilah wawancara lain) supaya siswa punya banyak pilihan kata
+   untuk MENYUSUN jawaban sendiri, bukan cuma menghafal satu contoh
+   jawaban yang itu-itu saja.
+   ============================================================ */
+const MENSETSU_DATA = {
+  TG: [
+    {cat:"Perkenalan", q:"自己紹介をしてください。", r:"じこしょうかいをしてください。", m:"Silakan memperkenalkan diri.", a:"はじめまして。〇〇と申します。インドネシアから来ました。よろしくお願いいたします。", am:"Perkenalkan, nama saya 〇〇. Saya datang dari Indonesia. Mohon kerja samanya."},
+    {cat:"Alasan", q:"なぜ日本で働きたいですか。", r:"なぜにほんではたらきたいですか。", m:"Mengapa ingin bekerja di Jepang?", a:"日本の仕事のやり方を学び、自分の経験を増やしたいからです。", am:"Karena saya ingin belajar cara bekerja di Jepang dan menambah pengalaman."},
+    {cat:"Pekerjaan", q:"どんな仕事をしたいですか。", r:"どんなしごとをしたいですか。", m:"Pekerjaan seperti apa yang ingin dilakukan?", a:"自分の経験を生かして、まじめに仕事をしたいです。", am:"Saya ingin bekerja dengan sungguh-sungguh dengan memanfaatkan pengalaman saya."},
+    {cat:"Pengalaman", q:"今までどんな仕事をしてきましたか。", r:"いままでどんなしごとをしてきましたか。", m:"Pekerjaan apa yang pernah dilakukan?", a:"工場で仕事をした経験があります。", am:"Saya mempunyai pengalaman bekerja di pabrik."},
+    {cat:"Kelebihan", q:"あなたの長所は何ですか。", r:"あなたのちょうしょはなんですか。", m:"Apa kelebihan Anda?", a:"まじめで、責任感が強いところです。", am:"Saya serius dan memiliki rasa tanggung jawab yang kuat."},
+    {cat:"Kekurangan", q:"あなたの短所は何ですか。", r:"あなたのたんしょはなんですか。", m:"Apa kekurangan Anda?", a:"少し緊張しやすいですが、準備をして落ち着くようにしています。", am:"Saya sedikit mudah gugup, tetapi saya mempersiapkan diri agar tetap tenang."},
+    {cat:"Kerja", q:"大変な仕事でも大丈夫ですか。", r:"たいへんなしごとでもだいじょうぶですか。", m:"Apakah sanggup melakukan pekerjaan yang berat?", a:"はい、大丈夫です。体力には自信があります。", am:"Ya, saya sanggup. Saya percaya diri dengan kondisi fisik saya."},
+    {cat:"Masa depan", q:"日本で何を学びたいですか。", r:"にほんでなにをまなびたいですか。", m:"Apa yang ingin dipelajari di Jepang?", a:"仕事の技術と日本の働き方を学びたいです。", am:"Saya ingin mempelajari keterampilan kerja dan cara bekerja di Jepang."}
+  ],
+  MAGANG: [
+    {cat:"Perkenalan", q:"自己紹介をしてください。", r:"じこしょうかいをしてください。", m:"Silakan memperkenalkan diri.", a:"はじめまして。〇〇と申します。インドネシアから来ました。よろしくお願いいたします。", am:"Perkenalkan, nama saya 〇〇. Saya datang dari Indonesia. Mohon kerja samanya."},
+    {cat:"Alasan", q:"なぜ日本へ行きたいですか。", r:"なぜにほんへいきたいですか。", m:"Mengapa ingin pergi ke Jepang?", a:"日本の技術を学んで、将来の仕事に役立てたいからです。", am:"Karena saya ingin mempelajari teknologi Jepang dan menggunakannya untuk pekerjaan di masa depan."},
+    {cat:"Keluarga", q:"家族は何人ですか。", r:"かぞくはなんにんですか。", m:"Ada berapa orang dalam keluarga?", a:"家族は〇人です。", am:"Keluarga saya berjumlah 〇 orang."},
+    {cat:"Disiplin", q:"規則を守ることができますか。", r:"きそくをまもることができますか。", m:"Apakah bisa menaati peraturan?", a:"はい、できます。会社の規則を守って行動します。", am:"Ya, bisa. Saya akan bertindak dengan menaati peraturan perusahaan."},
+    {cat:"Asrama", q:"寮生活は大丈夫ですか。", r:"りょうせいかつはだいじょうぶですか。", m:"Apakah tidak masalah tinggal di asrama?", a:"はい、大丈夫です。ルールを守って生活します。", am:"Ya, tidak masalah. Saya akan hidup dengan menaati aturan."},
+    {cat:"Kedisiplinan", q:"時間を守ることができますか。", r:"じかんをまもることができますか。", m:"Apakah bisa tepat waktu?", a:"はい、できます。いつも時間を確認して行動します。", am:"Ya, bisa. Saya selalu mengecek waktu dan bertindak tepat waktu."},
+    {cat:"Kesehatan", q:"健康に自信がありますか。", r:"けんこうにじしんがありますか。", m:"Apakah percaya diri dengan kesehatan Anda?", a:"はい、健康には自信があります。", am:"Ya, saya percaya diri dengan kondisi kesehatan saya."},
+    {cat:"Masa depan", q:"実習が終わったら何をしたいですか。", r:"じっしゅうがおわったらなにをしたいですか。", m:"Apa yang ingin dilakukan setelah magang selesai?", a:"日本で学んだ技術を生かして、インドネシアで働きたいです。", am:"Saya ingin memanfaatkan keterampilan yang dipelajari di Jepang dan bekerja di Indonesia."}
+  ]
+};
+const MENSETSU_WORDS = [
+  // --- Dasar ---
+  ["自己紹介","じこしょうかい","perkenalan diri","Dasar"],
+  ["面接","めんせつ","wawancara","Dasar"],
+  ["面接官","めんせつかん","pewawancara","Dasar"],
+  ["緊張","きんちょう","gugup/tegang","Dasar"],
+  ["落ち着く","おちつく","menenangkan diri","Dasar"],
+  // --- Pekerjaan ---
+  ["応募","おうぼ","melamar","Pekerjaan"],
+  ["応募者","おうぼしゃ","pelamar","Pekerjaan"],
+  ["志望動機","しぼうどうき","alasan melamar","Pekerjaan"],
+  ["経験","けいけん","pengalaman","Pekerjaan"],
+  ["職歴","しょくれき","riwayat pekerjaan","Pekerjaan"],
+  ["仕事内容","しごとないよう","isi pekerjaan","Pekerjaan"],
+  ["工場","こうじょう","pabrik","Pekerjaan"],
+  ["会社","かいしゃ","perusahaan","Pekerjaan"],
+  ["技術","ぎじゅつ","teknologi/keterampilan teknis","Pekerjaan"],
+  ["技能","ぎのう","keterampilan","Pekerjaan"],
+  ["業務","ぎょうむ","tugas kerja","Pekerjaan"],
+  ["現場","げんば","lapangan/lokasi kerja","Pekerjaan"],
+  ["先輩","せんぱい","senior","Pekerjaan"],
+  ["上司","じょうし","atasan","Pekerjaan"],
+  ["同僚","どうりょう","rekan kerja","Pekerjaan"],
+  ["指導","しどう","bimbingan","Pekerjaan"],
+  ["作業","さぎょう","pekerjaan/kegiatan kerja","Pekerjaan"],
+  ["安全","あんぜん","keselamatan","Pekerjaan"],
+  ["品質","ひんしつ","kualitas","Pekerjaan"],
+  ["ミス","ミス","kesalahan","Pekerjaan"],
+  ["改善する","かいぜんする","memperbaiki/meningkatkan","Pekerjaan"],
+  ["働く","はたらく","bekerja","Pekerjaan"],
+  ["報告・連絡・相談","ほうこく・れんらく・そうだん","lapor, komunikasi, konsultasi","Pekerjaan"],
+  // --- Kelebihan (長所) — diperluas ---
+  ["長所","ちょうしょ","kelebihan","Kelebihan"],
+  ["性格","せいかく","kepribadian","Kelebihan"],
+  ["責任感","せきにんかん","rasa tanggung jawab","Kelebihan"],
+  ["まじめ","まじめ","serius/bersungguh-sungguh","Kelebihan"],
+  ["協調性","きょうちょうせい","kemampuan bekerja sama","Kelebihan"],
+  ["積極的","せっきょくてき","proaktif/aktif","Kelebihan"],
+  ["前向き","まえむき","berpikiran positif","Kelebihan"],
+  ["明るい","あかるい","ceria","Kelebihan"],
+  ["素直","すなお","jujur/penurut","Kelebihan"],
+  ["粘り強い","ねばりづよい","gigih/pantang menyerah","Kelebihan"],
+  ["我慢強い","がまんづよい","tahan banting/sabar","Kelebihan"],
+  ["向上心","こうじょうしん","semangat untuk berkembang","Kelebihan"],
+  ["集中力","しゅうちゅうりょく","daya konsentrasi","Kelebihan"],
+  ["リーダーシップ","リーダーシップ","jiwa kepemimpinan","Kelebihan"],
+  ["コミュニケーション能力","コミュニケーションのうりょく","kemampuan berkomunikasi","Kelebihan"],
+  ["諦めない","あきらめない","tidak mudah menyerah","Kelebihan"],
+  ["柔軟性","じゅうなんせい","fleksibilitas","Kelebihan"],
+  ["几帳面","きちょうめん","rapi/cermat","Kelebihan"],
+  ["行動力","こうどうりょく","kemampuan bertindak cepat","Kelebihan"],
+  ["好奇心","こうきしん","rasa ingin tahu","Kelebihan"],
+  ["誠実","せいじつ","jujur/tulus","Kelebihan"],
+  // --- Kekurangan (短所) — diperluas ---
+  ["短所","たんしょ","kekurangan","Kekurangan"],
+  ["緊張しやすい","きんちょうしやすい","mudah gugup","Kekurangan"],
+  ["心配性","しんぱいしょう","mudah khawatir","Kekurangan"],
+  ["せっかち","せっかち","tidak sabaran","Kekurangan"],
+  ["頑固","がんこ","keras kepala","Kekurangan"],
+  ["人見知り","ひとみしり","pemalu ke orang baru","Kekurangan"],
+  ["優柔不断","ゆうじゅうふだん","plin-plan/sulit memutuskan","Kekurangan"],
+  ["完璧主義","かんぺきしゅぎ","perfeksionis","Kekurangan"],
+  ["遠慮しがち","えんりょしがち","cenderung sungkan","Kekurangan"],
+  ["お人好し","おひとよし","terlalu baik hati","Kekurangan"],
+  ["マイペース","マイペース","jalan dengan ritme sendiri","Kekurangan"],
+  ["飽きっぽい","あきっぽい","mudah bosan","Kekurangan"],
+  ["話すのが苦手","はなすのがにがて","kurang pandai bicara","Kekurangan"],
+  ["断れない","ことわれない","sulit menolak","Kekurangan"],
+  // --- Kesehatan ---
+  ["体力","たいりょく","kekuatan fisik","Kesehatan"],
+  ["健康","けんこう","kesehatan","Kesehatan"],
+  ["体調","たいちょう","kondisi tubuh","Kesehatan"],
+  ["病気","びょうき","sakit/penyakit","Kesehatan"],
+  ["元気","げんき","sehat/bersemangat","Kesehatan"],
+  // --- Disiplin ---
+  ["規則","きそく","peraturan","Disiplin"],
+  ["守る","まもる","menaati/menjaga","Disiplin"],
+  ["時間を守る","じかんをまもる","tepat waktu","Disiplin"],
+  ["遅刻","ちこく","terlambat","Disiplin"],
+  ["ルール","ルール","aturan","Disiplin"],
+  ["指示","しじ","instruksi","Disiplin"],
+  ["従う","したがう","mematuhi","Disiplin"],
+  // --- Kehidupan ---
+  ["寮生活","りょうせいかつ","kehidupan asrama","Kehidupan"],
+  ["共同生活","きょうどうせいかつ","hidup bersama","Kehidupan"],
+  // --- Keluarga ---
+  ["家族","かぞく","keluarga","Keluarga"],
+  ["両親","りょうしん","orang tua","Keluarga"],
+  ["兄弟","きょうだい","saudara kandung","Keluarga"],
+  ["子供","こども","anak","Keluarga"],
+  ["結婚","けっこん","menikah","Keluarga"],
+  // --- Bahasa ---
+  ["日本語能力","にほんごのうりょく","kemampuan bahasa Jepang","Bahasa"],
+  ["勉強する","べんきょうする","belajar","Bahasa"],
+  ["覚える","おぼえる","mengingat/mempelajari","Bahasa"],
+  ["学ぶ","まなぶ","mempelajari","Bahasa"],
+  ["話せる","はなせる","bisa berbicara","Bahasa"],
+  ["聞き取る","ききとる","menyimak/menangkap ucapan","Bahasa"],
+  ["上達する","じょうたつする","semakin mahir","Bahasa"],
+  ["練習する","れんしゅうする","berlatih","Bahasa"],
+  ["分からない","わからない","tidak mengerti","Bahasa"],
+  ["質問","しつもん","pertanyaan","Bahasa"],
+  ["答える","こたえる","menjawab","Bahasa"],
+  // --- Masa depan ---
+  ["将来","しょうらい","masa depan","Masa depan"],
+  ["目標","もくひょう","target","Masa depan"],
+  ["帰国","きこく","pulang ke negara asal","Masa depan"],
+  ["役立つ","やくだつ","berguna/bermanfaat","Masa depan"],
+  ["夢","ゆめ","impian/cita-cita","Masa depan"],
+  ["挑戦する","ちょうせんする","menantang diri/mencoba","Masa depan"],
+  ["成長する","せいちょうする","bertumbuh","Masa depan"],
+  // --- Sikap ---
+  ["頑張る","がんばる","berusaha/bersungguh-sungguh","Sikap"],
+  ["努力する","どりょくする","berusaha","Sikap"],
+  ["慣れる","なれる","terbiasa/beradaptasi","Sikap"],
+  ["大切","たいせつ","penting","Sikap"],
+  ["気をつける","きをつける","berhati-hati","Sikap"],
+  ["素早い","すばやい","gesit/cepat","Sikap"],
+  ["丁寧に","ていねいに","dengan teliti/sopan","Sikap"],
+  ["一生懸命","いっしょうけんめい","dengan sekuat tenaga","Sikap"],
+  // --- TG & Magang (istilah khusus) ---
+  ["特定技能","とくていぎのう","Specified Skilled Worker","TG"],
+  ["技能実習","ぎのうじっしゅう","technical intern training","Magang"],
+  ["実習","じっしゅう","pelatihan/magang","Magang"],
+  // --- Ungkapan ---
+  ["よろしくお願いいたします","よろしくおねがいいたします","mohon kerja samanya","Ungkapan"],
+  ["ありがとうございます","ありがとうございます","terima kasih","Ungkapan"],
+  ["失礼いたします","しつれいいたします","permisi","Ungkapan"],
+  ["お世話になっております","おせわになっております","terima kasih atas bantuannya","Ungkapan"],
+  ["お疲れ様です","おつかれさまです","terima kasih atas kerja kerasnya","Ungkapan"],
+  ["すみません","すみません","maaf/permisi","Ungkapan"],
+  ["はい、分かりました","はい、わかりました","baik, saya mengerti","Ungkapan"],
+  ["頑張ります","がんばります","saya akan berusaha","Ungkapan"],
+  // --- Alasan (alasan melamar & tujuan pergi ke Jepang) — diperluas ---
+  ["動機","どうき","motivasi","Alasan"],
+  ["きっかけ","きっかけ","pemicu/awal mula","Alasan"],
+  ["興味","きょうみ","minat","Alasan"],
+  ["憧れ","あこがれ","kekaguman/idaman","Alasan"],
+  ["魅力","みりょく","daya tarik","Alasan"],
+  ["夢を叶える","ゆめをかなえる","mewujudkan impian","Alasan"],
+  ["チャンス","チャンス","kesempatan","Alasan"],
+  ["選んだ理由","えらんだりゆう","alasan memilih","Alasan"],
+  ["貢献する","こうけんする","berkontribusi","Alasan"],
+  ["役に立ちたい","やくにたちたい","ingin berguna","Alasan"],
+  ["恩返し","おんがえし","membalas budi","Alasan"],
+  ["収入","しゅうにゅう","penghasilan","Alasan"],
+  ["給料","きゅうりょう","gaji","Alasan"],
+  ["生活を支える","せいかつをささえる","menopang kehidupan","Alasan"],
+  ["家族のため","かぞくのため","demi keluarga","Alasan"],
+  ["将来のため","しょうらいのため","demi masa depan","Alasan"],
+  ["スキルアップ","スキルアップ","meningkatkan keterampilan","Alasan"],
+  ["キャリアアップ","キャリアアップ","meningkatkan karier","Alasan"],
+  ["実践的な経験","じっせんてきなけいけん","pengalaman praktis","Alasan"],
+  ["現場で学ぶ","げんばでまなぶ","belajar langsung di lapangan","Alasan"],
+  ["安定した仕事","あんていしたしごと","pekerjaan yang stabil","Alasan"],
+  ["高い技術力","たかいぎじゅつりょく","kemampuan teknis tinggi","Alasan"],
+  ["技術大国","ぎじゅつたいこく","negara maju teknologi","Alasan"],
+  ["先進国","せんしんこく","negara maju","Alasan"],
+  ["日本文化","にほんぶんか","budaya Jepang","Alasan"],
+  ["おもてなし","おもてなし","keramahan/pelayanan tulus","Alasan"],
+  ["時間厳守","じかんげんしゅ","sangat tepat waktu","Alasan"],
+  ["規律正しい","きりつただしい","disiplin/tertib","Alasan"],
+  ["品質管理","ひんしつかんり","manajemen kualitas","Alasan"]
+];
+
+let mensetsuRecorder = null, mensetsuChunks = [], mensetsuRecordingUrl = null;
+async function mensetsuToggleRecord(btn, hintEl){
+  if(mensetsuRecorder && mensetsuRecorder.state === 'recording'){ mensetsuRecorder.stop(); return; }
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mensetsuChunks = [];
+    mensetsuRecorder = new MediaRecorder(stream);
+    mensetsuRecorder.addEventListener('dataavailable', e=> mensetsuChunks.push(e.data));
+    mensetsuRecorder.addEventListener('stop', ()=>{
+      stream.getTracks().forEach(t=>t.stop());
+      mensetsuRecordingUrl = URL.createObjectURL(new Blob(mensetsuChunks, { type:'audio/webm' }));
+      mensetsuRecordRecording();
+      btn.textContent = "🎙️ Rekam Lagi";
+      if(hintEl) hintEl.textContent = "✅ Rekaman tersimpan — tekan ▶️ Putar Rekaman untuk dengar ulang.";
+    });
+    mensetsuRecorder.start();
+    btn.textContent = "⏹️ Stop Rekam";
+    if(hintEl) hintEl.textContent = "🔴 Sedang merekam...";
+  }catch(e){
+    showGameToast("🚫 Akses mikrofon diperlukan untuk merekam suara.");
+  }
+}
+function mensetsuPlayRecording(){
+  if(mensetsuRecordingUrl) new Audio(mensetsuRecordingUrl).play();
+  else showGameToast("🎙️ Belum ada rekaman. Rekam dulu ya.");
+}
+function mensetsuStopRecorderIfActive(){
+  if(mensetsuRecorder && mensetsuRecorder.state === 'recording'){ try{ mensetsuRecorder.stop(); }catch(e){} }
+}
+/* ============================================================
+   PROGRES MENSETSU — disimpan per siswa (localStorage), supaya
+   ada motivasi main terus: bintang per kategori (naik tiap kali
+   kategori itu dilatih), streak harian, dan total hitungan latihan
+   & rekaman. Semua murni sisi tampilan/motivasi, tidak menilai
+   "benar/salah" (wawancara tidak punya jawaban tunggal yang benar).
+   ============================================================ */
+const MENSETSU_STAR_THRESHOLDS = [1, 3, 6, 10, 15]; // jumlah latihan kumulatif per kategori utk 1..5 bintang
+function mensetsuProgressKey(){ return "nafis_mensetsu_" + (student ? student.nis : "guest"); }
+function getMensetsuProgress(){
+  try{
+    const raw = localStorage.getItem(mensetsuProgressKey());
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return { categoryCount: {}, totalLatihan: 0, totalRekaman: 0, streak: 0, lastPracticeDate: null };
+}
+function saveMensetsuProgress(p){ localStorage.setItem(mensetsuProgressKey(), JSON.stringify(p)); }
+function mensetsuStarsForCount(count){
+  let stars = 0;
+  for(const t of MENSETSU_STAR_THRESHOLDS){ if(count >= t) stars++; }
+  return stars;
+}
+function mensetsuStarsHTML(stars){
+  let s = "";
+  for(let i=0;i<5;i++) s += i < stars ? "⭐" : "☆";
+  return s;
+}
+function mensetsuAllCategories(){
+  const set = new Set();
+  MENSETSU_DATA.TG.forEach(q=> set.add(q.cat));
+  MENSETSU_DATA.MAGANG.forEach(q=> set.add(q.cat));
+  return [...set];
+}
+// Dipanggil tiap siswa menyelesaikan 1 pertanyaan (lanjut ke pertanyaan
+// berikutnya) di mode Latihan atau Simulasi — ini yang menaikkan
+// bintang kategori & memperbarui streak harian.
+function mensetsuRecordPractice(cat){
+  const p = getMensetsuProgress();
+  p.categoryCount = p.categoryCount || {};
+  p.categoryCount[cat] = (p.categoryCount[cat] || 0) + 1;
+  p.totalLatihan = (p.totalLatihan || 0) + 1;
+  const today = new Date().toISOString().slice(0, 10);
+  if(p.lastPracticeDate !== today){
+    const y = new Date(); y.setDate(y.getDate() - 1);
+    const yesterday = y.toISOString().slice(0, 10);
+    p.streak = (p.lastPracticeDate === yesterday) ? (p.streak || 0) + 1 : 1;
+    p.lastPracticeDate = today;
+  }
+  saveMensetsuProgress(p);
+}
+// Dipanggil tiap rekaman suara berhasil dibuat (lihat mensetsuToggleRecord).
+function mensetsuRecordRecording(){
+  const p = getMensetsuProgress();
+  p.totalRekaman = (p.totalRekaman || 0) + 1;
+  saveMensetsuProgress(p);
+}
+function mensetsuProgressPanelHTML(){
+  const p = getMensetsuProgress();
+  const cats = mensetsuAllCategories();
+  const rows = cats.map(cat=>{
+    const count = (p.categoryCount && p.categoryCount[cat]) || 0;
+    const stars = mensetsuStarsForCount(count);
+    return `<div class="mensetsu-progress-row"><span class="mpr-label">${cat}</span><span class="mpr-stars">${mensetsuStarsHTML(stars)}</span></div>`;
+  }).join("");
+  return `
+    <div class="mensetsu-progress-panel">
+      <div class="mpp-cats">${rows}</div>
+      <div class="mpp-divider"></div>
+      <div class="mpp-stats">
+        <div class="mpp-stat">🔥 Streak: <b>${p.streak || 0}</b> hari</div>
+        <div class="mpp-stat">🏆 Total latihan: <b>${p.totalLatihan || 0}</b></div>
+        <div class="mpp-stat">🎙️ Total rekaman: <b>${p.totalRekaman || 0}</b></div>
+      </div>
+    </div>
+  `;
+}
+function openMensetsuHome(){
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Mensetsu Training">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">🎤</div>
+          <div><div class="kh-v2-title">Mensetsu Training</div><div class="kh-v2-subtitle">Latihan wawancara kerja — 特定技能 (TG) & 技能実習 (Magang)</div></div>
+          <button class="kh-v2-close" id="mensetsuHomeClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" style="display:block;">
+        ${mensetsuProgressPanelHTML()}
+        <div class="kh-quiz-setup-grid" style="grid-template-columns:1fr 1fr;">
+          <button class="kh-quiz-setup-btn" id="mensetsuTGBtn">🧑‍🏭<small>Latihan TG</small></button>
+          <button class="kh-quiz-setup-btn" id="mensetsuMagangBtn">👨‍🔧<small>Latihan Magang</small></button>
+          <button class="kh-quiz-setup-btn" id="mensetsuSimBtn">🎬<small>Simulasi Wawancara</small></button>
+          <button class="kh-quiz-setup-btn" id="mensetsuBankBtn">📚<small>Kosakata Wawancara</small></button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#mensetsuHomeClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+  el.querySelector("#mensetsuTGBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openMensetsuPractice('TG'); });
+  el.querySelector("#mensetsuMagangBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openMensetsuPractice('MAGANG'); });
+  el.querySelector("#mensetsuSimBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openMensetsuSimChoice(); });
+  el.querySelector("#mensetsuBankBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openMensetsuBank(); });
+}
+function openMensetsuPractice(type){
+  const questions = MENSETSU_DATA[type];
+  let qi = 0;
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Latihan Mensetsu">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">🗣️</div>
+          <div><div class="kh-v2-title">Latihan Mensetsu — ${type==='TG'?'特定技能 (TG)':'技能実習 (Magang)'}</div><div class="kh-v2-subtitle" id="mensetsuPracProgress"></div></div>
+          <button class="kh-v2-close" id="mensetsuPracClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" id="mensetsuPracBody" style="display:block;"></div>
+    </div>`;
+  document.body.appendChild(el);
+  const body = el.querySelector("#mensetsuPracBody");
+  const close = ()=>{ mensetsuStopRecorderIfActive(); if('speechSynthesis' in window) window.speechSynthesis.cancel(); el.remove(); };
+  el.querySelector("#mensetsuPracClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+
+  function render(){
+    mensetsuStopRecorderIfActive();
+    mensetsuRecordingUrl = null;
+    const q = questions[qi];
+    el.querySelector("#mensetsuPracProgress").textContent = `Pertanyaan ${qi+1} / ${questions.length} · ${q.cat}`;
+    body.innerHTML = `
+      <div class="kh-quiz-question" style="font-size:19px;">${q.q}</div>
+      <div style="text-align:center;color:#8b6c4e;font-size:12px;margin-top:-6px;">${q.r}</div>
+      <div style="text-align:center;background:#fffdf6;border:1px dashed #cdb58b;padding:8px;border-radius:12px;margin:12px 0;font-size:12px;">${q.m}</div>
+      <div style="background:#eef4df;border:2px solid #b9cda3;border-radius:14px;padding:14px;">
+        <div style="font-weight:800;font-size:12px;margin-bottom:6px;">🗣️ Contoh Jawaban</div>
+        <div style="font-weight:700;font-size:16px;line-height:1.6;">${q.a}</div>
+        <div style="font-size:11px;color:#8b6c4e;margin-top:4px;">${q.am}</div>
+        <div class="kh-quiz-setup-grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:12px;">
+          <button class="kh-quiz-setup-btn" id="mensetsuListenBtn">🔊<small>Dengarkan</small></button>
+          <button class="kh-quiz-setup-btn" id="mensetsuRecordBtn">🎙️<small>Mulai Rekam</small></button>
+          <button class="kh-quiz-setup-btn" id="mensetsuPlayBtn">▶️<small>Putar Rekaman</small></button>
+        </div>
+        <div style="font-size:11px;color:#8b6c4e;margin-top:8px;text-align:center;" id="mensetsuRecHint">Rekam suaramu lalu bandingkan sendiri dengan contoh.</div>
+      </div>
+      <div class="kh-v2-footer" style="margin-top:14px;">
+        <button class="kh-v2-footer-btn" id="mensetsuNextBtn">Pertanyaan Berikutnya →</button>
+      </div>
+    `;
+    body.querySelector("#mensetsuListenBtn").addEventListener("click", ()=> speakJapanese(q.a, 'N4'));
+    const recBtn = body.querySelector("#mensetsuRecordBtn");
+    const hintEl = body.querySelector("#mensetsuRecHint");
+    recBtn.addEventListener("click", ()=> mensetsuToggleRecord(recBtn, hintEl));
+    body.querySelector("#mensetsuPlayBtn").addEventListener("click", mensetsuPlayRecording);
+    body.querySelector("#mensetsuNextBtn").addEventListener("click", ()=>{ mensetsuRecordPractice(questions[qi].cat); qi = (qi+1) % questions.length; render(); playSFX('click'); });
+  }
+  render();
+}
+function openMensetsuSimChoice(){
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Pilih Simulasi">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">🎬</div>
+          <div><div class="kh-v2-title">Simulasi Mensetsu</div><div class="kh-v2-subtitle">Pilih jenis wawancara</div></div>
+          <button class="kh-v2-close" id="mensetsuSimChoiceClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" style="display:block;">
+        <div class="kh-quiz-setup-grid" style="grid-template-columns:1fr 1fr;">
+          <button class="kh-quiz-setup-btn" id="mensetsuSimTGBtn">🧑‍🏭<small>特定技能 (TG)</small></button>
+          <button class="kh-quiz-setup-btn" id="mensetsuSimMagangBtn">👨‍🔧<small>技能実習 (Magang)</small></button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#mensetsuSimChoiceClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+  el.querySelector("#mensetsuSimTGBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openMensetsuSimulation('TG'); });
+  el.querySelector("#mensetsuSimMagangBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openMensetsuSimulation('MAGANG'); });
+}
+/* Fitur koreksi jawaban simulasi — membandingkan tulisan siswa dengan
+   contoh jawaban lewat 2 cara: (1) kata kunci dari Kosakata Wawancara
+   yang muncul di contoh jawaban, dicek juga muncul di tulisan siswa
+   atau belum; (2) skor kemiripan teks (Levenshtein, sama seperti
+   Latihan Pelafalan). Ini BUKAN pemeriksa tata bahasa Jepang yang
+   sesungguhnya — jujur disebutkan di catatan bawah supaya guru/siswa
+   tidak salah kira ini penilaian linguistik penuh. */
+function mensetsuKeywordsIn(text){
+  const seen = new Set();
+  const result = [];
+  MENSETSU_WORDS.forEach(w=>{
+    if(text.includes(w[0]) && !seen.has(w[0])){ seen.add(w[0]); result.push(w); }
+  });
+  return result;
+}
+function mensetsuCorrectionHTML(userText, modelText){
+  const modelKeywords = mensetsuKeywordsIn(modelText);
+  const used = modelKeywords.filter(w=> userText.includes(w[0]));
+  const missing = modelKeywords.filter(w=> !userText.includes(w[0]));
+  const sim = Math.round(levenshteinSimilarity(userText, modelText) * 100);
+  let verdict, color;
+  if(modelKeywords.length && used.length === modelKeywords.length){ verdict = "🌟 Mantap! Semua kata kunci penting sudah kamu pakai."; color = "#7ea765"; }
+  else if(used.length > 0){ verdict = "👍 Sudah ada kata kunci yang tepat, coba lengkapi lagi."; color = "#e0a94a"; }
+  else { verdict = "🔁 Coba masukkan kata kunci penting dari kategori ini."; color = "#c96a56"; }
+  const usedHTML = used.length ? used.map(w=>`<span style="display:inline-block;background:#dcefc9;border:1px solid #7ea765;border-radius:8px;padding:2px 8px;margin:2px;font-size:11px;">✅ ${w[0]} <span style="opacity:.7;">(${w[2]})</span></span>`).join("") : `<span style="opacity:.6;font-size:11px;">belum ada</span>`;
+  const missingHTML = missing.length ? missing.map(w=>`<span style="display:inline-block;background:#fdeadb;border:1px solid #e0a94a;border-radius:8px;padding:2px 8px;margin:2px;font-size:11px;">⭕ ${w[0]} <span style="opacity:.7;">(${w[2]})</span></span>`).join("") : `<span style="opacity:.6;font-size:11px;">tidak ada — sudah lengkap!</span>`;
+  return `
+    <div style="font-weight:800;font-size:12px;margin-bottom:6px;">📝 Hasil Koreksi</div>
+    <div style="margin-bottom:8px;"><b>Kemiripan dengan contoh:</b> ${sim}%</div>
+    <div style="margin-bottom:8px;"><b>Kata kunci yang sudah kamu pakai:</b><br>${usedHTML}</div>
+    <div style="margin-bottom:8px;"><b>Kata kunci yang belum dipakai:</b><br>${missingHTML}</div>
+    <div style="color:${color};font-weight:800;margin-bottom:6px;">${verdict}</div>
+    <div style="font-size:10px;color:#8b6c4e;">Catatan: ini pembanding kata kunci & kemiripan teks, bukan pemeriksa tata bahasa Jepang yang sesungguhnya. Jawaban yang beda kata tapi tetap benar secara makna juga wajar.</div>
+  `;
+}
+function openMensetsuSimulation(type){
+  const questions = MENSETSU_DATA[type];
+  let qi = 0;
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Simulasi Mensetsu">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">🎬</div>
+          <div><div class="kh-v2-title">Simulasi Mensetsu — ${type==='TG'?'特定技能 (TG)':'技能実習 (Magang)'}</div><div class="kh-v2-subtitle" id="mensetsuSimProgress"></div></div>
+          <button class="kh-v2-close" id="mensetsuSimClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" id="mensetsuSimBody" style="display:block;"></div>
+    </div>`;
+  document.body.appendChild(el);
+  const body = el.querySelector("#mensetsuSimBody");
+  const close = ()=>{ mensetsuStopRecorderIfActive(); if('speechSynthesis' in window) window.speechSynthesis.cancel(); el.remove(); };
+  el.querySelector("#mensetsuSimClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+
+  function render(){
+    mensetsuStopRecorderIfActive();
+    mensetsuRecordingUrl = null;
+    const q = questions[qi];
+    const isLast = qi === questions.length - 1;
+    el.querySelector("#mensetsuSimProgress").textContent = `Pertanyaan ${qi+1} / ${questions.length} · ${q.cat}`;
+    body.innerHTML = `
+      <div class="kh-quiz-question" style="font-size:19px;">${q.q}</div>
+      <div style="text-align:center;color:#8b6c4e;font-size:12px;margin-top:-6px;">${q.r}</div>
+      <div style="text-align:center;background:#fffdf6;border:1px dashed #cdb58b;padding:8px;border-radius:12px;margin:12px 0;font-size:12px;">${q.m}</div>
+      <textarea id="mensetsuMyAnswer" placeholder="Tulis jawabanmu sendiri di sini, lalu tekan Koreksi Jawaban..." style="width:100%;min-height:90px;border:2px solid #d3b98a;border-radius:12px;padding:10px;background:#fffdf8;color:inherit;resize:vertical;"></textarea>
+      <button class="kh-v2-footer-btn" id="mensetsuSimCorrectBtn" style="width:100%;margin-top:8px;">✅ Koreksi Jawaban</button>
+      <div id="mensetsuSimCorrectionBox" style="display:none;background:#eef4df;border:2px solid #b9cda3;border-radius:14px;padding:12px;margin-top:10px;font-size:12px;"></div>
+      <div class="kh-quiz-setup-grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:10px;">
+        <button class="kh-quiz-setup-btn" id="mensetsuSimListenBtn">🔊<small>Dengar Soal</small></button>
+        <button class="kh-quiz-setup-btn" id="mensetsuSimRecordBtn">🎙️<small>Mulai Rekam</small></button>
+        <button class="kh-quiz-setup-btn" id="mensetsuSimPlayBtn">▶️<small>Putar</small></button>
+      </div>
+      <div style="font-size:11px;color:#8b6c4e;margin-top:6px;text-align:center;" id="mensetsuSimRecHint"></div>
+      <div id="mensetsuSimAnswerBox" style="display:none;background:#eef4df;border:2px solid #b9cda3;border-radius:14px;padding:14px;margin-top:12px;">
+        <div style="font-weight:800;font-size:12px;margin-bottom:6px;">💡 Contoh Jawaban</div>
+        <div style="font-weight:700;font-size:15px;line-height:1.6;">${q.a}</div>
+        <div style="font-size:11px;color:#8b6c4e;margin-top:4px;">${q.am}</div>
+      </div>
+      <div class="kh-v2-footer" style="margin-top:14px;display:flex;gap:8px;">
+        <button class="kh-v2-footer-btn" id="mensetsuSimShowBtn" style="flex:1;">Tampilkan Contoh</button>
+        <button class="kh-v2-footer-btn" id="mensetsuSimNextBtn" style="flex:1;">${isLast ? 'Selesai ✓' : 'Jawab & Lanjut →'}</button>
+      </div>
+    `;
+    body.querySelector("#mensetsuSimListenBtn").addEventListener("click", ()=> speakJapanese(q.q, 'N4'));
+    const recBtn = body.querySelector("#mensetsuSimRecordBtn");
+    const hintEl = body.querySelector("#mensetsuSimRecHint");
+    recBtn.addEventListener("click", ()=> mensetsuToggleRecord(recBtn, hintEl));
+    body.querySelector("#mensetsuSimPlayBtn").addEventListener("click", mensetsuPlayRecording);
+    body.querySelector("#mensetsuSimShowBtn").addEventListener("click", ()=>{ body.querySelector("#mensetsuSimAnswerBox").style.display = ''; });
+    body.querySelector("#mensetsuSimCorrectBtn").addEventListener("click", ()=>{
+      const userText = body.querySelector("#mensetsuMyAnswer").value.trim();
+      const box = body.querySelector("#mensetsuSimCorrectionBox");
+      if(!userText){
+        showGameToast("✏️ Tulis jawabanmu dulu di kotak teks, baru tekan Koreksi.");
+        return;
+      }
+      box.style.display = '';
+      box.innerHTML = mensetsuCorrectionHTML(userText, q.a);
+      playSFX('click');
+    });
+    body.querySelector("#mensetsuSimNextBtn").addEventListener("click", ()=>{
+      mensetsuRecordPractice(questions[qi].cat);
+      if(isLast){
+        showGameToast("🎉 Simulasi selesai! Ulangi pertanyaan yang paling sulit ya.");
+        close();
+      } else {
+        qi++; render(); playSFX('click');
+      }
+    });
+  }
+  render();
+}
+function openMensetsuBank(){
+  let activeCat = 'Semua';
+  const cats = ['Semua', ...new Set(MENSETSU_WORDS.map(w=>w[3]))];
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Kosakata Wawancara">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">📚</div>
+          <div><div class="kh-v2-title">Kosakata Wawancara</div><div class="kh-v2-subtitle">${MENSETSU_WORDS.length} kosakata — pilih & susun jawabanmu sendiri</div></div>
+          <button class="kh-v2-close" id="mensetsuBankClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" style="display:block;">
+        <input id="mensetsuBankSearch" placeholder="Cari kanji, hiragana, atau arti..." style="width:100%;padding:10px 12px;border-radius:12px;border:2px solid #d3b98a;margin-bottom:10px;background:#fffdf8;color:inherit;">
+        <div id="mensetsuBankCats" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;"></div>
+        <div id="mensetsuBankGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-height:340px;overflow-y:auto;"></div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=>{ if('speechSynthesis' in window) window.speechSynthesis.cancel(); el.remove(); };
+  el.querySelector("#mensetsuBankClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+
+  function renderCats(){
+    el.querySelector("#mensetsuBankCats").innerHTML = cats.map(c=>
+      `<button class="kh-quiz-setup-btn" data-cat="${c}" style="padding:6px 12px;font-size:10.5px;${c===activeCat?'background:var(--gold);color:#3f2c1c;':''}">${c}</button>`
+    ).join("");
+    el.querySelectorAll("#mensetsuBankCats button").forEach(b=>{
+      b.addEventListener("click", ()=>{ activeCat = b.dataset.cat; renderCats(); renderGrid(); });
+    });
+  }
+  function renderGrid(){
+    const s = el.querySelector("#mensetsuBankSearch").value.toLowerCase();
+    const list = MENSETSU_WORDS.filter(w=> (activeCat==='Semua' || w[3]===activeCat) && w.slice(0,3).join(' ').toLowerCase().includes(s));
+    const grid = el.querySelector("#mensetsuBankGrid");
+    grid.innerHTML = list.length ? list.map(w=>`
+      <div class="kanji-tile" data-jp="${w[0].replace(/"/g,'&quot;')}" style="text-align:left;padding:10px;cursor:pointer;">
+        <div style="font-weight:900;font-size:16px;">${w[0]}</div>
+        <div style="font-size:10.5px;color:#8b6c4e;">${w[1]}</div>
+        <div style="font-size:11px;margin-top:2px;">${w[2]} <span style="opacity:.6;">· ${w[3]}</span></div>
+      </div>
+    `).join("") : `<div class="lbw-empty" style="grid-column:1/-1;">Tidak ada kata yang cocok.</div>`;
+    grid.querySelectorAll("[data-jp]").forEach(card=>{
+      card.addEventListener("click", ()=> speakJapanese(card.dataset.jp, 'N5'));
+    });
+  }
+  el.querySelector("#mensetsuBankSearch").addEventListener("input", renderGrid);
+  renderCats(); renderGrid();
+}
 
 /* ============================================================
    DUEL KUIS — ruang multi-pemain real-time (mirip Kahoot), dibangun

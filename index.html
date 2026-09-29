@@ -10470,6 +10470,22 @@ function openDuelHostSetup(){
     return;
   }
   let selT = 15;
+  // Pratinjau jumlah soal SESUNGGUHNYA yang akan dipakai di ruang duel —
+  // dihitung SEKARANG (sebelum ruang dibuat) supaya host langsung lihat
+  // angka aslinya. Ini penting khusus utk Dokkai: "jumlah" di layar Mode
+  // Game artinya jumlah BACAAN (tiap bacaan berisi beberapa sub-soal),
+  // bukan jumlah soal — kalau tidak diperjelas di sini, host bisa kaget
+  // begitu ruang cuma berisi sedikit soal (mis. pilih "2 bacaan" tapi
+  // ternyata cuma jadi 4 soal total).
+  const previewQuestions = buildDuelQuestionsFromSetup();
+  const previewCount = previewQuestions.length;
+  let previewNote = "";
+  if(setupType === 'dokkai'){
+    previewNote = `<div class="kh-quiz-subtitle" style="text-align:left;font-size:11px;color:#8b6c4e;margin-bottom:6px;line-height:1.5;">📖 Untuk Dokkai, "jumlah" di layar sebelumnya adalah jumlah BACAAN (tiap bacaan berisi beberapa sub-soal), bukan jumlah soal langsung — makanya totalnya bisa beda dari yang dikira.</div>`;
+  }
+  if(previewCount > 0 && previewCount < 5){
+    previewNote += `<div class="kh-quiz-subtitle" style="text-align:left;font-size:11px;color:#c96a56;margin-bottom:6px;line-height:1.5;">⚠️ Cuma ${previewCount} soal — duel akan terasa singkat. Tutup layar ini dan perbesar "Jumlah Soal"/"Jumlah Bacaan" di layar sebelumnya kalau mau lebih banyak.</div>`;
+  }
   const el = document.createElement("div");
   el.className = "kh-v2-overlay";
   el.innerHTML = `
@@ -10482,8 +10498,10 @@ function openDuelHostSetup(){
         </div>
       </div>
       <div class="kh-quiz-body">
+        <div class="kh-quiz-question" style="text-align:center;margin-bottom:8px;">📋 Soal yang akan dipakai: <b>${previewCount}</b></div>
+        ${previewNote}
         ${setupType === 'dokkai' ? `
-          <div class="kh-quiz-subtitle" style="text-align:left;font-size:11px;color:#8b6c4e;margin-bottom:10px;line-height:1.5;">📖 Waktu baca Dokkai otomatis menyesuaikan standar JLPT per level (soal pertama dapat porsi lebih besar untuk membaca) — pengaturan waktu di bawah ini diabaikan untuk Dokkai.</div>
+          <div class="kh-quiz-subtitle" style="text-align:left;font-size:11px;color:#8b6c4e;margin-bottom:10px;line-height:1.5;">⏱️ Waktu baca Dokkai otomatis menyesuaikan standar JLPT per level (soal pertama dapat porsi lebih besar untuk membaca) — pengaturan waktu di bawah ini diabaikan untuk Dokkai.</div>
         ` : ``}
         <div class="kh-quiz-question" style="margin-bottom:8px;">Waktu per soal?</div>
         <div class="kh-quiz-setup-grid" id="duelTRow">
@@ -10498,7 +10516,7 @@ function openDuelHostSetup(){
   el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
   el.querySelectorAll("#duelTRow button").forEach(b=> b.addEventListener("click", ()=>{ selT=parseInt(b.dataset.t,10); el.querySelectorAll("#duelTRow button").forEach(x=>x.classList.toggle("active",x===b)); }));
   el.querySelector("#duelCreateBtn").addEventListener("click", ()=>{
-    const questions = buildDuelQuestionsFromSetup();
+    const questions = previewQuestions; // pakai persis yg sudah dipratinjau, bukan hitung ulang (beberapa jenis soal diacak non-seeded jadi bisa beda tiap panggilan)
     if(!questions.length){
       showGameToast("😅 Belum ada soal pilihan-ganda untuk pengaturan ini.");
       return;

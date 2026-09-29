@@ -9525,6 +9525,22 @@ const MENSETSU_DATA = {
     {cat:"Keluarga", q:"家族と離れて生活できますか。", r:"かぞくとはなれてせいかつできますか。", m:"Bisa hidup terpisah dari keluarga?", a:"はい、頑張れます。", am:"Ya, saya bisa berusaha."},
     {cat:"Kehidupan", q:"休日は何をしたいですか。", r:"きゅうじつはなにをしたいですか。", m:"Ingin melakukan apa di hari libur?", a:"洗濯や買い物をして、ゆっくり休みたいです。", am:"Saya ingin mencuci baju, belanja, dan beristirahat dengan santai."}
   ],
+  RESTORAN: [
+    {cat:"Pengalaman", q:"飲食店で働いた経験がありますか。", r:"いんしょくてんではたらいたけいけんがありますか。", m:"Pernah bekerja di restoran?", a:"はい、ホールスタッフとして働いた経験があります。", am:"Ya, saya punya pengalaman bekerja sebagai staf hall."},
+    {cat:"Sikap", q:"接客で大切なことは何ですか。", r:"せっきゃくでたいせつなことはなんですか。", m:"Apa yang penting dalam melayani tamu?", a:"笑顔と丁寧な言葉遣いが大切だと思います。", am:"Saya rasa senyum dan cara bicara yang sopan itu penting."},
+    {cat:"Situasi", q:"お客様からクレームを受けたら、どうしますか。", r:"おきゃくさまからクレームをうけたら、どうしますか。", m:"Jika menerima komplain dari pelanggan, apa yang dilakukan?", a:"まず謝罪して、内容をよく聞いてから対応します。", am:"Saya akan minta maaf dulu, lalu mendengarkan baik-baik sebelum menangani."},
+    {cat:"Kesehatan", q:"忙しい時間帯でも、笑顔で対応できますか。", r:"いそがしいじかんたいでも、えがおでたいおうできますか。", m:"Bisa tetap tersenyum di jam sibuk?", a:"はい、体力には自信があるので大丈夫です。", am:"Ya, saya percaya diri dengan stamina saya jadi tidak masalah."},
+    {cat:"Pengetahuan", q:"衛生管理のために何に気をつけますか。", r:"えいせいかんりのためになににきをつけますか。", m:"Apa yang diperhatikan untuk kebersihan?", a:"手洗いと清潔な身だしなみに気をつけます。", am:"Saya memperhatikan cuci tangan dan penampilan yang bersih."},
+    {cat:"Situasi", q:"注文を間違えたら、どうしますか。", r:"ちゅうもんをまちがえたら、どうしますか。", m:"Jika salah mencatat pesanan, apa yang dilakukan?", a:"すぐにお詫びして、正しい注文に直します。", am:"Saya akan segera minta maaf dan memperbaiki pesanannya."}
+  ],
+  HOTEL: [
+    {cat:"Pengalaman", q:"ホテルで働いた経験がありますか。", r:"ホテルではたらいたけいけんがありますか。", m:"Pernah bekerja di hotel?", a:"いいえ、経験はありませんが、学ぶ意欲があります。", am:"Tidak, saya belum punya pengalaman, tapi punya semangat untuk belajar."},
+    {cat:"Sikap", q:"フロントの仕事で大切なことは何ですか。", r:"フロントのしごとでたいせつなことはなんですか。", m:"Apa yang penting dalam pekerjaan front desk?", a:"丁寧な言葉遣いと正確な対応が大切です。", am:"Cara bicara yang sopan dan penanganan yang akurat itu penting."},
+    {cat:"Situasi", q:"宿泊客が忘れ物をしたら、どうしますか。", r:"しゅくはくきゃくがわすれものをしたら、どうしますか。", m:"Jika tamu meninggalkan barang, apa yang dilakukan?", a:"すぐに保管して、お客様に連絡します。", am:"Saya akan segera menyimpannya dan menghubungi tamu tersebut."},
+    {cat:"Kesehatan", q:"夜勤の仕事はできますか。", r:"やきんのしごとはできますか。", m:"Bisa bekerja shift malam?", a:"はい、夜勤も対応できます。", am:"Ya, saya juga bisa bekerja shift malam."},
+    {cat:"Bahasa", q:"外国人のお客様に対応できますか。", r:"がいこくじんのおきゃくさまにたいおうできますか。", m:"Bisa melayani tamu asing?", a:"簡単な英語なら対応できます。", am:"Kalau bahasa Inggris sederhana, saya bisa melayaninya."},
+    {cat:"Situasi", q:"苦情を受けたら、どうしますか。", r:"くじょうをうけたら、どうしますか。", m:"Jika menerima keluhan, apa yang dilakukan?", a:"まず丁寧にお詫びして、原因を確認します。", am:"Saya akan minta maaf dengan sopan dulu, lalu memeriksa penyebabnya."}
+  ],
 };
 const MENSETSU_WORDS = [
   // --- Dasar ---
@@ -9859,6 +9875,50 @@ const MENSETSU_WORDS = [
   ["今は改善するようにしています。","いまはかいぜんするようにしています。","Sekarang saya berusaha memperbaikinya.","Pola Kalimat","今はその点を改善するようにしています。","Sekarang saya berusaha memperbaiki hal itu."],
   ["最近は〜を意識しています。","さいきんは〜をいしきしています。","Akhir-akhir ini saya sadar akan 〜.","Pola Kalimat","最近は時間を意識しています。","Akhir-akhir ini saya sadar akan pentingnya waktu."],
   ["分からないことはメモするようにしています。","わからないことはメモするようにしています。","Saya berusaha mencatat hal yang tidak saya mengerti.","Pola Kalimat","私は分からないことはメモするようにしています。","Saya berusaha mencatat hal yang tidak saya mengerti."],
+  // --- Restoran ---
+  ["接客","せっきゃく","melayani tamu","Restoran","接客の仕事が好きです。","Saya suka pekerjaan melayani tamu."],
+  ["外食産業","がいしょくさんぎょう","industri makan di luar","Restoran","外食産業で働きたいです。","Saya ingin bekerja di industri makan di luar."],
+  ["ホール","ホール","area hall/dining","Restoran","ホールで接客します。","Saya melayani tamu di area hall."],
+  ["キッチン","キッチン","dapur","Restoran","キッチンで調理を手伝います。","Saya membantu memasak di dapur."],
+  ["調理師","ちょうりし","juru masak","Restoran","調理師の資格があります。","Saya punya sertifikat juru masak."],
+  ["注文","ちゅうもん","pesanan","Restoran","注文を確認します。","Saya memeriksa pesanan."],
+  ["配膳","はいぜん","menghidangkan makanan","Restoran","料理を配膳します。","Saya menghidangkan makanan."],
+  ["下膳","げぜん","mengangkat piring kotor","Restoran","食べ終わったら下膳します。","Setelah selesai makan, saya mengangkat piringnya."],
+  ["レジ","レジ","kasir","Restoran","レジで会計をします。","Saya mengurus pembayaran di kasir."],
+  ["会計","かいけい","pembayaran","Restoran","お客様の会計をします。","Saya mengurus pembayaran pelanggan."],
+  ["お客様","おきゃくさま","pelanggan","Restoran","お客様を笑顔で迎えます。","Saya menyambut pelanggan dengan senyum."],
+  ["笑顔","えがお","senyum","Restoran","いつも笑顔で接客します。","Saya selalu melayani dengan senyum."],
+  ["挨拶","あいさつ","salam/sapaan","Restoran","元気よく挨拶します。","Saya menyapa dengan penuh semangat."],
+  ["身だしなみ","みだしなみ","penampilan rapi","Restoran","身だしなみに気をつけます。","Saya menjaga penampilan tetap rapi."],
+  ["制服","せいふく","seragam","Restoran","制服を着て働きます。","Saya bekerja dengan memakai seragam."],
+  ["シフト","シフト","shift kerja","Restoran","シフトに合わせて出勤します。","Saya masuk kerja sesuai jadwal shift."],
+  ["ピーク時","ピークじ","jam sibuk","Restoran","ピーク時も落ち着いて働きます。","Saya tetap tenang bekerja saat jam sibuk."],
+  ["クレーム","クレーム","komplain","Restoran","クレームに丁寧に対応します。","Saya menangani komplain dengan sopan."],
+  ["予約","よやく","reservasi","Restoran","予約を確認します。","Saya memeriksa reservasi."],
+  ["メニュー","メニュー","menu","Restoran","メニューを説明します。","Saya menjelaskan menu."],
+  ["提供時間","ていきょうじかん","waktu penyajian","Restoran","提供時間を守ります。","Saya menjaga waktu penyajian."],
+  ["常連客","じょうれんきゃく","pelanggan tetap","Restoran","常連客に覚えてもらえると嬉しいです。","Saya senang kalau diingat oleh pelanggan tetap."],
+  // --- Hotel ---
+  ["宿泊業","しゅくはくぎょう","industri perhotelan","Hotel","宿泊業で働きたいです。","Saya ingin bekerja di industri perhotelan."],
+  ["フロント","フロント","front desk","Hotel","フロントで対応します。","Saya melayani di front desk."],
+  ["チェックイン","チェックイン","check-in","Hotel","チェックインの手続きをします。","Saya mengurus prosedur check-in."],
+  ["チェックアウト","チェックアウト","check-out","Hotel","チェックアウトを担当します。","Saya bertugas mengurus check-out."],
+  ["客室","きゃくしつ","kamar tamu","Hotel","客室を清掃します。","Saya membersihkan kamar tamu."],
+  ["ベッドメイキング","ベッドメイキング","merapikan tempat tidur","Hotel","ベッドメイキングをします。","Saya merapikan tempat tidur."],
+  ["アメニティ","アメニティ","perlengkapan kamar","Hotel","アメニティを補充します。","Saya mengisi ulang perlengkapan kamar."],
+  ["ルームサービス","ルームサービス","layanan kamar","Hotel","ルームサービスを担当したことがあります。","Saya pernah bertugas di layanan kamar."],
+  ["宿泊客","しゅくはくきゃく","tamu menginap","Hotel","宿泊客を丁寧にお迎えします。","Saya menyambut tamu menginap dengan sopan."],
+  ["館内案内","かんないあんない","panduan dalam gedung","Hotel","館内案内をします。","Saya memberi panduan dalam gedung."],
+  ["忘れ物","わすれもの","barang tertinggal","Hotel","忘れ物を確認します。","Saya memeriksa barang yang tertinggal."],
+  ["苦情対応","くじょうたいおう","penanganan keluhan","Hotel","苦情対応にも慣れています。","Saya juga terbiasa menangani keluhan."],
+  ["多言語対応","たげんごたいおう","layanan multi-bahasa","Hotel","多言語対応を心がけます。","Saya berusaha melayani dalam berbagai bahasa."],
+  ["丁寧な対応","ていねいなたいおう","pelayanan yang sopan","Hotel","丁寧な対応を大切にしています。","Saya mementingkan pelayanan yang sopan."],
+  ["荷物","にもつ","barang bawaan","Hotel","お客様の荷物を運びます。","Saya membawakan barang bawaan tamu."],
+  ["予約管理","よやくかんり","manajemen reservasi","Hotel","予約管理をします。","Saya mengelola reservasi."],
+  ["清潔感","せいけつかん","kesan bersih","Hotel","清潔感のある身だしなみを心がけます。","Saya berusaha menjaga penampilan yang berkesan bersih."],
+  ["夜勤","やきん","shift malam","Hotel","夜勤もできます。","Saya juga bisa kerja shift malam."],
+  ["部屋番号","へやばんごう","nomor kamar","Hotel","部屋番号を確認します。","Saya memeriksa nomor kamar."],
+  ["鍵","かぎ","kunci","Hotel","鍵をお渡しします。","Saya menyerahkan kunci."],
 ];
 
 let mensetsuRecorder = null, mensetsuChunks = [], mensetsuRecordingUrl = null, mensetsuRecordMime = 'audio/webm';
@@ -10018,6 +10078,8 @@ const MENSETSU_BIDANG_LABELS = {
   KONSTRUKSI: {icon:"🏗️", label:"Konstruksi"},
   PERTANIAN: {icon:"🌾", label:"Pertanian"},
   MAKANAN: {icon:"🍱", label:"Pengolahan Makanan"},
+  RESTORAN: {icon:"🍜", label:"Restoran / Makan Luar"},
+  HOTEL: {icon:"🏨", label:"Hotel / Perhotelan"},
   SITUASI: {icon:"🚨", label:"Situasi Tak Terduga"},
   KEHIDUPAN: {icon:"🇯🇵", label:"Kehidupan di Jepang"},
   TG: {icon:"🧑‍🏭", label:"TG (Semua Soal)"},
@@ -10038,7 +10100,8 @@ function openMensetsuHome(){
       <div class="kh-quiz-body" style="display:block;">
         <div class="kh-quiz-setup-grid" style="grid-template-columns:1fr 1fr;">
           <button class="kh-quiz-setup-btn" id="mensetsuPracticeBtn">📖<small>Latihan per Bidang</small></button>
-          <button class="kh-quiz-setup-btn" id="mensetsuSimBtn">🎬<small>Simulasi Wawancara</small></button>
+          <button class="kh-quiz-setup-btn" id="mensetsuSimBtn">🎬<small>Simulasi per Bidang</small></button>
+          <button class="kh-quiz-setup-btn" id="mensetsuFullSimBtn" style="grid-column:1/-1;background:linear-gradient(135deg,#fff3d6,#ffe4a8);">🎯<small>Simulasi Wawancara Penuh (satu sesi utuh)</small></button>
           <button class="kh-quiz-setup-btn" id="mensetsuBankBtn" style="grid-column:1/-1;">📚<small>Kosakata Wawancara</small></button>
         </div>
       </div>
@@ -10049,6 +10112,7 @@ function openMensetsuHome(){
   el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
   el.querySelector("#mensetsuPracticeBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openMensetsuBidangPicker('practice'); });
   el.querySelector("#mensetsuSimBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openMensetsuBidangPicker('simulation'); });
+  el.querySelector("#mensetsuFullSimBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openMensetsuFullSimPicker(); });
   el.querySelector("#mensetsuBankBtn").addEventListener("click", ()=>{ playSFX('click'); close(); openMensetsuBank(); });
 }
 // Layar pilih bidang — dipakai bersama utk Latihan maupun Simulasi,
@@ -10085,6 +10149,63 @@ function openMensetsuBidangPicker(mode){
       close();
       if(mode === 'simulation') openMensetsuSimulation(key);
       else openMensetsuPractice(key);
+    });
+  });
+}
+// Bidang-bidang spesifik (industri) yang bisa dipilih sebagai "inti"
+// Simulasi Wawancara Penuh — di luar ini (Dasar/Motivasi/Kelebihan-
+// Kekurangan/Situasi/Kehidupan) otomatis ikut digabung tanpa perlu dipilih,
+// karena semua kandidat pasti ditanya soal itu apa pun bidangnya.
+const MENSETSU_BIDANG_SPESIFIK = ['MANUFAKTUR','OTOMOTIF','KAIGO','KONSTRUKSI','PERTANIAN','MAKANAN','RESTORAN','HOTEL'];
+// Susun satu sesi wawancara utuh: acak & ambil sebagian dari kategori
+// umum (supaya tidak kepanjangan & beda tiap dicoba), tapi SEMUA soal
+// dari bidang spesifik yang dipilih dan SEMUA soal Kelebihan/Kekurangan
+// (karena itu selalu jadi inti wawancara). Urutannya meniru alur
+// wawancara sungguhan dari awal sampai akhir.
+function mensetsuBuildFullSimQuestions(bidangKey){
+  const pick = (arr, n) => shuffleArr(arr.slice()).slice(0, Math.min(n, arr.length));
+  return [
+    ...pick(MENSETSU_DATA.DASAR, 3),
+    ...pick(MENSETSU_DATA.MOTIVASI, 2),
+    ...MENSETSU_DATA.CHOSOTANSHO,
+    ...(MENSETSU_DATA[bidangKey] || []),
+    ...pick(MENSETSU_DATA.SITUASI, 2),
+    ...pick(MENSETSU_DATA.KEHIDUPAN, 2)
+  ];
+}
+function openMensetsuFullSimPicker(){
+  const el = document.createElement("div");
+  el.className = "kh-v2-overlay";
+  const items = MENSETSU_BIDANG_SPESIFIK.map(key=>{
+    const info = MENSETSU_BIDANG_LABELS[key] || {icon:"📄", label:key};
+    return `<button class="kh-quiz-setup-btn" data-key="${key}">${info.icon}<small>${info.label}</small></button>`;
+  }).join("");
+  el.innerHTML = `
+    <div class="kh-v2-shell kh-quiz-shell" role="dialog" aria-modal="true" aria-label="Simulasi Wawancara Penuh">
+      <div class="kh-v2-head">
+        <div class="kh-v2-title-row">
+          <div class="kh-v2-logo">🎯</div>
+          <div><div class="kh-v2-title">Simulasi Wawancara Penuh</div><div class="kh-v2-subtitle">Pilih bidang pekerjaanmu — soal umum otomatis ikut digabung</div></div>
+          <button class="kh-v2-close" id="mensetsuFullSimClose" aria-label="Tutup">×</button>
+        </div>
+      </div>
+      <div class="kh-quiz-body" style="display:block;">
+        <div class="kh-quiz-subtitle" style="text-align:left;font-size:11px;color:#8b6c4e;margin-bottom:10px;line-height:1.5;">📋 Urutan sesi: Perkenalan → Motivasi → Kelebihan/Kekurangan → Bidang yang kamu pilih → Situasi Tak Terduga → Kehidupan di Jepang — persis alur wawancara sungguhan, dari awal sampai akhir tanpa putus.</div>
+        <div class="kh-quiz-setup-grid" style="grid-template-columns:1fr 1fr;max-height:340px;overflow-y:auto;">${items}</div>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+  const close = ()=> el.remove();
+  el.querySelector("#mensetsuFullSimClose").addEventListener("click", close);
+  el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
+  el.querySelectorAll("[data-key]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      playSFX('click');
+      const key = btn.dataset.key;
+      close();
+      const questions = mensetsuBuildFullSimQuestions(key);
+      const label = `Wawancara Penuh — ${(MENSETSU_BIDANG_LABELS[key]||{label:key}).label}`;
+      openMensetsuSimulation(null, questions, label);
     });
   });
 }
@@ -10232,8 +10353,9 @@ function mensetsuRenderSimSummary(results, container){
     <button class="kh-v2-footer-btn" id="mensetsuSimSummaryClose" style="width:100%;margin-top:10px;">Selesai ✓</button>
   `;
 }
-function openMensetsuSimulation(type){
-  const questions = MENSETSU_DATA[type];
+function openMensetsuSimulation(type, customQuestions, customLabel){
+  const questions = customQuestions || MENSETSU_DATA[type];
+  const label = customLabel || (MENSETSU_BIDANG_LABELS[type]||{label:type}).label;
   let qi = 0;
   let sessionResults = [];
   // Musik latar dijeda — simulasi ini pakai rekam suara & dengar soal.
@@ -10245,7 +10367,7 @@ function openMensetsuSimulation(type){
       <div class="kh-v2-head">
         <div class="kh-v2-title-row">
           <div class="kh-v2-logo">🎬</div>
-          <div><div class="kh-v2-title">Simulasi Mensetsu — ${(MENSETSU_BIDANG_LABELS[type]||{label:type}).label}</div><div class="kh-v2-subtitle" id="mensetsuSimProgress"></div></div>
+          <div><div class="kh-v2-title">Simulasi Mensetsu — ${label}</div><div class="kh-v2-subtitle" id="mensetsuSimProgress"></div></div>
           <button class="kh-v2-close" id="mensetsuSimClose" aria-label="Tutup">×</button>
         </div>
       </div>

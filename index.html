@@ -655,6 +655,7 @@
     flex-shrink: 0; border: 1px solid var(--gold); background: rgba(255,215,0,.08); color: var(--gold);
     border-radius: 10px; padding: 5px 9px; font-size: 11px; font-weight: 800; cursor: pointer;
   }
+  .player-bar .pb-shopbtn#bgmMuteBtn.muted { opacity:.5; filter:grayscale(1); }
 
   .xp-toast {
     position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); z-index: 9999;
@@ -3051,6 +3052,12 @@ function playSFX(type) {
    ============================================================ */
 function bgmEl(){ return document.getElementById('bgmAudio'); }
 let bgmPlaying = false;
+// Preferensi mute manual — disimpan di localStorage supaya tetap diingat
+// walau aplikasi ditutup. Satu-satunya titik yang perlu tahu soal ini
+// adalah startBGM() sendiri; dengan begitu, semua 20+ tempat yang
+// memanggil startBGM() di seluruh aplikasi otomatis ikut menghormati
+// pilihan mute tanpa perlu diubah satu per satu.
+let bgmMuted = localStorage.getItem('nafis_bgm_muted') === '1';
 
 /* Mode permainan mana dapat musik, mana yang tidak — hanya Dengar &
    Tebak yang dikecualikan (return null = tanpa musik). Selain itu
@@ -3067,6 +3074,7 @@ function setBgmTheme(themeId){
 }
 
 function startBGM(){
+  if(bgmMuted) return; // pengguna sudah mematikan musik secara manual
   const audio = bgmEl();
   if(!audio) return;
   if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
@@ -3105,6 +3113,43 @@ function duckBGM(volume){
   audio.volume = volume;
 }
 function restoreBGMVolume(){ duckBGM(1); }
+
+/* Dipakai oleh layar-layar yang BUTUH audio jernih (rekam suara,
+   dengar pelafalan) — Latihan Pelafalan & Mensetsu Training. Musik
+   latar dijeda TOTAL selama layar itu terbuka (bukan cuma diredam),
+   supaya tidak tercampur ke rekaman mikrofon atau mengganggu telinga
+   saat mendengarkan lafal. Statusnya disimpan agar bisa dilanjutkan
+   lagi persis seperti semula begitu layar ditutup. */
+function pauseBGMForAudioScreen(){
+  const bgm = bgmEl();
+  const wasPlaying = !!(bgmPlaying && bgm && !bgm.paused);
+  if(bgm) bgm.pause();
+  return wasPlaying;
+}
+function resumeBGMIfWasPlaying(wasPlaying){
+  const bgm = bgmEl();
+  if(wasPlaying && bgm){
+    bgm.volume = 1;
+    const p = bgm.play();
+    if(p && typeof p.catch === 'function') p.catch(()=>{});
+    bgmPlaying = true;
+  }
+}
+// Tombol mute manual di player bar — untuk siswa yang mau belajar
+// tanpa musik sama sekali, kapan saja, bukan cuma di layar-layar audio.
+function toggleBgmMute(){
+  bgmMuted = !bgmMuted;
+  localStorage.setItem('nafis_bgm_muted', bgmMuted ? '1' : '0');
+  if(bgmMuted) stopBGM(); else startBGM();
+  updateBgmMuteBtn();
+}
+function updateBgmMuteBtn(){
+  const btn = document.getElementById('bgmMuteBtn');
+  if(!btn) return;
+  btn.textContent = bgmMuted ? '🔇' : '🎶';
+  btn.title = bgmMuted ? 'Musik dimatikan — klik utk nyalakan' : 'Musik menyala — klik utk matikan';
+  btn.classList.toggle('muted', bgmMuted);
+}
 
 /* ============================================================
    GAME JUICE — efek visual (confetti, shake, popup skor/combo,
@@ -4505,11 +4550,14 @@ function renderPlayerBar(){
     <button class="pb-shopbtn" id="openLeaderboardBtn" title="Papan Peringkat Desa" style="border-color:var(--gold);color:var(--gold);background:rgba(255,215,0,.08);">🏆</button>
     <button class="pb-shopbtn" id="openAlbumBtn" title="Album Kartu Kotodama" style="border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08);">🃏</button>
     <button class="pb-shopbtn" id="openSongShopBtn" title="Beli/Ganti Lagu">🎵</button>
+    <button class="pb-shopbtn" id="bgmMuteBtn" title="Matikan/Nyalakan musik">🎶</button>
     <button class="pb-shopbtn" id="openShopBtn" title="Toko Tema">🏪</button>
   `;
   $("openShopBtn").addEventListener("click", ()=>openShop("theme"));
   $("openAlbumBtn").addEventListener("click", openAlbum);
   $("openSongShopBtn").addEventListener("click", ()=>openShop("song"));
+  $("bgmMuteBtn").addEventListener("click", toggleBgmMute);
+  updateBgmMuteBtn();
   $("openLeaderboardBtn").addEventListener("click", openVillageLeaderboard);
   $("pbAvatarWrap").addEventListener("click", ()=>openShop("avatar"));
   renderGardenCard();
@@ -9209,6 +9257,9 @@ function openPronunciationPractice(){
   }
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   const supported = !!SR && ('speechSynthesis' in window);
+  // Musik latar dijeda selagi Latihan Pelafalan terbuka — supaya
+  // pengenalan suara & pemutaran contoh tidak tercampur dengan lagu.
+  const bgmWasPlaying = pauseBGMForAudioScreen();
   const el = document.createElement("div");
   el.className = "kh-v2-overlay";
   el.innerHTML = `
@@ -9241,6 +9292,7 @@ function openPronunciationPractice(){
   const close = ()=>{
     if(pronunRecognition){ try{ pronunRecognition.stop(); }catch(e){} pronunRecognition = null; }
     if('speechSynthesis' in window) window.speechSynthesis.cancel();
+    resumeBGMIfWasPlaying(bgmWasPlaying);
     el.remove();
   };
   el.querySelector("#pronunClose").addEventListener("click", close);
@@ -10039,6 +10091,8 @@ function openMensetsuBidangPicker(mode){
 function openMensetsuPractice(type){
   const questions = MENSETSU_DATA[type];
   let qi = 0;
+  // Musik latar dijeda — layar ini pakai rekam suara & dengar contoh jawaban.
+  const bgmWasPlaying = pauseBGMForAudioScreen();
   const el = document.createElement("div");
   el.className = "kh-v2-overlay";
   el.innerHTML = `
@@ -10054,7 +10108,7 @@ function openMensetsuPractice(type){
     </div>`;
   document.body.appendChild(el);
   const body = el.querySelector("#mensetsuPracBody");
-  const close = ()=>{ mensetsuStopRecorderIfActive(); if('speechSynthesis' in window) window.speechSynthesis.cancel(); el.remove(); };
+  const close = ()=>{ mensetsuStopRecorderIfActive(); if('speechSynthesis' in window) window.speechSynthesis.cancel(); resumeBGMIfWasPlaying(bgmWasPlaying); el.remove(); };
   el.querySelector("#mensetsuPracClose").addEventListener("click", close);
   el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
 
@@ -10182,6 +10236,8 @@ function openMensetsuSimulation(type){
   const questions = MENSETSU_DATA[type];
   let qi = 0;
   let sessionResults = [];
+  // Musik latar dijeda — simulasi ini pakai rekam suara & dengar soal.
+  const bgmWasPlaying = pauseBGMForAudioScreen();
   const el = document.createElement("div");
   el.className = "kh-v2-overlay";
   el.innerHTML = `
@@ -10197,7 +10253,7 @@ function openMensetsuSimulation(type){
     </div>`;
   document.body.appendChild(el);
   const body = el.querySelector("#mensetsuSimBody");
-  const close = ()=>{ mensetsuStopRecorderIfActive(); if('speechSynthesis' in window) window.speechSynthesis.cancel(); el.remove(); };
+  const close = ()=>{ mensetsuStopRecorderIfActive(); if('speechSynthesis' in window) window.speechSynthesis.cancel(); resumeBGMIfWasPlaying(bgmWasPlaying); el.remove(); };
   el.querySelector("#mensetsuSimClose").addEventListener("click", close);
   el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
 
@@ -10283,6 +10339,8 @@ function openMensetsuSimulation(type){
 function openMensetsuBank(){
   let activeCat = 'Semua';
   const cats = ['Semua', ...new Set(MENSETSU_WORDS.map(w=>w[3]))];
+  // Musik latar dijeda — layar ini dipakai buat dengar pelafalan kata & contoh kalimat.
+  const bgmWasPlaying = pauseBGMForAudioScreen();
   const el = document.createElement("div");
   el.className = "kh-v2-overlay";
   el.innerHTML = `
@@ -10301,7 +10359,7 @@ function openMensetsuBank(){
       </div>
     </div>`;
   document.body.appendChild(el);
-  const close = ()=>{ if('speechSynthesis' in window) window.speechSynthesis.cancel(); el.remove(); };
+  const close = ()=>{ if('speechSynthesis' in window) window.speechSynthesis.cancel(); resumeBGMIfWasPlaying(bgmWasPlaying); el.remove(); };
   el.querySelector("#mensetsuBankClose").addEventListener("click", close);
   el.addEventListener("click", ev=>{ if(ev.target === el) close(); });
 

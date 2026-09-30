@@ -630,7 +630,9 @@
   .player-bar {
     display: flex; align-items: center; gap: 10px; padding: 8px 12px; margin: 8px 14px 0;
     background: var(--panel); border: 1px solid var(--line); border-radius: 14px; font-size: 12px;
+    flex-wrap: wrap; row-gap: 6px; /* kalau baris pertama sudah penuh, tombol pindah ke baris bawah — tidak pernah kepotong/hilang */
   }
+  .player-bar .pb-btnrow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-left:auto; }
   .player-bar .pb-avatar-wrap { position: relative; flex-shrink: 0; width: 40px; height: 40px; cursor: pointer; }
   .player-bar .pb-avatar {
     width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -4547,11 +4549,13 @@ function renderPlayerBar(){
       </div>
     </div>
     <div class="pb-coins">🪙 ${profile.coins}</div>
-    <button class="pb-shopbtn" id="openLeaderboardBtn" title="Papan Peringkat Desa" style="border-color:var(--gold);color:var(--gold);background:rgba(255,215,0,.08);">🏆</button>
-    <button class="pb-shopbtn" id="openAlbumBtn" title="Album Kartu Kotodama" style="border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08);">🃏</button>
-    <button class="pb-shopbtn" id="openSongShopBtn" title="Beli/Ganti Lagu">🎵</button>
-    <button class="pb-shopbtn" id="bgmMuteBtn" title="Matikan/Nyalakan musik">🎶</button>
-    <button class="pb-shopbtn" id="openShopBtn" title="Toko Tema">🏪</button>
+    <div class="pb-btnrow">
+      <button class="pb-shopbtn" id="openLeaderboardBtn" title="Papan Peringkat Desa" style="border-color:var(--gold);color:var(--gold);background:rgba(255,215,0,.08);">🏆</button>
+      <button class="pb-shopbtn" id="openAlbumBtn" title="Album Kartu Kotodama" style="border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08);">🃏</button>
+      <button class="pb-shopbtn" id="openSongShopBtn" title="Beli/Ganti Lagu">🎵</button>
+      <button class="pb-shopbtn" id="bgmMuteBtn" title="Matikan/Nyalakan musik">🎶</button>
+      <button class="pb-shopbtn" id="openShopBtn" title="Toko Tema">🏪</button>
+    </div>
   `;
   $("openShopBtn").addEventListener("click", ()=>openShop("theme"));
   $("openAlbumBtn").addEventListener("click", openAlbum);
@@ -9541,6 +9545,23 @@ const MENSETSU_DATA = {
     {cat:"Bahasa", q:"外国人のお客様に対応できますか。", r:"がいこくじんのおきゃくさまにたいおうできますか。", m:"Bisa melayani tamu asing?", a:"簡単な英語なら対応できます。", am:"Kalau bahasa Inggris sederhana, saya bisa melayaninya."},
     {cat:"Situasi", q:"苦情を受けたら、どうしますか。", r:"くじょうをうけたら、どうしますか。", m:"Jika menerima keluhan, apa yang dilakukan?", a:"まず丁寧にお詫びして、原因を確認します。", am:"Saya akan minta maaf dengan sopan dulu, lalu memeriksa penyebabnya."}
   ],
+  UMUM: [
+    {cat:"Hobi", q:"休みの日は何をしていますか。", r:"やすみのひはなにをしていますか。", m:"Biasanya apa yang Anda lakukan saat libur?", a:"休みの日は、洗濯や掃除をしたり、友達と話したりします。", am:"Saat libur, saya mencuci baju, membersihkan rumah, atau mengobrol dengan teman."},
+    {cat:"Pengalaman", q:"今までどんな仕事をしたことがありますか。", r:"いままでどんなしごとをしたことがありますか。", m:"Pekerjaan apa saja yang pernah Anda lakukan?", a:"工場で部品の組立をしたことがあります。", am:"Saya pernah bekerja merakit komponen di pabrik."},
+    {cat:"Pengalaman", q:"前の仕事では、どんな仕事をしていましたか。", r:"まえのしごとでは、どんなしごとをしていましたか。", m:"Di pekerjaan sebelumnya, Anda mengerjakan pekerjaan apa?", a:"前の仕事では、商品の検品をしていました。", am:"Di pekerjaan sebelumnya, saya melakukan pemeriksaan produk."},
+    {cat:"Sikap", q:"仕事をするときに大切なことは何ですか。", r:"しごとをするときにたいせつなことはなんですか。", m:"Menurut Anda, apa yang penting saat bekerja?", a:"責任を持って、最後まで丁寧に仕事をすることが大切だと思います。", am:"Saya rasa penting untuk bertanggung jawab dan bekerja dengan teliti sampai akhir."},
+    {cat:"Situasi", q:"仕事で大変なことがあったら、どうしますか。", r:"しごとでたいへんなことがあったら、どうしますか。", m:"Jika mengalami kesulitan dalam pekerjaan, apa yang akan Anda lakukan?", a:"一人で抱え込まず、先輩や上司に相談します。", am:"Saya tidak akan memendamnya sendiri, tapi berkonsultasi dengan senior atau atasan."},
+    {cat:"Situasi", q:"仕事で失敗したとき、どうしますか。", r:"しごとでしっぱいしたとき、どうしますか。", m:"Apa yang Anda lakukan ketika melakukan kesalahan dalam pekerjaan?", a:"すぐに上司に報告して、同じ失敗をしないように気をつけます。", am:"Saya akan segera melapor ke atasan dan berhati-hati agar tidak mengulangi kesalahan yang sama."},
+    {cat:"Situasi", q:"分からないことがあったら、どうしますか。", r:"わからないことがあったら、どうしますか。", m:"Jika ada sesuatu yang tidak Anda mengerti, apa yang akan Anda lakukan?", a:"そのままにせず、すぐに先輩に質問します。", am:"Saya tidak akan membiarkannya, dan segera bertanya ke senior."},
+    {cat:"Sikap", q:"人と一緒に仕事をすることが好きですか。", r:"ひとといっしょにしごとをすることがすきですか。", m:"Apakah Anda suka bekerja bersama orang lain?", a:"はい、好きです。一人より、みんなで協力する方が楽しいです。", am:"Ya, saya suka. Lebih menyenangkan bekerja sama dengan semua orang daripada sendirian."},
+    {cat:"Sikap", q:"チームで仕事をするとき、大切なことは何だと思いますか。", r:"チームでしごとをするとき、たいせつなことはなんだとおもいますか。", m:"Menurut Anda, apa yang penting ketika bekerja dalam tim?", a:"お互いに助け合い、コミュニケーションを大切にすることだと思います。", am:"Saya rasa yang penting adalah saling membantu dan mementingkan komunikasi."},
+    {cat:"Kehidupan", q:"日本で働く上で、不安なことはありますか。", r:"にほんではたらくうえで、ふあんなことはありますか。", m:"Apakah ada hal yang Anda khawatirkan tentang bekerja di Jepang?", a:"言葉の面で少し不安がありますが、一生懸命勉強しています。", am:"Saya sedikit khawatir soal bahasa, tapi saya sedang belajar dengan sungguh-sungguh."},
+    {cat:"Masa depan", q:"日本で働くために、今何を頑張っていますか。", r:"にほんではたらくために、いまなにをがんばっていますか。", m:"Saat ini, apa yang sedang Anda usahakan/pelajari untuk bisa bekerja di Jepang?", a:"日本語の勉強と、体力づくりを頑張っています。", am:"Saya sedang berusaha belajar bahasa Jepang dan menjaga kebugaran fisik."},
+    {cat:"Bahasa", q:"日本語の勉強で難しいことは何ですか。", r:"にほんごのべんきょうでむずかしいことはなんですか。", m:"Apa yang sulit bagi Anda dalam belajar bahasa Jepang?", a:"敬語の使い方が難しいと感じています。", am:"Saya merasa cara penggunaan bahasa sopan (keigo) itu sulit."},
+    {cat:"Alasan", q:"日本で何を経験したいですか。", r:"にほんでなにをけいけんしたいですか。", m:"Apa yang ingin Anda alami selama berada di Jepang?", a:"日本の文化に触れながら、実際の現場で技術を学びたいです。", am:"Saya ingin mempelajari teknologi di lapangan sungguhan sambil merasakan budaya Jepang."},
+    {cat:"Masa depan", q:"将来、どんな人になりたいですか。", r:"しょうらい、どんなひとになりたいですか。", m:"Anda ingin menjadi orang seperti apa di masa depan?", a:"責任感があり、周りから信頼される人になりたいです。", am:"Saya ingin menjadi orang yang bertanggung jawab dan dipercaya oleh orang-orang sekitar."},
+    {cat:"Pengetahuan", q:"会社の名前は知っていますか。", r:"かいしゃのなまえはしっていますか。", m:"Apakah Anda tahu nama perusahaan ini?", a:"はい、〇〇株式会社です。", am:"Ya, PT/perusahaan 〇〇."}
+  ]
 };
 const MENSETSU_WORDS = [
   // --- Dasar ---
@@ -10080,6 +10101,7 @@ const MENSETSU_BIDANG_LABELS = {
   MAKANAN: {icon:"🍱", label:"Pengolahan Makanan"},
   RESTORAN: {icon:"🍜", label:"Restoran / Makan Luar"},
   HOTEL: {icon:"🏨", label:"Hotel / Perhotelan"},
+  UMUM: {icon:"💬", label:"Pertanyaan Umum"},
   SITUASI: {icon:"🚨", label:"Situasi Tak Terduga"},
   KEHIDUPAN: {icon:"🇯🇵", label:"Kehidupan di Jepang"},
   TG: {icon:"🧑‍🏭", label:"TG (Semua Soal)"},
